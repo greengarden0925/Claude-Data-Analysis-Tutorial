@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+skill/tests/stress_out/
+skill/tests/stress_data/

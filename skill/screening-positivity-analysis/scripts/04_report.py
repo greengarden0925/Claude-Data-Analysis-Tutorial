@@ -32,6 +32,15 @@ OUT.parent.mkdir(exist_ok=True)
 
 cfg = json.loads(CONFIG.read_text(encoding="utf-8"))
 esc = lambda x: _html.escape(str(x))
+
+
+def jd(o):
+    """內嵌進 <script> 的 JSON：把 < > & 與行分隔字元轉成 \\u 跳脫，區名含 </script> 也不會跑出程式。"""
+    t = json.dumps(o, ensure_ascii=False)
+    for ch, code in (("<", "\\u003c"), (">", "\\u003e"), ("&", "\\u0026"), ("\u2028", "\\u2028"), ("\u2029", "\\u2029")):
+        t = t.replace(ch, code)
+    return t
+
 MODE = cfg.get("報告資料細節", "只含各區合計")
 _ph = [kk for kk, v in cfg.items() if isinstance(v, str) and "〔" in v] + \
       [f"問題[{i}]" for i, q in enumerate(cfg.get("問題", [])) if any("〔" in str(x) for x in q)]
@@ -58,7 +67,18 @@ k = len(dist)
 small_cells = int(((df["陽性數"] > 0) & (df["陽性數"] < SMALL)).sum())
 small_dist = dist[(dist["陽性數"] > 0) & (dist["陽性數"] < SMALL)]["行政區"].tolist()
 MASK = set(small_dist) if MODE != "逐月" else set()   # 合計模式：全期陽性數過少的區不顯示確切陽性數與率
-masked_note = ("陽性數少於 " + str(SMALL) + " 人的區（" + "、".join(sorted(MASK)) + "）在報告中只顯示「< " + str(SMALL) + "」，不顯示確切陽性數與率。") if MASK else ""
+EXTRA_MASK = []
+if len(MASK) == 1:     # 只遮 1 區時，整體合計減其他區就能還原；多遮陽性數次少的一區，讓單一區無法反推
+    _cand = dist[~dist["行政區"].isin(MASK)].sort_values(["陽性數", "行政區"])
+    if len(_cand):
+        EXTRA_MASK = [_cand.iloc[0]["行政區"]]
+        MASK |= set(EXTRA_MASK)
+if MASK and k - len(MASK) < 2:
+    raise SystemExit("【停止】陽性數少於 " + str(SMALL) + " 人的區太多，遮蔽後剩下不到 2 個區可以呈現。"
+                     "請先和使用者討論是否合併區域，或改用其他方式呈現。")
+masked_note = ("陽性數少於 " + str(SMALL) + " 人的區（" + "、".join(sorted(small_dist)) + "）"
+               + ("，以及為了避免由合計反推而一併遮蔽的「" + "、".join(EXTRA_MASK) + "」，" if EXTRA_MASK else "")
+               + "在報告中只顯示「< " + str(SMALL) + "」，不顯示確切陽性數與率。") if MASK else ""
 
 
 def pnum(v):
@@ -82,6 +102,8 @@ def wilson_hi(x, n, z=1.96):
     return ((p + z * z / (2 * n)) + z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))) / d * 100
 
 
+t5_show = t5[~(t5["區A"].isin(MASK) | t5["區B"].isin(MASK))]
+t7_show = None if t7 is None else t7[~(t7["區A"].isin(MASK) | t7["區B"].isin(MASK))]
 # ---------- 推論結果 ----------
 min_exp = float(t4["最小期望次數"])
 sim_p = pnum(t4.get("模擬p值", "")) if str(t4.get("模擬p值", "")).strip() not in ("", "nan") else None
@@ -89,25 +111,25 @@ p_overall = sim_p if (min_exp < 5 and sim_p is not None) else pnum(t4["p值"])
 chi_sig = p_overall < 0.05
 by_rate = dist.sort_values("篩檢陽性率(%)", ascending=False)
 show = dist[~dist["行政區"].isin(MASK)] if MODE != "逐月" else dist
-by_rate_show = show.sort_values("篩檢陽性率(%)", ascending=False) if len(show) >= 2 else by_rate
-by_cnt = dist.sort_values("陽性數", ascending=False)
-hi_r, lo_r = by_rate.iloc[0], by_rate.iloc[-1]
-smallest = dist[~dist["行政區"].isin(MASK)].sort_values("篩檢人數").iloc[0] if len(dist[~dist["行政區"].isin(MASK)]) else dist.sort_values("篩檢人數").iloc[0]
+by_rate_show = show.sort_values("篩檢陽性率(%)", ascending=False)
+by_cnt = show.sort_values("陽性數", ascending=False)
+smallest = show.sort_values("篩檢人數").iloc[0]
+smaller_masked = bool(MASK) and bool((dist[dist["行政區"].isin(MASK)]["篩檢人數"] < smallest["篩檢人數"]).any())
 glm_dist = t6[t6["效果"].str.startswith("行政區")].iloc[0] if t6 is not None else None
 glm_sig = glm_dist is not None and pnum(glm_dist["p值"]) < 0.05
-n_sig5 = int((t5["校正後是否顯著(α=0.05)"] == "是").sum())
-n_sig7 = int((t7["校正後是否顯著(α=0.05)"] == "是").sum()) if t7 is not None else None
+n_sig5 = int((t5_show["校正後是否顯著(α=0.05)"] == "是").sum())
+n_sig7 = int((t7_show["校正後是否顯著(α=0.05)"] == "是").sum()) if t7_show is not None else None
 changed = []
-if t7 is not None:
-    m_ = t5.merge(t7, on=["區A", "區B"], suffixes=("_5", "_7"))
+if t7_show is not None:
+    m_ = t5_show.merge(t7_show, on=["區A", "區B"], suffixes=("_5", "_7"))
     changed = [f'{r["區A"]}對{r["區B"]}（{"有差→沒有足夠證據" if r["校正後是否顯著(α=0.05)_5"] == "是" else "沒有足夠證據→有差"}）'
                for _, r in m_.iterrows() if r["校正後是否顯著(α=0.05)_7"] in ("是", "否") and r["校正後是否顯著(α=0.05)_5"] != r["校正後是否顯著(α=0.05)_7"]]
 pair = None
-if k >= 3:
-    a2, b2 = by_rate.iloc[0]["行政區"], by_rate.iloc[1]["行政區"]
-    pair = t5[((t5["區A"] == a2) & (t5["區B"] == b2)) | ((t5["區A"] == b2) & (t5["區B"] == a2))].iloc[0]
-sig = t5[t5["校正後是否顯著(α=0.05)"] == "是"].assign(ad=lambda x: x["差(百分點)"].abs()).sort_values("ad")
-ns = t5[t5["校正後是否顯著(α=0.05)"] == "否"].assign(ad=lambda x: x["差(百分點)"].abs()).sort_values("ad", ascending=False)
+if len(by_rate_show) >= 3:
+    a2, b2 = by_rate_show.iloc[0]["行政區"], by_rate_show.iloc[1]["行政區"]
+    pair = t5_show[((t5_show["區A"] == a2) & (t5_show["區B"] == b2)) | ((t5_show["區A"] == b2) & (t5_show["區B"] == a2))].iloc[0]
+sig = t5_show[t5_show["校正後是否顯著(α=0.05)"] == "是"].assign(ad=lambda x: x["差(百分點)"].abs()).sort_values("ad")
+ns = t5_show[t5_show["校正後是否顯著(α=0.05)"] == "否"].assign(ad=lambda x: x["差(百分點)"].abs()).sort_values("ad", ascending=False)
 contrast = None
 if len(sig) and len(ns) and abs(ns.iloc[0]["差(百分點)"]) >= abs(sig.iloc[0]["差(百分點)"]) * 0.5:
     s1, n1 = sig.iloc[0], ns.iloc[0]
@@ -145,11 +167,19 @@ months_differ = dist["納入月數"].nunique() > 1
 # ---------- 重點摘要 ----------
 summary = [f"整體篩檢陽性率 {tot['篩檢陽性率(%)']:.2f}%（{int(tot['陽性數']):,} ／ {int(tot['篩檢人數']):,} 人）。"]
 hi_s, lo_s = by_rate_show.iloc[0], by_rate_show.iloc[-1]
+_solid = by_rate_show[by_rate_show["陽性數"] >= SMALL]
+if len(_solid) >= 2 and lo_s["行政區"] not in set(_solid["行政區"]):
+    lo_s = _solid.iloc[-1]          # 陽性數太少的區不當比較基準（避免拿雜訊當基準）
+LOW = "最低"
+if MASK:
+    LOW = "列出的區中最低"
+elif lo_s["行政區"] != by_rate_show.iloc[-1]["行政區"]:
+    LOW = "陽性數足夠的區中最低"
 
 
 def sig_vs(a_, b_):
     """兩區（校正後）是否有差：回傳 True／False／None（找不到）。"""
-    q = t5[((t5["區A"] == a_) & (t5["區B"] == b_)) | ((t5["區A"] == b_) & (t5["區B"] == a_))]
+    q = t5_show[((t5_show["區A"] == a_) & (t5_show["區B"] == b_)) | ((t5_show["區A"] == b_) & (t5_show["區B"] == a_))]
     return None if q.empty else q.iloc[0]["校正後是否顯著(α=0.05)"] == "是"
 
 
@@ -159,15 +189,14 @@ if len(MASK):
     summary.append(f"有 {len(MASK)} 區的陽性數少於 {SMALL} 人，已不列出該區的率（隱私與穩定性考量）。")
 if chi_sig and higher:
     names_ = "、".join(f"{r_['行政區']}（{r_['篩檢陽性率(%)']:.2f}%{mnote(r_)}）" for r_ in higher[:2])
-    summary.append(f"篩檢陽性率較高：{names_}；最低：{lo_s['行政區']}（{lo_s['篩檢陽性率(%)']:.2f}%{mnote(lo_s)}）。"
+    summary.append(f"篩檢陽性率較高：{names_}；{LOW}：{lo_s['行政區']}（{lo_s['篩檢陽性率(%)']:.2f}%{mnote(lo_s)}）。"
                    + ("" if len(higher) <= 2 else f"另有 {len(higher) - 2} 區也高於最低區。"))
 elif chi_sig:
-    summary.append(f"各區篩檢陽性率介於 {lo_s['篩檢陽性率(%)']:.2f}%（{lo_s['行政區']}）到 {hi_s['篩檢陽性率(%)']:.2f}%（{hi_s['行政區']}）之間；整體檢定有差異，"
+    summary.append(f"{'列出的' if MASK else ''}各區篩檢陽性率介於 {lo_s['篩檢陽性率(%)']:.2f}%（{lo_s['行政區']}）到 {hi_s['篩檢陽性率(%)']:.2f}%（{hi_s['行政區']}）之間；整體檢定有差異，"
                    "但兩兩比較沒有足夠證據指出是哪幾區不同。")
 else:
-    summary.append(f"各區篩檢陽性率介於 {lo_s['篩檢陽性率(%)']:.2f}%（{lo_s['行政區']}）到 {hi_s['篩檢陽性率(%)']:.2f}%（{hi_s['行政區']}）之間，"
+    summary.append(f"{'列出的' if MASK else ''}各區篩檢陽性率介於 {lo_s['篩檢陽性率(%)']:.2f}%（{lo_s['行政區']}）到 {hi_s['篩檢陽性率(%)']:.2f}%（{hi_s['行政區']}）之間，"
                    "但沒有足夠證據說各區不同，數字的高低可能只是隨機波動。")
-by_cnt = by_cnt[~by_cnt["行政區"].isin(MASK)] if len(by_cnt[~by_cnt["行政區"].isin(MASK)]) >= 2 else by_cnt
 top_c = by_cnt.iloc[0]
 if len(by_cnt) >= 3:
     sec_c = by_cnt.iloc[1]
@@ -186,7 +215,10 @@ summary.append(inf + "。")
 if min_exp < 5:
     summary.append(f"部分格子人數很少（最小期望次數 {min_exp:.1f}，低於 5），已改用模擬 p 值與 Fisher 精確檢定，結果僅供參考，建議和使用者討論是否合併區域。")
 if tot["陽性數"] < 100 or (dist["陽性數"] < 30).any():
-    summary.append("陽性人數偏少（全期 " + f"{int(tot['陽性數']):,}" + " 人；有區少於 30 人），檢定力有限：沒有發現差異，不代表各區真的相同。")
+    summary.append("陽性人數偏少（全期 " + f"{int(tot['陽性數']):,}" + " 人；有區少於 30 人），檢定力有限，各區的估計比較不穩定（信賴區間較寬）。"
+                   + ("" if chi_sig else "沒有發現差異，不代表各區真的相同。"))
+if float(tot["篩檢陽性率(%)"]) > 30:
+    summary.append("整體篩檢陽性率超過 30%，請先向資料承辦確認「陽性」的定義（例如是否為初篩陽性、分母是否為首次受檢者），再解讀。")
 if MODE != "逐月" and glm_dist is not None:
     summary.append("（考慮月份的分析使用逐月資料計算，此版本報告不呈現逐月數字。）")
 summary.append("這是「有來篩檢的人」的初篩陽性率，不是盛行率，也不能說明原因；資源配置還需要其他資料。")
@@ -212,7 +244,7 @@ if chi_sig:
 else:
     read_bar = ["<b>代表：</b>各區數字有高低，但沒有足夠證據說各區真的不同。"]
 read_bar.append("<b>不代表：</b>某區居民比較容易生病，或某區是「高風險區」。篩檢對象不是隨機抽樣。")
-read_bar.append(f"<b>要一起看：</b>篩檢人數最少的 {esc(smallest['行政區'])}（{int(smallest['篩檢人數']):,} 人）信賴區間較寬；陽性人數與粗篩檢率也不同"
+read_bar.append(f"<b>要一起看：</b>篩檢人數最少的 {esc(smallest['行政區'])}（{int(smallest['篩檢人數']):,} 人）信賴區間較寬" + ("（另有被遮蔽的區人數更少）" if smaller_masked else "") + "；陽性人數與粗篩檢率也不同"
                 + ("；各區納入的月數不同。" if months_differ else "。"))
 
 # ---------- 資料限制（依資料產生） ----------
@@ -223,14 +255,16 @@ lims = ["篩檢對象非隨機抽樣；篩檢陽性率不等於區內盛行率�
 if months_differ:
     lims.append("各區納入月數與缺的月份不同；若缺月不是隨機發生，仍可能影響比較。")
 if empty_months:
-    lims.append("這些月份所有區都沒有資料：" + "、".join(empty_months) + "。")
+    lims.append("這些月份所有區都沒有資料：" + ("、".join(empty_months) if len(empty_months) <= 6 else f"共 {len(empty_months)} 個月（最早 {empty_months[0]}、最晚 {empty_months[-1]}）") + "。")
 lims.append("這是各區的彙總資料，不能用來推論個人（例如「住在某區的人比較容易陽性」）。")
-lims.append(f"資料涵蓋 {len(years)} 個年度（{years[0]}" + (f"–{years[-1]}" if len(years) > 1 else "") + "），"
+lims.append(f"資料涵蓋 {all_months[0]} 至 {all_months[-1]}（有資料的月份共 {len(months)} 個，橫跨 {len(years)} 個年度），"
             + ("無法判斷長期趨勢。" if len(years) < 3 else "長期趨勢請另外分析。"))
 if unused:
     lims.append("未分析的欄位：" + "、".join(unused) + "（與本次問題無關）。")
 if MODE == "逐月" and small_cells:
     lims.append(f"有 {small_cells} 個「月份 × 區」格子的陽性數為 1–{SMALL - 1} 人；真實資料請改用「只含各區合計」模式，並確認是否需要合併或遮蔽。")
+if MASK:
+    lims.append("遮蔽的限制：整體合計仍會顯示，若只遮一區就可能由「合計減其他區」反推，所以程式會多遮陽性數次少的一區；但這不是完整的去識別化，真實資料發布前請依單位規定確認。")
 if small_dist:
     lims.append("這些區的全期陽性數少於 " + str(SMALL) + " 人：" + "、".join(small_dist) + "；真實資料發布前請合併或遮蔽。" + (masked_note if masked_note else ""))
 if cfg.get("虛構資料"):
@@ -244,12 +278,10 @@ for _, r in dist.sort_values("行政區").iterrows():
                "cov": None if pd.isna(r["年化粗篩檢率(%)"]) else float(r["年化粗篩檢率(%)"])})
 rows = [[r["月份"], r["行政區"], int(r["篩檢人數"]), int(r["陽性數"])] for _, r in df.iterrows()] if MODE == "逐月" else []
 TOT = {"s": int(tot["篩檢人數"]), "p": int(tot["陽性數"])}
-t5_show = t5[~(t5["區A"].isin(MASK) | t5["區B"].isin(MASK))]
-t7_show = None if t7 is None else t7[~(t7["區A"].isin(MASK) | t7["區B"].isin(MASK))]
 ymax = int(math.ceil(max([wilson_hi(r[3], r[2]) for r in rows] + [10]) / 2.0) * 2)
 stats = {"chi2": float(t4["卡方值"]), "dof": int(t4["自由度"]), "pchi": ptxt(t4["p值"]), "minExp": min_exp,
          "simP": None if sim_p is None else ptxt(sim_p), "chiSig": bool(chi_sig),
-         "pairs": t5_show.to_dict(orient="records"), "nPairs": len(t5), "nSig": n_sig5,
+         "pairs": t5_show.to_dict(orient="records"), "nPairs": len(t5_show), "nSig": n_sig5,
          "nonsig": [f'{r["區A"]}—{r["區B"]}' for _, r in t5_show[t5_show["校正後是否顯著(α=0.05)"] == "否"].iterrows()],
          "nMasked": len(MASK),
          "glmTxt": glm_txt, "glmRead": glm_read, "pairsAdj": None if t7_show is None else t7_show.where(pd.notna(t7_show), None).to_dict(orient="records"),
@@ -486,7 +518,7 @@ var YMAX=__YMAX__, ALLOW_DL=__ALLOWDL__, MONTHS=__MONTHS__, MONTHLY=__MONTHLY__,
   var H=arr.length*rowH+34,svg=el("svg",{viewBox:"0 0 "+W+" "+H,width:W,height:H,role:"img","aria-label":"各行政區篩檢陽性率長條圖"});
   var showCI=$("#ci").checked,max=Math.max.apply(null,ds.map(function(d){return showCI?d.hi:d.rate}).concat([1]))*1.15,sc=(W-Lm-52)/max;
   for(var t=0;t<=Math.floor(max);t+=2){svg.appendChild(el("line",{x1:Lm+sc*t,x2:Lm+sc*t,y1:4,y2:H-24,"class":"ax"}));svg.appendChild(el("text",{x:Lm+sc*t-8,y:H-6},t+"%"))}
-  arr.forEach(function(d,i){var y=6+i*rowH,g=el("g",{"class":"b",tabindex:0,role:"button","aria-label":d.name+" 篩檢陽性率 "+d.rate.toFixed(2)+"%，納入 "+d.months+" 個月"});
+  arr.forEach(function(d,i){var y=6+i*rowH,g=el("g",{"class":"b",tabindex:0,role:"button","aria-label":d.masked?d.name+" 陽性數少於 "+SMALL+" 人，不顯示":d.name+" 篩檢陽性率 "+d.rate.toFixed(2)+"%，納入 "+d.months+" 個月"});
    g.appendChild(el("rect",{x:0,y:y-3,width:W,height:rowH-2,"class":"rowhit"}));
    g.appendChild(el("text",{x:2,y:y+rowH/2+3},d.name+(d.months<NPRESENT?"（"+d.months+"個月）":"")));
    if(d.masked){g.appendChild(el("text",{x:Lm+6,y:y+rowH/2+3},"陽性數 < "+SMALL+" 人，不顯示"));svg.appendChild(g);return}
@@ -539,8 +571,8 @@ out = (HTML.replace("__TITLE__", esc(cfg["標題"])).replace("__BANNER__", esc(c
        .replace("__LIMS__", li(esc(x) for x in lims)).replace("__FOOTER__", esc(cfg.get("頁尾", ""))).replace("__YMAX__", str(ymax))
        .replace("__ALLOWDL__", "true" if (cfg.get("提供下載逐列資料", False) and MODE == "逐月") else "false")
        .replace("__DLROW__", '<p class="row" id="dlrow"><button type="button" class="dl" id="dlcsv">下載圖表用資料（月份、行政區、篩檢人數、陽性數）</button></p>' if (cfg.get("提供下載逐列資料", False) and MODE == "逐月") else "").replace("__MONTHLY__", "true" if MODE == "逐月" else "false").replace("__NPRESENT__", str(len(months))).replace("__MASKED__", json.dumps(sorted(MASK), ensure_ascii=False)).replace("__SMALL__", str(SMALL))
-       .replace("__MONTHS__", json.dumps(all_months)).replace("__DATA__", json.dumps(rows, ensure_ascii=False))
-       .replace("__DS__", json.dumps(DS, ensure_ascii=False)).replace("__TOT__", json.dumps(TOT)).replace("__STATS__", json.dumps(stats, ensure_ascii=False)))
+       .replace("__MONTHS__", jd(all_months)).replace("__DATA__", jd(rows))
+       .replace("__DS__", jd(DS)).replace("__TOT__", jd(TOT)).replace("__STATS__", jd(stats)))
 OUT.write_text(out, encoding="utf-8")                       # 【寫出】互動報告
 print(f"已輸出 {OUT.relative_to(ROOT)}（{len(out):,} 字元）")
 for s in summary:

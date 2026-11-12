@@ -64,6 +64,9 @@ t2.to_csv(TABLE_DIR / "表2_全縣每月描述統計.csv", index=False, encoding
 t3 = df.assign(率=(df["陽性數"] / df["篩檢人數"] * 100).round(2)).pivot(index="行政區", columns="月份", values="率")
 t3.reindex(columns=all_months).to_csv(TABLE_DIR / "表3_各區每月篩檢陽性率.csv", encoding="utf-8-sig")  # 【寫出】
 
+hi_cov = t1[(t1["年化粗篩檢率(%)"].notna()) & (t1["年化粗篩檢率(%)"] > 100)]["行政區"].tolist()
+if hi_cov:
+    print("提醒：這些區的年化粗篩檢率超過 100%（篩檢人數大於區人口數），請確認人口數或篩檢人數是否登錄錯誤：" + "、".join(hi_cov))
 print(t1.to_string(index=False))
 
 # ---------- 圖1、圖2 ----------
@@ -89,6 +92,6 @@ ax.set_ylim(0, max(1, float(t2["篩檢陽性率(%)"].max()) * 1.3))
 ax.set_title("全縣每月篩檢陽性率" + tag)
 ax.set_xlabel("月份"); ax.set_ylabel("篩檢陽性率（%）")
 ax.spines[["top", "right"]].set_visible(False)
-fig.text(0.01, 0.01, f"各月納入的區數為 {t2['納入區數'].min()}–{t2['納入區數'].max()} 區；只描述，不推論原因。", fontsize=7, color="#5b6675")
+fig.text(0.01, 0.01, (f"各月納入 {t2['納入區數'].min()} 區" if t2['納入區數'].min() == t2['納入區數'].max() else f"各月納入的區數為 {t2['納入區數'].min()}–{t2['納入區數'].max()} 區") + "；只描述，不推論原因。", fontsize=7, color="#5b6675")
 fig.tight_layout(rect=(0, .05, 1, 1)); fig.savefig(FIG_DIR / "圖2_全縣每月篩檢陽性率.png"); plt.close(fig)  # 【寫出】
 print("已輸出表1–表3、圖1–圖2")

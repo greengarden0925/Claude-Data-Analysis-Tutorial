@@ -2,13 +2,15 @@
 
 檢查 00–06 資料夾與 README.md 是否齊全，印出樹狀圖，並把成果包打包成 zip。
 只打包（各資料夾只收約定好的檔案）：
-  00_分析計畫：.md、.json；01_原始資料：1 個 .csv；02_清理後資料：.csv；03_程式碼：名稱為 01_～05_ 開頭或 _common 的 .py；
-  04_結果表格：.csv；05_圖表：.png；06_報告：.html、.docx；最上層：README.md
+  00_分析計畫：分析計畫.md、報告設定.json；01_原始資料：1 個 .csv；02_清理後資料：分析用資料.csv、修正與排除紀錄.csv；
+  03_程式碼：01_clean～05_package 與 _common.py；04_結果表格：表1～表7 的 .csv；05_圖表：圖1～圖n 的 .png；
+  06_報告：互動報告.html、一頁摘要_課後用.docx；最上層：README.md
 不打包：隱藏檔（. 開頭）、暫存檔（~ 開頭）、捷徑（符號連結）、__pycache__、.xlsx／.txt／.pdf 等其他檔案、不符合上述約定的檔案
 （全部會列出來給你確認；真的需要的話，請自己決定是否另外加進去）。
 提醒：成果包含原始資料與逐列資料；真實資料打包後，請依單位規定存放與傳遞，給主管通常只需要 06_報告。
 執行方式（在成果包最上層資料夾）：python 03_程式碼/05_package.py
 """
+import re
 import zipfile
 from pathlib import Path
 
@@ -19,6 +21,12 @@ ZIP = ROOT.parent / f"{ROOT.name}.zip"                      # 【寫出】zip �
 FOLDERS = ["00_分析計畫", "01_原始資料", "02_清理後資料", "03_程式碼", "04_結果表格", "05_圖表", "06_報告"]
 RULES = {"00_分析計畫": {".md", ".json"}, "01_原始資料": {".csv"}, "02_清理後資料": {".csv"}, "03_程式碼": {".py"},
          "04_結果表格": {".csv"}, "05_圖表": {".png"}, "06_報告": {".html", ".docx"}}
+# 約定的檔名（01_原始資料 的 CSV 檔名由使用者決定，只限 1 個）
+NAMES = {"00_分析計畫": {"分析計畫.md", "報告設定.json"},
+         "02_清理後資料": {"分析用資料.csv", "修正與排除紀錄.csv"},
+         "03_程式碼": {"01_clean.py", "02_descriptive.py", "03_inferential.py", "04_report.py", "05_package.py", "_common.py"},
+         "06_報告": {"互動報告.html", "一頁摘要_課後用.docx"}}
+PREFIX = {"04_結果表格": re.compile(r"^表[1-7]_.+\.csv$"), "05_圖表": re.compile(r"^圖[1-9]_.+\.png$")}
 
 
 def wanted(p: Path):
@@ -29,8 +37,10 @@ def wanted(p: Path):
         return True
     if rel.parts[0] not in RULES or p.suffix.lower() not in RULES[rel.parts[0]] or len(rel.parts) != 2:
         return False
-    if rel.parts[0] == "03_程式碼":
-        return rel.name[:3] in {f"0{i}_" for i in range(1, 6)} or rel.name == "_common.py"
+    if rel.parts[0] in NAMES:
+        return rel.name in NAMES[rel.parts[0]]
+    if rel.parts[0] in PREFIX:
+        return bool(PREFIX[rel.parts[0]].match(rel.name))
     return True
 
 

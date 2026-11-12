@@ -110,7 +110,7 @@
 
 <!-- M1 -->
 <details class="mod" id="m1" open>
-<summary>模組 1｜工作規則＋資料體檢與清理 <span class="time">10–32 分</span></summary>
+<summary>模組 1｜工作規則＋資料體檢與清理 <span class="time">10–34 分</span></summary>
 <div class="mod-body">
 <div class="goal">🎯 目標：一開始就跟 AI 講好目的與規則；用「先看程式碼、再回覆執行」完成體檢與清理，輸出分析用資料 91 列。</div>
 <ol class="steps">
@@ -154,7 +154,7 @@
 
 <!-- M2 -->
 <details class="mod" id="m2" open>
-<summary>模組 2｜請 AI 建議分析計畫，並確認方法正確 <span class="time">32–50 分</span></summary>
+<summary>模組 2｜請 AI 建議分析計畫，並確認方法正確 <span class="time">34–50 分</span></summary>
 <div class="mod-body">
 <div class="goal">🎯 目標：讓 AI 依據目的提出「從描述性到推論性」的分析計畫；你用檢查清單確認方法，再決定要做什麼。</div>
 <ol class="steps">
@@ -201,6 +201,7 @@
 <li>你寫的 1 個分析問題（例如「各區差異是否超過隨機波動？」）</li>
 <li>修正紀錄中的 1 行：原值 → 處理方式 → 原因</li>
 <li>你在模組 2 用來確認方法的 1 個檢查點</li>
+<li>（選填，15 秒）用一句話寫出「看程式碼的三件事」是哪三件</li>
 </ul></li>
 <li><h4>自評與 Q&A（3 分鐘）</h4>
 <div class="card ck">
@@ -221,7 +222,7 @@
 <div class="mod-body">
 <div class="goal">🎯 目標：接上第一堂的進度；先看程式碼再執行描述性統計，並驗算 1 個數字。</div>
 <ol class="steps">
-<li><h4>接續（2 分鐘）</h4>
+<li><h4>接續（同一對話 0–2 分鐘；開新對話約 4 分鐘，從描述性統計的時間扣）</h4>
 <p>在同一個對話繼續、而且檔案都還在的人，直接做下一步。要開新對話的人：上傳第一堂下載的 4 個資料檔（或 <a href="prebuilt/第二堂起點包.zip" download>第二堂起點包</a> 解壓縮後的 4 個資料檔；裡面的「接續說明.md」不用上傳），再貼上：</p>
 <div class="prompt" data-copy>我上傳的是第一堂的【虛構】資料與成果：原始資料、分析用資料、修正與排除紀錄、分析計畫。背景：主管想知道各區篩檢陽性率差多少、差異是真的還是剛好、資料夠不夠做決定。
 請沿用工作規則：
@@ -334,7 +335,7 @@
 
 <!-- M8 -->
 <details class="mod" id="m8" open>
-<summary>模組 8｜第二堂出口票與 Q&A <span class="time">52–60 分</span></summary>
+<summary>模組 8｜出口票、自評與 skill 示範 <span class="time">52–60 分</span></summary>
 <div class="mod-body">
 <ol class="steps">
 <li><h4>出口票（4 分鐘）：貼到聊天室或表單，一人一行</h4>
@@ -342,6 +343,7 @@
 <li>你在互動報告上查核的 1 個數字：報告上的值、你自己算的值</li>
 <li>報告裡 1 條實務建議，以及它屬於「可由數據支持」還是「需進一步查證」</li>
 <li>用一句話寫：「D區對 F區的差異顯著」代表什麼、不代表什麼</li>
+<li>（選填，15 秒）描述性統計和推論性統計，各回答什麼問題？</li>
 </ul>
 <p class="see">沒辦法使用檔案建立功能的人：改用 <a href="#backup">備用成果檔</a> 回答。</p></li>
 <li><h4>自評與 Q&A（3 分鐘）</h4>
@@ -374,7 +376,7 @@
 <p>我們把兩堂課的整套流程（安全關卡、工作規則、清理規則、分析計畫、描述與推論統計、互動報告、資料夾歸檔）包成一個 skill（一包「流程說明＋程式＋範本」）。zip 裡的檔案你不用看懂，Claude 會依照裡面的說明做事。下次上傳同樣格式的資料（欄位有 月份、行政區、人口數、篩檢人數、陽性數），Claude 就會照同一套流程處理。</p>
 <div class="warnbox"><b>先讀安全提醒（官方說明）：</b>只安裝信任來源的 skill；即使是同事分享的 skill，啟用前也要先審閱內容。官方指出 skill 的主要風險是提示注入（檔案或文字裡藏著指令，騙 Claude 做別的事），以及惡意程式碼造成的資料外洩。這個 skill 的內容都公開在 GitHub，可以先 <a href="https://github.com/greengarden0925/Claude-Data-Analysis-Tutorial/tree/main/skill/screening-positivity-analysis">逐一檢視</a>。</div>
 <ol>
-<li>下載 <a href="prebuilt/skill/screening-positivity-analysis.zip" download>screening-positivity-analysis.zip</a>（不用解壓縮）。內容：<code>SKILL.md</code>（流程與規則）、<code>scripts/</code>（5 個步驟程式加 1 個共用工具）、<code>references/</code>（分析計畫範本、解讀規則）、<code>assets/</code>（報告設定與 README 範本）。</li>
+<li>下載 <a href="prebuilt/skill/screening-positivity-analysis.zip" download>screening-positivity-analysis.zip</a>（不用解壓縮）。內容：<code>SKILL.md</code>（流程與規則）、<code>scripts/</code>（5 個步驟程式加 1 個共用工具）、<code>references/</code>（分析計畫範本、解讀規則）、<code>assets/</code>（報告資訊與 README 範本）。</li>
 <li>確認已開啟程式執行功能（個人方案：Settings → Capabilities 的「Create and edit files」；Team／Enterprise 由管理員設定）。</li>
 <li>到 Customize → Skills，點「+」→「+ Create skill」→「Upload a skill」，上傳這個 zip，並確認它是開啟狀態。名稱與位置以你的畫面為準。</li>
 <li>確認安裝成功：Skills 清單看得到 screening-positivity-analysis，而且開關是開啟的。</li>
@@ -383,10 +385,11 @@
 <div class="prompt" data-copy>請用 screening-positivity-analysis 這個 skill 分析我上傳的篩檢統計。目的：科長想知道去年各區篩檢陽性率差多少、差異是真的還是剛好、資料夠不夠做決定。請照 skill 的流程，從安全確認與資料夾開始，每個計算步驟先給程式碼、等我回覆「執行」。</div>
 <ul>
 <li>依官方說明：Free、Pro、Max、Ultra、Team、Enterprise 方案都能使用自訂 skill，但需要開啟程式執行；上傳的 skill 預設只有自己看得到，Team／Enterprise 可以分享給同事（分享後為唯讀）。</li>
-<li>送出後，Claude 第一個回應會先問你三個安全確認題（資料來源與是否核可、網路存取是否已關閉、是否了解成果包含原始資料），請<b>逐點回答</b>；還會問分析目的與報告設定的內容（標題、篩檢項目、對象、期間、截止日）。</li>
+<li>送出後，Claude 第一個回應會先問你三個安全確認題（資料來源與是否核可、網路存取是否已關閉、是否了解成果包含原始資料），請<b>逐點回答</b>。教學用的虛構資料可以這樣答：「(a) 這是教學用的虛構資料；(b) 沒有真實資料，網路存取我已確認或不需要；(c) 了解成果包含原始資料與逐列資料，傳遞依單位規定」；處理真實資料時 (b) 要先把網路存取關閉再回答。還會問分析目的與報告資訊（標題、篩檢項目、對象、期間、截止日；不確定就先打開資料看月份範圍，或請 Claude 從資料推得後再讓你確認）。</li>
 <li>skill 只有流程與程式，不包含任何資料。它會先確認資料已核可、已去識別化、網路存取已關閉，才開始讀資料；真實資料的報告預設只放各區合計。</li>
 <li>欄位名稱不同時，skill 會先列出對應關係請你確認。</li>
 </ul>
+<p class="see">表6、表7 需要 statsmodels 這個統計套件；我們還沒驗證 Claude 的執行環境是否預先安裝，缺套件時這兩張表會被略過並說明原因，其餘表格與報告不受影響。</p>
 <p class="see">這個 skill 的程式用 23 份不同狀況的虛構資料做過工程測試（<a href="https://github.com/greengarden0925/Claude-Data-Analysis-Tutorial/tree/main/skill/tests">測試情境清單與執行方式</a>）：20 份完整跑完，3 份用中文說明原因後停止（缺必要欄位、全部陽性為 0、不同寫法合併後同月出現兩筆），沒有程式當掉。這不代表在 Claude 上的實際表現；尚未實際上傳試用，請先自己試一次。</p>
 </div>
 
@@ -466,8 +469,8 @@
   mods.forEach(function(m){var a=document.createElement("a");a.href="#"+m[0];a.style.flex=m[2];
    a.innerHTML="<b>"+m[1]+"</b><span>"+t+"–"+(t+m[2])+" 分</span>";t+=m[2];tl.appendChild(a);
    a.addEventListener("click",function(){var d=document.getElementById(m[0]);if(d)d.open=true;});});}
- timeline("#tl1",[["m0","0 故事與目的",10],["m1","1 規則＋清理",22],["m2","2 分析計畫",18],["m3","3 收尾",10]]);
- timeline("#tl2",[["m4","4 接續＋描述",16],["m5","5 推論",14],["m6","6 互動報告",14],["m7","7 歸檔",8],["m8","8 出口票",8]]);
+ timeline("#tl1",[["m0","0 故事與目的",10],["m1","1 規則＋清理",24],["m2","2 分析計畫",16],["m3","3 收尾",10]]);
+ timeline("#tl2",[["m4","4 接續＋描述",16],["m5","5 推論",14],["m6","6 互動報告",14],["m7","7 歸檔",8],["m8","8 出口票與示範",8]]);
  /* 複製按鈕 */
  document.querySelectorAll(".prompt[data-copy]").forEach(function(p){
   var txt=p.textContent.trim();var b=document.createElement("button");b.className="copy";b.textContent="複製";b.type="button";
