@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="top"><div class="top-in">
+<header class="top" id="top"><div class="top-in">
 <b>Claude 辦公實戰</b>
-<a href="#plan">課程流程</a><a href="#precheck">課前檢查</a><a href="#m0">0 安全</a><a href="#m1">1 清理</a><a href="#m2">2 分析</a><a href="#m3">3 報告</a><a class="opt" href="#m4">4 重複使用</a><a class="opt" href="#m5">5 出口票</a><a href="#expect">預期結果</a><a class="opt" href="#recipe">提示詞公式</a><a class="opt" href="#glossary">名詞小抄</a><a href="instructor.html">講師頁</a>
+<a href="#plan">課程流程</a><a href="#precheck">課前檢查</a><a href="#m0">0 安全</a><a href="#m1">1 清理</a><a href="#m2">2 分析</a><a href="#m3">3 報告</a><a class="opt" href="#m4">4 重複使用</a><a href="#m5">5 出口票</a><a href="#expect">預期結果</a><a class="opt" href="#recipe">提示詞公式</a><a class="opt" href="#glossary">名詞小抄</a><a href="instructor.html">講師頁</a>
 </div></header>
 
 <main>
@@ -44,7 +44,8 @@
 <label><input type="checkbox" data-k="p3"> 已下載 <a href="sample-data/demo_fictional_screening_dirty.csv" download>demo_fictional_screening_dirty.csv</a>，並知道它放在哪個資料夾（不要用 Excel 另存）</label>
 <label><input type="checkbox" data-k="p4"> 已確認所屬單位允許使用外部 AI 工具，並知道本課<strong>只能用虛構或已去識別化資料</strong>（見模組 0）</label>
 <label><input type="checkbox" data-k="p5"> 已想好一個工作上想改善的報表題目（只是構想，不要準備真實資料）</label>
-<p class="see" style="margin-top:8px" id="pmsg">進度 0 / 5（勾選狀態只存在你這台瀏覽器）</p>
+<label><input type="checkbox" data-k="p6"> 已確認網路存取設定（處理非公開資料時關閉；預設值依方案而異，請自行到設定檢查），並了解對話與檔案的保存期限、是否用於模型改進（依官方說明與單位政策確認）</label>
+<p class="see" style="margin-top:8px" id="pmsg">進度 0 / 6（勾選狀態只存在你這台瀏覽器）</p>
 </div>
 
 <div class="warnbox" style="margin-top:20px"><b>每次貼上提示詞前先確認：</b>內容不含姓名、身分證字號、病歷號、電話、住址。本課資料都是虛構的，但養成習慣，回到工作時才不會出錯。</div>
@@ -62,15 +63,18 @@
 <li><h4>情境題：下面欄位哪些要先處理再上傳？（1 分鐘）</h4>
 <p>姓名、身分證字號、病歷號、住址、就診日期（精確到日）、年齡、性別、行政區。</p>
 <p class="see">答案：姓名、身分證字號、病歷號、住址一定要刪除；精確日期改成月份；年齡改成年齡層；「行政區＋性別＋年齡層＋疾病」組合起來可能只剩 1–2 人，要合併或遮蔽。</p></li>
-<li><h4>去識別化不等於可以隨便上傳</h4>
-<p>檢查每個格子的人數：人數很少（例如少於 5 人，門檻請依單位規定）的格子要合併或遮蔽。避免同時保留細地區、精確日期、年齡與性別。去識別化後仍可能被重新辨識，所以是否可以上傳，仍須經單位同意。</p></li>
 <li><h4>先確認單位規範</h4>
 <p>上傳前先確認：單位是否核准使用外部 AI、可用哪種帳號（個人或機關）、這份資料的分級、是否屬於研究案（需依 IRB 核定計畫與同意範圍）、資料留存與是否用於模型訓練的設定（依官方說明與單位政策確認）。<b>用個人帳號處理公務資料前，須先取得核可。</b>涉及個資法規的部分，請依單位法遵確認。</p></li>
 <li><h4>網路存取與提示注入</h4>
-<p>Claude 官方說明指出，檔案建立功能在沙箱中執行；若開啟網路存取，理論上有可能被檔案或網頁中的隱藏指令誘騙，把資料送到外部。官方說明表示關閉網路存取可以完全消除這個風險。處理非公開資料時，請關閉網路存取、不要啟用不必要的連接器，並留意 Claude 的操作。（設定名稱與可調整範圍依方案而異，機關帳號由管理員設定，請以官方說明與你的畫面為準。）</p></li>
-<li><h4>AI 的輸出要人工查核，責任在署名者</h4>
-<p>數字、公式、結論都要抽查。對外報告是否要揭露 AI 輔助，依單位規定；建議保留清理紀錄與提示詞，方便日後稽核。</p></li>
+<p>Claude 官方說明指出，檔案建立功能在隔離的沙箱中執行，但沙箱不等於資料不離開你的電腦：上傳的內容仍會送到 Anthropic 的伺服器處理。官方也指出，若開啟網路存取，理論上有可能被檔案或網頁中的隱藏指令誘騙，把資料送到外部；關閉網路存取可避免資料送出沙箱。但連接器（MCP）不受這個開關限制，仍可能對外連線，需另外檢視。處理非公開資料時，請關閉網路存取、不要啟用不必要的連接器，並全程盯著 Claude 的操作，發現異常立刻停止。網路存取的預設值依方案而異，請自行到設定檢查；機關帳號由管理員設定。名稱與選項以官方說明與你的畫面為準。</p></li>
 </ol>
+<details class="later" style="margin-top:12px">
+<summary style="cursor:pointer;font-weight:700">📖 課前閱讀：去識別化與責任（課堂上不講，請自行讀完）</summary>
+<div class="card" style="margin-top:8px">
+<p><b>去識別化不等於可以隨便上傳。</b>檢查每個格子的人數：人數很少（例如少於 5 人，門檻請依單位規定）的格子要合併或遮蔽。避免同時保留細地區、精確日期、年齡與性別。合併或遮蔽後，也要檢查總計與其他表格能不能反推出被遮蔽的數字。去識別化後仍可能被重新辨識，所以是否可以上傳，仍須經單位同意。</p>
+<p><b>AI 的輸出要人工查核，責任在署名者。</b>數字、公式、結論都要抽查。對外報告是否要揭露 AI 輔助，依單位規定；建議保留清理紀錄與提示詞，方便日後稽核。</p>
+</div>
+</details>
 <div class="note">注意：本課全程使用電腦隨機產生的虛構資料（A–H 區是代號），不代表任何真實地區或個案。</div>
 </div>
 </details>
@@ -82,7 +86,7 @@
 <div class="goal">🎯 目標：抓出資料問題、確認處理規則，輸出「分析用資料 91 列」與修正紀錄。</div>
 <ol class="steps">
 <li><h4>開新對話，上傳 CSV</h4>
-<p>點對話框左下角的「＋」→ 上傳檔案，選 <code>demo_fictional_screening_dirty.csv</code>（手機同樣點「＋」；電腦也可以直接拖曳）。請直接上傳原檔，不要先用 Excel 開啟再另存。CSV 與 TSV 是官方列出的支援格式。</p>
+<p>點對話框左下角的「＋」→ 上傳檔案（選單文字可能是「Add files or photos」），選 <code>demo_fictional_screening_dirty.csv</code>（手機同樣點「＋」；電腦也可以直接拖曳）。請直接上傳原檔，不要先用 Excel 開啟再另存。CSV 與 TSV 是官方列出的支援格式，檔案大小上限以官方說明為準。</p>
 <p class="see">對話框出現檔名縮圖。</p></li>
 <li><h4>先「體檢」，不要急著修</h4>
 <p>先讓 Claude 只回報問題，不要動資料。</p>
@@ -101,21 +105,19 @@
 1. 完全重複的列只保留一筆
 2. 行政區統一為「X區」格式（去空白、大寫）
 3. 月份統一為 YYYY-MM
-4. 篩檢人數缺值：不要補值，保留空白
-5. 陽性數 > 篩檢人數：不要自行修改，標記為「待查」
-6. 新增欄位「分析用」：缺值列與待查列填 N，其他填 Y</div>
+4. 篩檢人數缺值：不要補值，也不要放進分析用資料
+5. 陽性數 > 篩檢人數：不要自行修改，標記為「待查」，也不要放進分析用資料（缺值列不算待查）</div>
 <div class="note">小提醒：缺值與邏輯錯誤是專業判斷。真實資料中「陽性數大於篩檢人數」常是欄位定義或登錄問題，應先回頭問承辦人，不要自己猜。</div></li>
 <li><h4>輸出檔案與修正紀錄</h4>
 <div class="prompt" data-copy>請輸出：
-(a) 完整清理檔 CSV（含「分析用」欄位）
-(b) 分析用資料 CSV（只含「分析用」= Y 的列）
-(c) 修正紀錄表（列號、欄位、原值、新值、原因）
-(d) 處理前後列數
+(a) 分析用資料 CSV（已排除缺值列與待查列）
+(b) 修正與排除紀錄表（列號、欄位、原值、處理方式、原因）
+(c) 處理前後列數
 輸出後，請在回覆中點檔案名稱讓我下載。</div>
-<p class="see">列數：99 → 去重後 96 → 排除 5 列（4 列缺值＋1 列待查）→ <b>分析用 91 列</b>。回覆中點檔案名稱即可下載。</p></li>
+<p class="see">列數：99 → 去重後 96 → 排除 5 列（4 列缺值＋1 列待查）→ <b>分析用 91 列</b>。回覆中點檔案名稱即可下載。完整清理檔（含被排除的列）可課後再要。</p></li>
 <li><h4>停點：對答案</h4>
 <p>你的分析用資料應該是 91 列，可以和 <a href="sample-data/demo_fictional_screening_analysis_91rows.csv" download>分析用 91 列檔案</a>對照。落後的人直接用這個檔案進入模組 2。</p>
-<div class="warnbox"><b>為什麼要排除？</b>那 1 列待查資料（B區 2025-04）陽性數 1,405、篩檢人數 1,285，原本應該是 61。如果沒有排除它，B區陽性率會飆到約 17–18%，變成全市最高，結論會完全錯誤。</div></li>
+<div class="warnbox"><b>為什麼要排除？</b>那 1 列待查資料（B區 2025-04）陽性數 1,405、篩檢人數 1,285，解答檔中同一列的原值是 61。如果沒有排除它，B區陽性率會飆到約 16%，變成全市最高，結論會完全錯誤。</div></li>
 </ol>
 </div>
 </details>
@@ -128,39 +130,44 @@
 <ol class="steps">
 <li><h4>各區篩檢陽性率表＋長條圖</h4>
 <p>請在<b>同一個對話</b>繼續。若你新開了對話，Claude 看不到剛才的資料，需要重新上傳「分析用 91 列」檔案。</p>
-<div class="prompt" data-copy>請用分析用資料（「分析用」= Y 的 91 列），做以下分析：
-1. 各行政區全年篩檢陽性率 = 陽性數合計 ÷ 篩檢人數合計（%，小數 2 位），由高到低排序成表格，另附篩檢人數與陽性數合計
+<div class="prompt" data-copy>請用分析用資料（91 列），做以下分析：
+1. 各行政區篩檢陽性率（以納入的月份合計）= 陽性數合計 ÷ 篩檢人數合計（%，小數 2 位），由高到低排序成表格，另附篩檢人數、陽性數合計與「納入月數」
 2. 畫一張各區篩檢陽性率長條圖（最高的兩區用醒目顏色）
 圖表請有標題、座標軸名稱與單位，並在圖下方用一句話說明重點。
 最後說明：這份分析用了幾列、排除了幾列。</div>
-<p class="see">一張排序表＋一張圖；對照下方「預期結果」。H區（9.46%）、E區（8.71%）最高。</p></li>
+<p class="see">一張排序表＋一張圖；對照下方「預期結果」。H區（9.46%）、E區（8.71%）最高。注意 B區只納入 9 個月、A區與H區 11 個月，其餘 12 個月，所以不是嚴格的「全年」比較。</p></li>
 <li><h4>要求 Claude 說明怎麼算的</h4>
 <div class="prompt" data-copy>請列出你剛才計算篩檢陽性率使用的程式碼或公式，以及被排除的列號，讓我可以自己重算。</div>
 <p class="see">看到 Python（pandas）或公式，以及排除列清單。</p></li>
-<li><h4>人工驗算 2 個數字（必做）</h4>
+<li><h4>人工驗算 1 個數字（必做）</h4>
 <p>用計算機或 Excel 驗算：</p>
 <ul>
 <li>H區：530 ÷ 5,601 ≈ 9.46%</li>
-<li>各區篩檢人數加總 = 107,171（全部 91 列合計）</li>
+<li>選做：各區篩檢人數加總 = 107,171（全部 91 列合計）</li>
 </ul>
 <div class="note">注意：只要有一個數字對不上，就請 Claude 說明差異原因，直到你能解釋為止，再往下做。</div></li>
 <li><h4>讀結果前先想：這個數字能說什麼？</h4>
 <div class="warnbox">
-<b>陽性率較高 ≠ 高風險。</b>
-<ul style="margin:6px 0 0">
-<li>這是「受檢者」的陽性率，不是全區居民的盛行率。每區篩檢對象來源不同、不是隨機抽樣，不能直接外推到全人口。</li>
-<li>沒有做年齡標準化，各區年齡結構不同時，不宜直接比較。</li>
-<li>分母小的區（如 H區全年只有 5,601 人篩檢）數字比較不穩定。</li>
-<li>最近 1–2 個月可能因通報延遲而偏低，要標示「暫定」並註明資料截止日。</li>
+<b>陽性率較高 ≠ 高風險。</b>這是「受檢者」的陽性率，不是全區居民的盛行率；篩檢對象不是隨機抽樣，也沒有做年齡標準化。各區納入的月數不同、分母小的區（如 H區）數字也比較不穩定，不能直接外推。
+</div>
+<details class="later"><summary style="cursor:pointer">更多判讀提醒（點開）</summary>
+<ul>
+<li>陽性是初篩結果，不等於確診；本資料沒有複檢或確診資訊。</li>
+<li>最近 1–2 個月在實務上可能因通報延遲而偏低，要標示「暫定」並註明資料截止日（示範資料沒有模擬這個現象）。</li>
 <li>報告建議資源配置時，請「率」和「絕對數」一起呈現。</li>
-</ul></div></li>
-<li><h4>選做（可課後）：月趨勢與信賴區間</h4>
-<div class="prompt" data-copy>請畫全市每月篩檢陽性率折線圖，並為各區全年篩檢陽性率加上 95% 信賴區間（請說明你用的方法）。
-請注意：單月分母較小時數字波動大，請在圖上標示，不要把小波動寫成「上升」或「下降」。
-只描述數字，不要推論原因。</div>
-<p class="see">方法名稱與假設都有說明。若方法你不熟，追問「為什麼選這個方法」並查證；<b>查方法時只輸入方法名稱，不要把資料貼到網頁搜尋。</b>信賴區間對照見下方「預期結果」：H區與E區的區間有重疊，不能只憑點估計說 H 一定比 E 高。</p>
-<p class="see">1、2、12 月偏高是示範資料中人為加入的季節因子，用來讓圖表有變化，不是真實現象。</p></li>
+</ul></details></li>
 </ol>
+<details class="later" style="margin-top:12px">
+<summary style="cursor:pointer;font-weight:700">📚 課後延伸：月趨勢與信賴區間（講師口述 1 分鐘，學員課後做）</summary>
+<div class="card" style="margin-top:8px">
+<div class="prompt" data-copy>請畫全市每月篩檢陽性率折線圖，並為各區篩檢陽性率加上 95% 信賴區間（請說明你用的方法）。
+請注意：單月分母較小、各月納入的區數也不同，波動可能很大，請在圖上標示，不要把小波動寫成「上升」或「下降」。
+只描述數字，不要推論原因。</div>
+<p class="see">方法名稱與假設都有說明。若方法你不熟，追問「為什麼選這個方法」並查證；<b>查方法時只輸入方法名稱，不要把資料貼到網頁搜尋。</b></p>
+<p>怎麼讀信賴區間：兩個區間重疊，並不代表兩者沒有差異；要比較兩區，請看「差異本身」的區間或做檢定。例如 H區與E區的區間有重疊，這份資料的雙比例檢定 p≈0.13，無法確認 H區高於 E區。信賴區間只反映抽樣誤差，不含篩檢對象的選擇偏差，且本課為簡化算法（沒有考慮月別群聚）。</p>
+<p class="see">1、2、12 月偏高是示範資料中人為加入的季節因子，用來讓圖表有變化，不是真實現象。</p>
+</div>
+</details>
 </div>
 </details>
 
@@ -172,15 +179,15 @@
 <ol class="steps">
 <li><h4>A. 一頁式 Word 摘要（給主管）</h4>
 <div class="prompt" data-copy>請根據以上分析，產出一份 1 頁的 Word 報告「2025 年度篩檢成果摘要（虛構資料）」，結構：
-0. 首行註明：篩檢項目（虛構）、篩檢對象、資料期間（2025 年 1–12 月）、資料截止日、資料來源（示範資料）
+0. 首行註明：篩檢項目＝虛構的成人健康篩檢、篩檢對象＝30 歲以上成人、資料期間＝2025 年 1–12 月、資料截止日＝2026-01-31、資料來源＝示範資料（虛構）
 1. 重點發現（3 點，每點 1 句，含數字）
 2. 各區篩檢陽性率圖表
-3. 建議行動，分兩類：「可由數據支持」與「需進一步查證」
-4. 資料限制（必寫：排除了幾列；篩檢對象非隨機抽樣、陽性率不等於盛行率；未做年齡標準化；最近月份可能因通報延遲偏低；為虛構資料）
+3. 建議行動，分兩類：「可由數據支持」（只限持續監測、補查待查資料）與「需進一步查證」（例如資源配置）
+4. 資料限制（必寫：排除了幾列；各區納入月數不同；篩檢對象非隨機抽樣、陽性率不等於盛行率；陽性為初篩結果、未含確診；未做年齡標準化；實務上最近月份可能因通報延遲偏低；為虛構資料）
 語氣：給衛生局長官，精簡、不用艱深統計術語。不要使用「高風險」這個詞，改用「篩檢陽性率較高」。</div>
 <p class="see">一個可下載的 .docx；打開後確認數字與圖表和模組 2 一致。</p></li>
 <li><h4>B. 請 Claude 當「挑錯的審稿人」（2 分鐘）</h4>
-<div class="prompt" data-copy>現在請你扮演嚴格的衛生局科長，檢查這份報告：哪些結論證據不足？哪些數字可能被誤解？有沒有把「相關」寫成「因果」？請列出最多 5 點並建議修正。</div>
+<div class="prompt" data-copy>現在請你扮演嚴格的衛生局科長，檢查這份報告：哪些結論證據不足？哪些數字可能被誤解？有沒有把「相關」寫成「因果」？請列出最多 5 點並建議修正。特別檢查「可由數據支持」的建議是否真的只靠這份資料就能支持。</div>
 <p class="see">一份挑錯清單；採納前仍須自己判斷。</p></li>
 </ol>
 <details class="later" style="margin-top:14px">
@@ -191,7 +198,7 @@
 <p><b>互動 Dashboard（給團隊共同瀏覽）</b></p>
 <div class="prompt" data-copy>請做一個單頁互動儀表板：上方顯示總篩檢人數、總陽性數、整體篩檢陽性率三個數字卡；下方有行政區下拉選單，選擇後顯示該區每月篩檢陽性率折線；並可點擊長條圖切換區域。繁體中文、手機也能閱讀。</div>
 <p class="see">若沒出現互動頁面：確認檔案建立功能已開，並看側欄的 Artifacts。部分功能依方案而異，以官方說明為準。</p>
-<div class="note">分享前請確認小人數格子已遮蔽，並依單位核可的管道傳遞，不要把連結貼到公開場合。</div>
+<div class="note">注意：請勿使用公開發布或公開分享連結功能；未經單位核可，不得對外分享。分享前也請確認小人數格子已遮蔽。</div>
 </div>
 </details>
 </div>
@@ -201,11 +208,11 @@
 <details class="mod" id="m4" open>
 <summary>模組 4｜做成可重複使用：Projects 與提示詞庫 <span class="time">47–53 分</span></summary>
 <div class="mod-body">
-<div class="goal">🎯 目標：下個月的同類報告，用同一套規則重跑。</div>
+<div class="goal">🎯 目標：看懂怎麼把規則存成專案指令，讓下個月的同類報告能重跑（本模組由講師展示，學員課後自己做）。</div>
 <ol class="steps">
-<li><h4>建立 Project</h4>
+<li><h4>建立 Project（講師展示）</h4>
 <p>點左側的 Projects（或開 claude.ai/projects）→ 右上角「+ New Project」→ 取名（例如「月報篩檢統計」）→ 點「Set project instructions」。同一專案內的不同對話不會自動共用內容，所以規則要寫在專案指令裡。實際介面與限額以你的畫面和官方說明為準。</p></li>
-<li><h4>貼上專案指令</h4>
+<li><h4>貼上專案指令（講師展示）</h4>
 <div class="prompt" data-copy>你是公共衛生單位的資料分析助理。
 規則：
 1. 一律使用繁體中文（台灣用語）
@@ -214,12 +221,12 @@
 4. 每次分析都附上計算方法與排除的列數
 5. 圖表需有標題、座標軸名稱與單位
 6. 報告結構固定：重點發現、圖表、建議行動（分「可由數據支持」與「需進一步查證」）、資料限制
-7. 資料限制必寫：篩檢對象非隨機抽樣、未年齡標準化、最近月份暫定；不使用「高風險」一詞，只描述數字、不推論因果
+7. 資料限制必寫：篩檢對象非隨機抽樣、陽性為初篩結果未含確診、未年齡標準化、最近月份暫定；不使用「高風險」一詞，只描述數字、不推論因果
 8. 不確定的統計方法，先說明選擇理由，再等我確認</div>
-<div class="note">注意：Project 裡只放 SOP 與提示詞，不放原始或可識別資料。用完後刪除不需要的對話與檔案。</div></li>
+<div class="note">注意：Project 裡只放 SOP 與提示詞，不放原始或可識別資料。用完後刪除不需要的對話與檔案；對話與檔案的保存期限、是否用於模型改進，請依官方說明與單位政策確認。</div></li>
 <li><h4>把這次流程變成 SOP（講師展示，學員課後做）</h4>
 <div class="prompt" data-copy>請把我們今天的清理、分析、報告流程，整理成一份可重複使用的 SOP 與提示詞清單（不超過 1 頁），之後我只要上傳新的月份資料就能照做。</div>
-<p class="see">一份 SOP。要存進專案時，用專案頁面右側的「＋」上傳到知識庫，下次對話就能說「請依 SOP 處理新檔」。</p></li>
+<p class="see">一份 SOP。要存進專案時，用專案頁面上的上傳功能放進專案知識庫（按鈕名稱以你的畫面為準），下次對話就能說「請依 SOP 處理新檔」。</p></li>
 </ol>
 </div>
 </details>
@@ -230,12 +237,12 @@
 <div class="mod-body">
 <div class="goal">🎯 目標：離場前交出可觀察的成果，並帶走「明天就能用」的做法。</div>
 <ol class="steps">
-<li><h4>出口票（3 分鐘）：交出這三樣</h4>
+<li><h4>出口票（3 分鐘）：貼到聊天室或表單，一人一行</h4>
 <ul>
-<li>修正紀錄中的 1 行（原值 → 新值 → 原因）</li>
-<li>你驗算的 1 個數字（AI 給的值、你算的值）</li>
-<li>報告「資料限制」中的 1 句話</li>
-</ul></li>
+<li>修正紀錄中的 1 行：原值 → 新值（或處理方式）→ 原因，三項齊全才算</li>
+<li>你驗算的 1 個數字：AI 給的值、你算的值</li>
+</ul>
+<p class="see">沒辦法使用檔案建立功能的人：改看講師預先產好的修正紀錄，指出 1 個可疑的列與原因。</p></li>
 <li><h4>自評（1 分鐘）</h4>
 <div class="card ck">
 <label><input type="checkbox" data-k="d1"> 我能說出資料上傳前要先去識別化、並先確認單位規定的原因</label>
@@ -251,7 +258,7 @@
 <h2 id="expect">預期結果 <small>兩組數字：跟著講義做，看「學員版」</small></h2>
 <p class="lead">「學員版」是依模組 1 規則清理、排除 5 列後的 91 列；「解答檔」是汙染前的原始 96 列。差異是排除缺值與待查列造成的。</p>
 <div class="grid g2">
-<div class="card"><h3>各區篩檢陽性率（學員版 91 列）</h3><div id="chart-d"></div></div>
+<div class="card"><h3>各區篩檢陽性率（學員版 91 列）</h3><div id="chart-d"><p class="see">圖表需要 JavaScript 與 assets/data.js；若沒有顯示，請看下方數字表。</p></div></div>
 <div class="card"><h3>全市每月篩檢陽性率（學員版）</h3><div id="chart-m"></div></div>
 </div>
 <div class="card" style="margin-top:14px"><h3>數字對照</h3><div class="tw"><table id="tbl"></table></div>
@@ -274,8 +281,8 @@
 <tr><th>名詞</th><th>白話說明</th></tr>
 <tr><td>去識別化</td><td>拿掉能認出是誰的資訊（姓名、證號等）。但資訊組合起來仍可能認出人，所以不等於可以隨意上傳。</td></tr>
 <tr><td>小細格</td><td>表格中人數很少的格子（例如某區某月只有 1 例），容易被推回個人。</td></tr>
-<tr><td>篩檢陽性率</td><td>陽性數 ÷ 篩檢人數。只代表「有來篩檢的人」，不等於全區居民的盛行率。</td></tr>
-<tr><td>信賴區間</td><td>估計值可能的範圍。區間有重疊，就不能只憑數字大小說誰比較高。</td></tr>
+<tr><td>篩檢陽性率</td><td>陽性數 ÷ 篩檢人數。陽性是初篩結果，不等於確診；只代表「有來篩檢的人」，不等於全區居民的盛行率。</td></tr>
+<tr><td>信賴區間</td><td>估計值可能的範圍。兩個區間重疊，不代表兩者沒有差異；要比較兩區，請看差異本身的區間或做檢定。</td></tr>
 <tr><td>年齡標準化</td><td>把各區年齡結構調成一樣再比較，避免年輕或高齡人口多寡造成的差異。</td></tr>
 <tr><td>人在迴圈（Human-in-the-loop）</td><td>重要判斷由人決定，AI 只負責執行與提供選項。</td></tr>
 <tr><td>SOP</td><td>標準作業流程：把做法寫成步驟，下次照做。</td></tr>
@@ -290,7 +297,7 @@
 </ul>
 <p class="see" style="margin-top:6px">Projects、Artifacts 的功能與限額、各方案可用功能，請以你當天登入的畫面與官方說明為準；講義未引用第三方說法。</p></div>
 
-<footer>本講義為教學用途，不代表任何機關立場。示範資料由程式隨機產生（<a href="https://github.com/greengarden0925/Claude-Data-Analysis-Tutorial/blob/main/scripts/make_sample_data.py">make_sample_data.py</a>），A–H 區為代號，不代表任何真實地區或個案。<a href="instructor.html">講師頁</a></footer>
+<footer>本講義為教學用途，不代表任何機關立場。示範資料由程式隨機產生（<a href="https://github.com/greengarden0925/Claude-Data-Analysis-Tutorial/blob/main/scripts/make_sample_data.py">make_sample_data.py</a>），A–H 區為代號，不代表任何真實地區或個案。<a href="instructor.html">講師頁</a>　<a href="#top">↑ 回到頂端</a></footer>
 </main>
 
 <script src="assets/data.js"></script>
@@ -332,8 +339,8 @@
    svg.appendChild(el("rect",{x:40,y:y,width:sc*d.rate,height:22,rx:3,class:"bar"+(i<2?" hi":"")}));
    svg.appendChild(el("line",{x1:40+sc*d.lo,x2:40+sc*d.hi,y1:y+11,y2:y+11,stroke:"currentColor","stroke-width":1.5}));
    svg.appendChild(el("text",{x:46+sc*d.hi,y:y+16},d.rate.toFixed(2)+"%"));});
-  $("#chart-d").appendChild(svg);
-  $("#chart-d").insertAdjacentHTML("beforeend","<p class='see' style='margin:6px 0 0'>紅色為最高兩區；黑線為 95% 信賴區間（Wilson 法）。H區與E區的區間有重疊。</p>");})();
+  $("#chart-d").innerHTML="";$("#chart-d").appendChild(svg);
+  $("#chart-d").insertAdjacentHTML("beforeend","<p class='see' style='margin:6px 0 0'>紅色為最高兩區；橫線（誤差線）為 95% 信賴區間（Wilson 法）。H區與E區的區間有重疊。</p>");})();
  (function(){var m=S.months91,W=440,H=220,L=36,B=26,svg=el("svg",{viewBox:"0 0 "+W+" "+H,width:"100%",role:"img","aria-label":"每月篩檢陽性率折線圖"});
   var lo=Math.floor(Math.min.apply(null,m.map(function(x){return x.rate}))-.3),hi=Math.ceil(Math.max.apply(null,m.map(function(x){return x.rate}))+.3);
   var X=function(i){return L+i*(W-L-22)/(m.length-1)},Y=function(v){return 10+(H-B-10)*(1-(v-lo)/(hi-lo))};
@@ -341,13 +348,13 @@
   svg.appendChild(el("polyline",{points:m.map(function(x,i){return X(i)+","+Y(x.rate)}).join(" "),class:"ln"}));
   m.forEach(function(x,i){svg.appendChild(el("circle",{cx:X(i),cy:Y(x.rate),r:3.5,class:"dot"}));svg.appendChild(el("text",{x:X(i)-12,y:H-8},x.name.slice(5)+"月"));});
   $("#chart-m").appendChild(svg);
-  $("#chart-m").insertAdjacentHTML("beforeend","<p class='see' style='margin:6px 0 0'>1、2、12 月偏高是示範資料人為加入的季節因子，不是真實現象；只描述，不推論原因。</p>");})();
+  $("#chart-m").insertAdjacentHTML("beforeend","<p class='see' style='margin:6px 0 0'>1、2、12 月偏高是示範資料人為加入的季節因子，不是真實現象；各月納入的區數不同（7–8 區）；只描述，不推論原因。</p>");})();
  var r96={};S.districts96.forEach(function(d){r96[d.name]=d.rate});
- var h="<tr><th>行政區</th><th class='num'>篩檢人數</th><th class='num'>陽性數</th><th class='num'>學員版陽性率</th><th class='num'>95% 信賴區間</th><th class='num'>解答檔（96 列）</th></tr>";
- ds.forEach(function(d){h+="<tr><td>"+d.name+"</td><td class='num'>"+d.screened.toLocaleString()+"</td><td class='num'>"+d.positive.toLocaleString()+"</td><td class='num'>"+d.rate.toFixed(2)+"%</td><td class='num'>"+d.lo.toFixed(2)+"–"+d.hi.toFixed(2)+"%</td><td class='num'>"+r96[d.name].toFixed(2)+"%</td></tr>"});
+ var h="<tr><th>行政區</th><th class='num'>篩檢人數</th><th class='num'>陽性數</th><th class='num'>納入月數</th><th class='num'>學員版陽性率</th><th class='num'>95% 信賴區間</th><th class='num'>解答檔（96 列）</th></tr>";
+ ds.forEach(function(d){h+="<tr><td>"+d.name+"</td><td class='num'>"+d.screened.toLocaleString()+"</td><td class='num'>"+d.positive.toLocaleString()+"</td><td class='num'>"+d.months+"</td><td class='num'>"+d.rate.toFixed(2)+"%</td><td class='num'>"+d.lo.toFixed(2)+"–"+d.hi.toFixed(2)+"%</td><td class='num'>"+r96[d.name].toFixed(2)+"%</td></tr>"});
  $("#tbl").innerHTML=h;
  $("#overall").textContent="學員版合計：篩檢 "+S.total91.screened.toLocaleString()+" 人、陽性 "+S.total91.positive.toLocaleString()+" 人，整體 "+S.total91.rate.toFixed(2)+"%。解答檔（96 列）：篩檢 "+S.total96.screened.toLocaleString()+" 人、陽性 "+S.total96.positive.toLocaleString()+" 人，整體 "+S.total96.rate.toFixed(2)+"%。";
- $("#trap").textContent="警訊對照：若沒有排除那 1 列待查資料，B區陽性率會變成 "+S.trap_B.toFixed(2)+"%（正確約 4.89%）。";
+ $("#trap").textContent="警訊對照：若沒有排除那 1 列待查資料，B區陽性率會變成 "+S.trap_B.toFixed(2)+"%（正確為 "+ds.filter(function(d){return d.name==="B區"})[0].rate.toFixed(2)+"%）。";
 })();
 </script>
 </body>

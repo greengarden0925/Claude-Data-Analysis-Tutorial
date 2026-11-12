@@ -31,8 +31,8 @@ clean.to_csv(OUT + "demo_fictional_screening_clean_96rows.csv", index=False, enc
 # ---- 製造髒資料 ----
 dirty = clean.copy()
 dirty.loc[5, "行政區"] = "F 區"
-dirty.loc[17, "行政區"] = "a區"
-dirty.loc[40, "月份"] = "2025/5"
+dirty.loc[17, "行政區"] = "b區"      # 只改寫法（原為 B區）
+dirty.loc[40, "月份"] = "2025/6"      # 只改格式（原為 2025-06）
 dirty.loc[62, "月份"] = "2025/8"
 for i in (9, 33, 71, 80):
     dirty.loc[i, "篩檢人數"] = None
@@ -51,6 +51,9 @@ assert len(s) == 96
 trap = s.copy()                                   # 沒排除時的結果（教學警訊用）
 ana = s[s["篩檢人數"].notna() & (s["陽性數"] <= s["篩檢人數"])].copy()
 assert len(ana) == 91
+assert not ana.duplicated(["月份", "行政區"]).any(), "分析用資料不得有重複的月份×行政區"
+assert dirty.duplicated().sum() == 3 and dirty["篩檢人數"].isna().sum() == 4
+assert (dirty["陽性數"] > dirty["篩檢人數"]).sum() == 1
 ana = ana.sort_values(["月份", "行政區"]).reset_index(drop=True)
 ana.to_csv(OUT + "demo_fictional_screening_analysis_91rows.csv", index=False, encoding="utf-8-sig")
 
@@ -65,13 +68,14 @@ def by_district(df):
     out = []
     for k, v in g.iterrows():
         lo, hi = wilson(int(v.p), int(v.s))
-        out.append(dict(name=k, screened=int(v.s), positive=int(v.p),
+        out.append(dict(name=k, screened=int(v.s), positive=int(v.p), months=int(df[df["行政區"] == k]["月份"].nunique()),
                         rate=round(v.p / v.s * 100, 2), lo=lo, hi=hi))
     return out
 
 def by_month(df):
     g = df.groupby("月份").agg(s=("篩檢人數", "sum"), p=("陽性數", "sum"))
-    return [dict(name=k, rate=round(v.p / v.s * 100, 2), screened=int(v.s)) for k, v in g.iterrows()]
+    n = df.groupby("月份")["行政區"].nunique()
+    return [dict(name=k, rate=round(v.p / v.s * 100, 2), screened=int(v.s), districts=int(n[k])) for k, v in g.iterrows()]
 
 tot = lambda df: (int(df["篩檢人數"].sum()), int(df["陽性數"].sum()))
 t96, t91 = tot(clean), tot(ana)
@@ -87,5 +91,7 @@ summary = dict(
 open("docs/assets/data.js", "w", encoding="utf-8").write("window.SUMMARY = " + json.dumps(summary, ensure_ascii=False) + ";\n")
 print(json.dumps({k: summary[k] for k in ("total96", "total91", "trap_B")}, ensure_ascii=False))
 for d in summary["districts91"]: print(d)
+print("months/district(clean):", {d["name"]: d["months"] for d in summary["districts91"]})
+print("districts per month:", [m["districts"] for m in summary["months91"]])
 print("month min/max", min(m["screened"] for m in summary["months91"]), max(m["screened"] for m in summary["months91"]))
 print(dirty.dtypes.to_dict())
