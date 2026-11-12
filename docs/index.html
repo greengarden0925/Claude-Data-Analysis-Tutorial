@@ -10,13 +10,13 @@
 <body>
 <header class="top" id="top"><div class="top-in">
 <b>Claude 辦公實戰</b>
-<a href="#plan">課程流程</a><a href="#precheck">課前檢查</a><a href="#code3">看程式碼</a><a href="#c1">第一堂</a><a href="#c2">第二堂</a><a href="#expect">預期結果</a><a href="#skill">做成 Skill</a><a class="opt" href="#backup">備用檔</a><a class="opt" href="#after">課後延伸</a><a class="opt" href="#glossary">名詞小抄</a><a href="instructor.html">講師頁</a>
+<a href="#plan">課程流程</a><a href="#precheck">課前檢查</a><a href="#code3">看程式碼</a><a href="#c1">第一堂</a><a href="#c2">第二堂</a><a href="#expect">預期結果</a><a href="#skill">套用 Skill</a><a class="opt" href="#backup">備用檔</a><a class="opt" href="#after">課後延伸</a><a class="opt" href="#glossary">名詞小抄</a><a href="instructor.html">講師頁</a>
 </div></header>
 
 <main>
 <section class="hero">
 <h1>Claude 辦公實戰：<br>讓資料分析與報告製作更快、更簡單</h1>
-<p>給公共衛生師的兩堂實作課（各 60 分鐘）。從一個小故事出發：先想清楚「為什麼要分析」，再請 AI 建議分析計畫、先給程式碼再執行，最後產出互動報告、分資料夾歸檔，並做成下次能直接用的 skill。</p>
+<p>給公共衛生師的兩堂實作課（各 60 分鐘）。從一個小故事出發：先想清楚「為什麼要分析」，再請 AI 建議分析計畫、先給程式碼再執行，最後產出互動報告、分資料夾歸檔，並學會套用 skill，下次同樣資料直接處理。</p>
 <div class="chips"><span class="chip">⏱ 兩堂 × 60 分鐘</span><span class="chip">👩‍⚕️ 對象：公衛師／衛生行政</span><span class="chip">🧪 全程使用虛構資料</span><span class="chip">📋 提示詞可一鍵複製</span></div>
 <p style="margin-top:16px">
 <a class="btn" href="sample-data/demo_fictional_screening_dirty.csv" download>⬇ 下載示範資料（髒資料）</a>
@@ -29,7 +29,7 @@
 <div class="card stat"><b>第一堂</b><span>故事 → 工作規則 → 體檢清理 → 分析計畫與方法確認</span></div>
 <div class="card stat"><b>第二堂</b><span>描述性 → 推論性統計 → 互動報告 → 歸檔打包</span></div>
 <div class="card stat"><b>先看程式碼</b><span>計算前先看程式碼，抓分析錯誤；確認後才執行</span></div>
-<div class="card stat"><b>做成 Skill</b><span>下次同樣格式的資料，直接照同一套流程處理</span></div>
+<div class="card stat"><b>套用 Skill</b><span>下次同樣格式的資料，直接照同一套流程處理</span></div>
 </section>
 
 <h2 id="plan">課程流程 <small>點方塊跳到該模組</small></h2>
@@ -37,7 +37,7 @@
 <div class="tl" id="tl1"></div>
 <p class="tl-label">第二堂（60 分鐘）：從分析到報告與歸檔</p>
 <div class="tl" id="tl2"></div>
-<p class="lead" style="margin-top:10px;font-size:14px">每模組結尾有「停點」。停點時間到還沒完成，就改用備用檔案或參考範例跟上。時間為估算，請先試教校準。</p>
+<p class="lead" style="margin-top:10px;font-size:14px">重要步驟有「停點」；停點時間到還沒完成，就改用備用檔案或參考範例跟上。時間為估算，請先試教校準。</p>
 
 <h2 id="pre">開始前檢查 <small>請在第一堂前 3 天完成</small></h2>
 <div class="card ck" id="precheck">
@@ -191,16 +191,19 @@
 <div class="mod-body">
 <div class="goal">🎯 目標：把第一堂的成果存好，第二堂接得上；交出可觀察的成果。</div>
 <ol class="steps">
-<li><h4>下載兩個檔案，留給第二堂（2 分鐘）</h4>
-<p>下載 <code>02_清理後資料/分析用資料.csv</code> 與 <code>00_分析計畫/分析計畫.md</code>。第二堂若在同一個對話繼續就不需要；若要開新對話，就上傳這兩個檔案。沒做完的人，第二堂可用 <a href="prebuilt/第二堂起點包.zip" download>第二堂起點包</a>。</p></li>
+<li><h4>先看一眼結果（1 分鐘）</h4>
+<p>打開下方 <a href="#expect">預期結果</a>：第二堂你會算出這張各區篩檢陽性率圖與檢定結果。也看一下「沒排除那 1 列待查資料，B區會變成約 16%」的警訊對照，感受一下清理的重要。</p></li>
+<li><h4>下載檔案，留給第二堂（2 分鐘，一律要做）</h4>
+<p>請 Claude 提供下載：<code>01_原始資料</code> 的 CSV、<code>02_清理後資料</code> 的「分析用資料.csv」與「修正與排除紀錄.csv」、<code>00_分析計畫/分析計畫.md</code>。兩堂課之間對話裡的檔案不一定還在，所以請一律下載。沒做完的人，第二堂可用 <a href="prebuilt/第二堂起點包.zip" download>第二堂起點包</a>。</p></li>
 <li><h4>出口票（4 分鐘）：貼到聊天室或表單，一人一行</h4>
 <ul>
 <li>你寫的 1 個分析問題（例如「各區差異是否超過隨機波動？」）</li>
 <li>修正紀錄中的 1 行：原值 → 處理方式 → 原因</li>
 <li>你在模組 2 用來確認方法的 1 個檢查點</li>
 </ul></li>
-<li><h4>自評與 Q&A（4 分鐘）</h4>
+<li><h4>自評與 Q&A（3 分鐘）</h4>
 <div class="card ck">
+<label><input type="checkbox" data-k="d7"> 我能說出資料上傳前要先處理哪些欄位，以及為什麼要先確認單位規定</label>
 <label><input type="checkbox" data-k="d1"> 我能把主管的一句話，轉成資料能回答的分析問題</label>
 <label><input type="checkbox" data-k="d2"> 我會用「三件事」看程式碼，並知道它不是資安檢查</label>
 <label><input type="checkbox" data-k="d3"> 我能說出至少 1 個確認統計方法的檢查點</label>
@@ -218,16 +221,22 @@
 <div class="goal">🎯 目標：接上第一堂的進度；先看程式碼再執行描述性統計，並驗算 1 個數字。</div>
 <ol class="steps">
 <li><h4>接續（2 分鐘）</h4>
-<p>在同一個對話繼續的人，直接做下一步。要開新對話的人：上傳第一堂下載的兩個檔案（或 <a href="prebuilt/第二堂起點包.zip" download>第二堂起點包</a> 裡的檔案），再貼上：</p>
-<div class="prompt" data-copy>我上傳的是第一堂清理好的【虛構】分析用資料（91 列）和分析計畫。背景：主管想知道各區篩檢陽性率差多少、差異是真的還是剛好、資料夠不夠做決定。請沿用工作規則：會讀寫資料或計算的步驟先給程式碼、等我回覆「執行」；程式最上方標【輸入】【寫出】；不改原始檔、數字由程式算；輸出依 00_分析計畫 到 06_報告 的資料夾；最上層放 README.md。請把分析用資料放進 02_清理後資料、分析計畫放進 00_分析計畫，先覆述，還不要分析。</div></li>
+<p>在同一個對話繼續、而且檔案都還在的人，直接做下一步。要開新對話的人：上傳第一堂下載的檔案（或 <a href="prebuilt/第二堂起點包.zip" download>第二堂起點包</a> 解壓縮後的 5 個檔案），再貼上：</p>
+<div class="prompt" data-copy>我上傳的是第一堂的【虛構】資料與成果：原始資料、分析用資料、修正與排除紀錄、分析計畫、報告設定。背景：主管想知道各區篩檢陽性率差多少、差異是真的還是剛好、資料夠不夠做決定。
+請沿用工作規則：
+1. 會讀寫資料或計算的步驟，先給程式碼並用白話說明，等我回覆「執行」；寫計畫文件、建立資料夾、說明架構可以直接做。
+2. 程式最上方集中寫出輸入檔與輸出檔路徑，標註【輸入】【寫出】。
+3. 不改原始檔；數字由程式算出。
+4. 資料夾：00_分析計畫、01_原始資料、02_清理後資料、03_程式碼、04_結果表格、05_圖表、06_報告；最上層放 README.md。
+請把原始資料放進 01_原始資料、分析用資料.csv 與修正與排除紀錄.csv 放進 02_清理後資料、分析計畫與報告設定放進 00_分析計畫，檔名不變。先覆述，還不要分析。</div></li>
 <li><h4>描述性統計：先看程式碼，再回覆「執行」</h4>
 <div class="prompt" data-copy>依分析計畫做描述性統計，程式存成 03_程式碼/02_descriptive.py，先給我看：
-1. 表1_各區描述統計：納入月數、缺的月份、人口數、篩檢人數、粗篩檢率（篩檢人數 ÷ 區人口數；人口數各月相同，不可跨月加總）、陽性數、篩檢陽性率（陽性數合計 ÷ 篩檢人數合計）、95% 信賴區間（Wilson 法）
+1. 表1_各區描述統計：納入月數、缺的月份、人口數、篩檢人數、年化粗篩檢率（篩檢人數合計 ÷ 納入月數 × 12 ÷ 區人口數；人口數不可跨月加總）、陽性數、篩檢陽性率（陽性數合計 ÷ 篩檢人數合計）、95% 信賴區間（Wilson 法）
 2. 表2_全縣每月描述統計；表3_各區每月篩檢陽性率（被排除的月份留空）
 3. 圖1_各區篩檢陽性率：長條同一種顏色、依區代碼排序、含誤差線
 4. 圖2_全縣每月篩檢陽性率：折線圖</div>
 <p>用「三件事」看程式碼，再請 Claude 用白話確認「陽性率是人數加總後再相除，不是平均百分比」，沒問題就回覆「<b>執行</b>」。</p>
-<p class="see">篩檢陽性率：H區 9.46%、E區 8.71% 較高，B區 4.84% 最低（只納入 9 個月）；整體 6.39%。陽性人數最多的是 A區（1,306 人）與 D區（1,282 人）。粗篩檢率約 29–41%。</p>
+<p class="see">篩檢陽性率：H區 9.46%、E區 8.71% 較高，B區 4.84% 最低（只納入 9 個月）；整體 6.39%。陽性人數最多的是 A區（1,306 人）與 D區（1,282 人）。年化粗篩檢率約 35–42%。</p>
 <p><b>人工驗算 1 個數字（必做）：</b>H區 530 ÷ 5,601 ≈ 9.46%。對不上就請 Claude 說明原因。</p></li>
 </ol>
 </div>
@@ -258,7 +267,7 @@
 <p>兩個信賴區間重疊，並不代表兩者沒有差異；要比較兩區，請看「差異本身」的區間或做檢定。H區與E區的區間有重疊，雙比例檢定（未校正）p≈0.13，兩區差異的 95% 信賴區間約 −0.2 至 +1.7 個百分點（Wald 法）；Holm 校正後 p≈0.53。信賴區間只反映抽樣誤差，不含篩檢對象的選擇偏差。</p>
 <ul>
 <li>陽性是初篩結果，不等於確診；本資料沒有複檢、確診或陽性預測值資訊。</li>
-<li>粗篩檢率的分母是區總人口，不是符合篩檢資格的人口，也無法排除重複受檢。</li>
+<li>年化粗篩檢率的分母是區總人口，不是符合篩檢資格的人口，也無法排除重複受檢。</li>
 <li>考慮月份後的模型 φ ≈ 0.63（明顯小於 1）：沒有過度離散，但這是因為示範資料由程式產生、不是逐人抽樣；真實資料遇到時值得追問。</li>
 <li>最近 1–2 個月在實務上可能因通報延遲而偏低，要標示「暫定」並註明資料截止日（示範資料沒有模擬這個現象）。</li>
 <li>1、2、12 月偏高是示範資料中人為加入的季節因子，不是真實現象。</li>
@@ -288,7 +297,7 @@
 <li>卡方檢定 χ² ≈ 260.2；B區只納入 9 個月。</li>
 </ul>
 <p class="see">報告可能顯示在對話右側的面板，也可以到左側選單的 Artifacts 找，或是一個可下載的檔案，依你的畫面而定。</p>
-<div class="note">注意：報告越好看，越容易讓人相信。對不上就請 Claude 說明原因，修到對得上為止。真實資料的報告：只內嵌彙總數字，不要放逐列資料或下載按鈕，並先檢查人數很少的格子。</div></li>
+<div class="note">注意：報告越好看，越容易讓人相信。對不上就請 Claude 說明原因，修到對得上為止。真實資料的報告：只放各區合計，不放逐月細格與下載按鈕（參考範例的程式用設定檔的「只含各區合計」模式做到這點），並先檢查人數很少的格子。</div></li>
 </ol>
 </div>
 </details>
@@ -331,7 +340,7 @@
 <ul>
 <li>你在互動報告上查核的 1 個數字：報告上的值、你自己算的值</li>
 <li>報告裡 1 條實務建議，以及它屬於「可由數據支持」還是「需進一步查證」</li>
-<li>你的成果包樹狀圖中，原始資料放在哪個資料夾</li>
+<li>用一句話寫：「D區對 F區的差異顯著」代表什麼、不代表什麼</li>
 </ul>
 <p class="see">沒辦法使用檔案建立功能的人：改用 <a href="#backup">備用成果檔</a> 回答。</p></li>
 <li><h4>自評與 Q&A（4 分鐘）</h4>
@@ -340,7 +349,7 @@
 <label><input type="checkbox" data-k="d5"> 我做出的報告兼顧摘要與完整數字，建議分成兩類</label>
 <label><input type="checkbox" data-k="d6"> 我只在取得單位核可、確認已去識別化後，才會用真實資料；否則一律用虛構版</label>
 </div>
-<p>下次遇到同樣格式的資料，可以用 <a href="#skill">做成 Skill</a> 直接套用整套流程。</p></li>
+<p><b>講師示範 1 分鐘：</b>打開 <a href="#skill">套用 Skill</a>，看上傳後的畫面與啟動提示詞。下次遇到同樣格式的資料，就能直接套用整套流程。</p></li>
 </ol>
 </div>
 </details>
@@ -357,21 +366,23 @@
 <div class="card"><h3>推論性統計：數字對照</h3><div class="tw"><table id="tinf"></table></div>
 <p class="see" style="margin-top:8px">兩兩比較使用未加連續性校正的 2×2 卡方檢定，再以 Holm 法校正；敏感度分析的離散參數 φ ≤ 1 時用概似比卡方檢定、不縮小不確定性。做法不同時數字會略有差異。</p></div>
 
-<h2 id="skill">做成 Skill：下次同樣資料直接處理 <small>課後</small></h2>
+<h2 id="skill">套用 Skill：下次同樣資料直接處理 <small>課後</small></h2>
 <div class="card">
-<p>把兩堂課的整套流程（工作規則、清理規則、分析計畫、描述與推論統計、互動報告、資料夾歸檔）包成一個 skill。下次上傳同樣格式的資料（欄位有 月份、行政區、人口數、篩檢人數、陽性數），Claude 就會照同一套流程處理。</p>
+<p>我們把兩堂課的整套流程（安全關卡、工作規則、清理規則、分析計畫、描述與推論統計、互動報告、資料夾歸檔）包成一個 skill。下次上傳同樣格式的資料（欄位有 月份、行政區、人口數、篩檢人數、陽性數），Claude 就會照同一套流程處理。</p>
+<div class="warnbox"><b>先讀安全提醒（官方說明）：</b>只安裝信任來源的 skill；即使是同事分享的 skill，啟用前也要先審閱內容。官方指出 skill 的主要風險是提示注入，以及惡意程式碼造成的資料外洩。這個 skill 的內容都公開在 GitHub，可以先 <a href="https://github.com/greengarden0925/Claude-Data-Analysis-Tutorial/tree/main/skill/screening-positivity-analysis">逐一檢視</a>。</div>
 <ol>
-<li>下載 <a href="prebuilt/skill/screening-positivity-analysis.zip" download>screening-positivity-analysis.zip</a>（不用解壓縮）。內容包括 <code>SKILL.md</code>（流程與規則）、<code>scripts/</code>（本課成果包裡驗證過的 5 支程式）、<code>references/</code>（分析計畫範本、解讀規則）、<code>assets/</code>（報告設定與 README 範本）。可以先 <a href="https://github.com/greengarden0925/Claude-Data-Analysis-Tutorial/tree/main/skill/screening-positivity-analysis">在 GitHub 上看內容</a>。</li>
-<li>到 Claude 的 Skills 設定（官方說明寫在 Settings → Capabilities，新版畫面也可能在 Customize → Skills，以畫面為準），點「Upload skill」，上傳這個 zip，並確認它是開啟狀態。</li>
+<li>下載 <a href="prebuilt/skill/screening-positivity-analysis.zip" download>screening-positivity-analysis.zip</a>（不用解壓縮）。內容：<code>SKILL.md</code>（流程與規則）、<code>scripts/</code>（5 個步驟程式加 1 個共用工具）、<code>references/</code>（分析計畫範本、解讀規則）、<code>assets/</code>（報告設定與 README 範本）。</li>
+<li>確認已開啟程式執行功能（個人方案：Settings → Capabilities 的「Create and edit files」；Team／Enterprise 由管理員設定）。</li>
+<li>到 Customize → Skills，點「+」→「+ Create skill」→「Upload a skill」，上傳這個 zip，並確認它是開啟狀態。名稱與位置以你的畫面為準。</li>
 <li>下次開新對話，上傳資料後說：</li>
 </ol>
-<div class="prompt" data-copy>請用 screening-positivity-analysis 這個 skill 分析我上傳的篩檢統計。目的：〔用一兩句話寫誰要用、想回答什麼〕。請照 skill 的流程，從確認目的與資料夾開始，每個計算步驟先給程式碼、等我回覆「執行」。</div>
+<div class="prompt" data-copy>請用 screening-positivity-analysis 這個 skill 分析我上傳的篩檢統計。目的：〔用一兩句話寫誰要用、想回答什麼〕。請照 skill 的流程，從安全確認與資料夾開始，每個計算步驟先給程式碼、等我回覆「執行」。</div>
 <ul>
-<li>依官方說明：上傳 skill 需要開啟程式執行功能；可用方案為 Pro、Max、Team、Enterprise；你上傳的 skill 只有自己的帳號看得到。</li>
-<li>欄位名稱不同時，skill 會先列出對應關係請你確認；資料格式差很多時，請先和 Claude 討論是否適用。</li>
-<li>skill 只是流程與程式，不包含任何資料。它照樣遵守「先給程式碼再執行」與資料安全規則，真實資料仍須單位核可。</li>
+<li>依官方說明：Free、Pro、Max、Ultra、Team、Enterprise 方案都能使用自訂 skill，但需要開啟程式執行；上傳的 skill 預設只有自己看得到，Team／Enterprise 可以分享給同事（分享後為唯讀）。</li>
+<li>skill 只有流程與程式，不包含任何資料。它會先確認資料已核可、已去識別化、網路存取已關閉，才開始讀資料；真實資料的報告預設只放各區合計。</li>
+<li>欄位名稱不同時，skill 會先列出對應關係請你確認。</li>
 </ul>
-<p class="see">這個 skill 的程式已用另一份不同區名、跨年份的虛構資料測試過，可以完整跑完 5 個步驟。</p>
+<p class="see">這個 skill 的程式已用 17 份不同狀況的虛構資料測試（例如只有 2 區、各區相同、陽性為 0、人數很少、民國年月份、跨年缺整月、多餘欄位、人口數各月不同）：14 份完整跑完，3 份會用中文說明原因並停止（缺必要欄位、全部陽性為 0、不同寫法合併後同月出現兩筆），沒有程式當掉。尚未在 Claude 上實際上傳試用，請先自己試一次。</p>
 </div>
 
 <h2 id="backup">備用成果檔 <small>無法使用檔案建立功能時，改做「閱讀與查核」</small></h2>
@@ -396,7 +407,7 @@
 </details>
 <details class="card">
 <summary style="cursor:pointer;font-weight:700">Projects 與專案指令</summary>
-<p>點左側的 Projects（或開 claude.ai/projects）→「+ New Project」→ 取名 →「Set project instructions」。同一專案內的不同對話不會自動共用內容，所以規則要寫在專案指令裡。實際介面與限額以你的畫面和官方說明為準。若已上傳 skill，專案指令可以只寫一句「分析篩檢統計時使用 screening-positivity-analysis」。</p>
+<p>點左側的 Projects（或開 claude.ai/projects）→「+ New Project」→ 取名 →「Set project instructions」。同一專案內的不同對話不會自動共用內容，所以規則要寫在專案指令裡。實際介面與限額以你的畫面和官方說明為準。若已上傳 skill，專案指令可以寫一句「分析篩檢統計時使用 screening-positivity-analysis」。</p>
 <div class="note">注意：Project 裡只放 SOP 與提示詞，不放原始或可識別資料。</div>
 </details>
 
@@ -422,9 +433,9 @@
 <tr><td>離散參數 φ</td><td>資料的變異是否符合模型預期。約 1 符合；大於 1 表示變異比預期大，要放大不確定性；明顯小於 1 也值得追問資料怎麼來的。</td></tr>
 <tr><td>信賴區間</td><td>估計值可能的範圍。兩個區間重疊，不代表兩者沒有差異；要比較兩區，請看差異本身的區間或做檢定。</td></tr>
 <tr><td>篩檢陽性率</td><td>陽性數 ÷ 篩檢人數。陽性是初篩結果，不等於確診；只代表「有來篩檢的人」，不等於盛行率。</td></tr>
-<tr><td>粗篩檢率</td><td>篩檢人數 ÷ 區總人口。分母不是符合篩檢資格的人口，也無法排除重複受檢，只能參考。</td></tr>
+<tr><td>年化粗篩檢率</td><td>篩檢人數合計 ÷ 納入月數 × 12 ÷ 區總人口。分母不是符合篩檢資格的人口，也無法排除重複受檢，只能參考。</td></tr>
 <tr><td>去識別化</td><td>拿掉能認出是誰的資訊。但資訊組合起來仍可能認出人，所以不等於可以隨意上傳。</td></tr>
-<tr><td>Skill</td><td>一包「流程說明＋程式＋範本」。上傳後，Claude 遇到同類工作會照同一套做法處理。</td></tr>
+<tr><td>Skill</td><td>一包「流程說明＋程式＋範本」。上傳後，Claude 遇到同類工作會照同一套做法處理。只安裝信任來源的 skill。</td></tr>
 </table></div>
 
 <h2 id="refs">參考來源 <small>本講義查證依據</small></h2>
@@ -432,7 +443,8 @@
 <li><a href="https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude">Create and edit files with Claude（Claude 官方說明）</a>：檔案建立功能、網路存取選項與提示注入風險說明。</li>
 <li><a href="https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them">What are artifacts and how do I use them（Claude 官方說明）</a>：互動頁面需要的功能、預設私人、匯出。</li>
 <li><a href="https://support.claude.com/en/articles/9547008-publishing-and-sharing-artifacts">Publishing and sharing artifacts（Claude 官方說明）</a>：發佈與分享的選項、Team／Enterprise 的附件提醒。</li>
-<li><a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude">Using Skills in Claude（Claude 官方說明）</a>：上傳自訂 skill 的方式與方案。</li>
+<li><a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude">Use skills in Claude（Claude 官方說明）</a>：上傳位置、方案、分享與安全提醒。</li>
+<li><a href="https://support.claude.com/en/articles/12512198-how-to-create-custom-skills">How to create custom skills（Claude 官方說明）</a>：SKILL.md 欄位限制與 zip 結構。</li>
 </ul>
 <p class="see" style="margin-top:6px">統計方法（卡方檢定、Holm 校正、Wilson 信賴區間、二項式邏輯斯迴歸）為一般統計教科書內容，講義的數字由 <a href="prebuilt/analysis_package.html">分析成果包</a> 的程式實際計算。介面名稱與功能請以你當天登入的畫面與官方說明為準。</p></div>
 

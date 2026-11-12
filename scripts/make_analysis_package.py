@@ -65,14 +65,17 @@ stats = {"chi2": round(float(t4["卡方值"]), 1), "dof": int(t4["自由度"]), 
 # 5a 第二堂起點包
 start = REPO / "build_tmp/第二堂起點包"
 shutil.rmtree(start.parent, ignore_errors=True); start.mkdir(parents=True)
-shutil.copy(PKG / "02_清理後資料/分析用資料.csv", start / "分析用資料_91列.csv")
-shutil.copy(PKG / "00_分析計畫/分析計畫.md", start / "分析計畫.md")
+for sub, files in {"00_分析計畫": ["分析計畫.md", "報告設定.json"], "01_原始資料": ["demo_fictional_screening_dirty.csv"],
+                   "02_清理後資料": ["分析用資料.csv", "修正與排除紀錄.csv"]}.items():
+    (start / sub).mkdir()
+    for f in files:
+        shutil.copy(PKG / sub / f, start / sub / f)
 (start / "接續說明.md").write_text("""# 第二堂起點包（虛構資料）
 
 第一堂沒做完、或第二堂要開新對話時使用。
 
-1. 開新對話，上傳這個資料夾裡的 `分析用資料_91列.csv` 與 `分析計畫.md`。
-2. 貼上講義「第二堂・模組 4」的「接續提示詞」（重新講好背景與工作規則）。
+1. 開新對話，上傳這個資料夾裡的 5 個檔案（原始資料、分析用資料、修正與排除紀錄、分析計畫、報告設定）。
+2. 貼上講義「第二堂・模組 4」的「接續提示詞」：它會請 Claude 把檔案放回 00、01、02 資料夾，檔名不變。
 3. 從描述性統計開始。
 
 注意：本資料為電腦隨機產生的虛構資料，甲縣、A–H 區皆為代號。
@@ -92,9 +95,17 @@ zipdir(SKILL, PRE / "skill/screening-positivity-analysis.zip")
 desc = {"00_分析計畫": "分析計畫、報告設定", "01_原始資料": "原始資料（永遠不修改）",
         "02_清理後資料": "分析用資料（91 列）、修正與排除紀錄", "03_程式碼": "依編號順序執行的程式碼（最上方寫明輸入與輸出）",
         "04_結果表格": "表1–表7", "05_圖表": "圖1–圖2", "06_報告": "互動報告、一頁 Word 摘要（課後用）"}
+GH = "https://github.com/greengarden0925/Claude-Data-Analysis-Tutorial/blob/main/docs/prebuilt/analysis_package/" + PKG.name + "/"
+
+
+def link(rel):
+    """.py、.md 連到 GitHub 檔案頁（避免瀏覽器用錯編碼顯示中文）；其他檔案直接下載或開啟。"""
+    return GH + rel if rel.endswith((".py", ".md")) else f"analysis_package/{PKG.name}/{rel}"
+
+
 tree = []
 for d in sorted(p for p in PKG.iterdir() if p.is_dir()):
-    items = "".join(f'<li><a href="analysis_package/{PKG.name}/{d.name}/{f.name}">{f.name}</a></li>'
+    items = "".join(f'<li><a href="{link(d.name + "/" + f.name)}">{f.name}</a></li>'
                     for f in sorted(d.iterdir()) if f.is_file())
     tree.append(f"<li><b>{d.name}/</b>　<span class='m'>{desc.get(d.name, '')}</span><ul>{items}</ul></li>")
 readme_html = markdown.markdown((PKG / "README.md").read_text(encoding="utf-8"), extensions=["tables", "fenced_code"])
@@ -109,10 +120,10 @@ page = f"""<!doctype html>
 <p><a class="btn" href="analysis_package/{PKG.name}.zip" download>⬇ 下載整包（zip）</a>
 <a class="btn alt" href="demo_fictional_interactive_report.html" target="_blank" rel="noopener">▶ 開啟互動報告</a></p>
 <p class="see">若解壓縮後中文檔名變成亂碼，請改用支援 UTF-8 檔名的解壓縮工具。本包含原始與逐列資料：換成真實資料時，傳遞前請依單位規定處理。</p></section>
-<h2 id="tree">資料夾與檔案</h2><div class="card"><ul class="tree">{''.join(tree)}<li><a href="analysis_package/{PKG.name}/README.md">README.md</a>　<span class="m">資料夾說明與執行順序</span></li></ul></div>
+<h2 id="tree">資料夾與檔案</h2><div class="card"><ul class="tree">{''.join(tree)}<li><a href="{link("README.md")}">README.md</a>　<span class="m">資料夾說明與執行順序</span></li></ul></div>
 <h2 id="code">怎麼看程式碼（不用會寫程式）</h2><div class="card">
-<p>打開 <a href="analysis_package/{PKG.name}/03_程式碼/01_clean.py">01_clean.py</a>，只看三件事：</p>
-<ol><li><b>讀哪個檔</b>：最上方標著【輸入】的那幾行。</li><li><b>有沒有改原始檔</b>：標著【寫出】的那幾行，路徑都不是 01_原始資料。</li><li><b>存到哪裡</b>：【寫出】後面的資料夾名稱。</li></ol>
+<p>打開 <a href="{link("03_程式碼/01_clean.py")}">01_clean.py</a>（GitHub 檔案頁），只看三件事：</p>
+<ol><li><b>讀哪個檔</b>：最上方標著【輸入】的那幾行。</li><li><b>有沒有改原始檔</b>：最上方標著【寫出】的那幾行，路徑都不是 01_原始資料。</li><li><b>存到哪裡</b>：【寫出】那幾行的資料夾名稱。</li></ol>
 <p class="see">統計方法對不對，不用從程式碼判斷；請 Claude 用白話回答「這段程式用人數還是百分比做檢定？有沒有做多重比較校正？」</p></div>
 <h2>README</h2><div class="card md tw">{readme_html}</div>
 <h2 id="plan">分析計畫</h2><div class="card md tw">{plan_html}</div>
