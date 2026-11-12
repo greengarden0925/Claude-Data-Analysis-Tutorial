@@ -65,7 +65,7 @@ stats = {"chi2": round(float(t4["卡方值"]), 1), "dof": int(t4["自由度"]), 
 # 5a 第二堂起點包
 start = REPO / "build_tmp/第二堂起點包"
 shutil.rmtree(start.parent, ignore_errors=True); start.mkdir(parents=True)
-for sub, files in {"00_分析計畫": ["分析計畫.md", "報告設定.json"], "01_原始資料": ["demo_fictional_screening_dirty.csv"],
+for sub, files in {"00_分析計畫": ["分析計畫.md"], "01_原始資料": ["demo_fictional_screening_dirty.csv"],
                    "02_清理後資料": ["分析用資料.csv", "修正與排除紀錄.csv"]}.items():
     (start / sub).mkdir()
     for f in files:
@@ -74,7 +74,7 @@ for sub, files in {"00_分析計畫": ["分析計畫.md", "報告設定.json"], 
 
 第一堂沒做完、或第二堂要開新對話時使用。
 
-1. 開新對話，上傳這個資料夾裡的 5 個檔案（原始資料、分析用資料、修正與排除紀錄、分析計畫、報告設定）。
+1. 開新對話，上傳這個資料夾裡的 4 個資料檔（原始資料、分析用資料、修正與排除紀錄、分析計畫）。本說明檔不用上傳。
 2. 貼上講義「第二堂・模組 4」的「接續提示詞」：它會請 Claude 把檔案放回 00、01、02 資料夾，檔名不變。
 3. 從描述性統計開始。
 

@@ -8,7 +8,7 @@ def wilson(x, n, z=1.96):
     d = 1 + z * z / n
     c = (p + z * z / (2 * n)) / d
     h = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
-    return (c - h) * 100, (c + h) * 100
+    return max(0.0, (c - h) * 100), min(100.0, (c + h) * 100)
 
 
 def use_chinese_font():

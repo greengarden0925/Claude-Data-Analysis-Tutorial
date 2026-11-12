@@ -12,9 +12,10 @@
 - `docs/prebuilt/analysis_package.html`：分析成果包瀏覽頁；成果包本體與 zip 在 `docs/prebuilt/analysis_package/`
   - `00_分析計畫`、`01_原始資料`、`02_清理後資料`、`03_程式碼`、`04_結果表格`、`05_圖表`、`06_報告`、`README.md`
   - `03_程式碼` 內是可實際執行的 Python 程式（清理、描述性統計、推論性統計、互動報告、打包）
-- `docs/prebuilt/第二堂起點包.zip`：第二堂接續用（分析用資料、分析計畫、接續說明）
+- `docs/prebuilt/第二堂起點包.zip`：第二堂接續用（4 個資料檔：原始資料、分析用資料、修正與排除紀錄、分析計畫；另有接續說明）
 - `docs/prebuilt/skill/screening-positivity-analysis.zip`：可上傳到 Claude 的 skill
 - `skill/screening-positivity-analysis/`：skill 原始檔（SKILL.md、scripts、references、assets）；scripts 由成果包程式同步
+- `skill/tests/`：skill 壓力測試（23 份不同狀況的虛構資料與執行腳本，`bash skill/tests/run_stress.sh`）
 - `docs/prebuilt/`：其他預先產好的輸出（修正與排除紀錄、長條圖、一頁 Word 摘要）
 - `docs/sample-data/`（全部為虛構資料）：髒資料 99 列、分析用 91 列、汙染前原始 96 列
 - `docs/assets/`：共用樣式、講義用的預先計算結果（data.js、stats.js）

@@ -8,8 +8,8 @@
   1. 完全重複的列只保留一筆
   2. 行政區統一寫法：全形轉半形、刪除中文字旁的空白、其他空白縮成一個、英文字母大寫
   3. 月份統一為 YYYY-MM（可辨識 2025-3、2025/03、2025.3、114/03 民國年）；無法辨識就停止並列出列號
-  4. 篩檢人數缺值、為 0、或數值無法辨識：不補值，排除
-  5. 陽性數 > 篩檢人數、或出現負數：不修改，標記「待查」，排除
+  4. 行政區空白、篩檢人數缺值或為 0：不補值，排除
+  5. 數值無法辨識、不是整數、人口數 ≤ 0、陽性數 > 篩檢人數或出現負數：不修改，標記「待查」，排除
 執行方式（在成果包最上層資料夾）：python 03_程式碼/01_clean.py
 """
 import re
@@ -56,7 +56,14 @@ def parse_month(s):
     return f"{y}-{mm:02d}"
 
 
-raw = pd.read_csv(RAW_FILE, dtype=str, keep_default_na=False)          # 【讀取】原始資料
+for _enc in ("utf-8-sig", "cp950"):                                      # 依序嘗試：UTF-8、台灣 Excel 常見的 Big5
+    try:
+        raw = pd.read_csv(RAW_FILE, dtype=str, keep_default_na=False, encoding=_enc)   # 【讀取】原始資料
+        break
+    except UnicodeDecodeError:
+        raw = None
+if raw is None:
+    sys.exit("【停止】讀不懂這個 CSV 的文字編碼（試過 UTF-8 與 Big5）。請用 Excel 另存成「CSV UTF-8」後再放進 01_原始資料。")
 raw.columns = [norm_text(c) for c in raw.columns]
 missing_cols = [c for c in REQUIRED if c not in raw.columns]
 if missing_cols:
@@ -74,10 +81,15 @@ df = raw.copy()
 bad_month = []
 for i, r in raw.iterrows():
     nd = norm_district(r["行政區"])
+    if nd == "":
+        df.at[i, "行政區"] = ""
+        continue
     if nd != r["行政區"]:
         log.append((r["CSV列號"], r["月份"], r["行政區"], "行政區寫法不一", r["行政區"], f"改為 {nd}", "統一寫法（全形轉半形、去空白、大寫）"))
     df.at[i, "行政區"] = nd
     pm = parse_month(r["月份"])
+    if pm is None and nd == "":
+        pm = r["月份"]
     if pm is None:
         bad_month.append(int(r["CSV列號"]))
     elif pm != r["月份"]:
@@ -90,6 +102,7 @@ if bad_month:
 
 for c in NUM:
     df[c + "_數值"] = pd.to_numeric(df[c].map(lambda v: norm_text(v).replace(",", "")), errors="coerce")
+df["_空區"] = df["行政區"].eq("")
 
 # 完全重複（統一寫法之後仍完全相同的列）
 key_cols = REQUIRED + extra
@@ -102,7 +115,10 @@ print(f"去除重複後：{len(df)} 列")
 exclude = pd.Series(False, index=df.index)
 for i, r in df.iterrows():
     s, p, pop = r["篩檢人數_數值"], r["陽性數_數值"], r["人口數_數值"]
-    if r["篩檢人數"].strip() == "":
+    if r["_空區"]:
+        log.append((r["CSV列號"], r["月份"], "（空白）", "缺值", "行政區空白", "排除，不放入分析用資料", "沒有行政區，無法歸類"))
+        exclude[i] = True
+    elif r["篩檢人數"].strip() == "":
         log.append((r["CSV列號"], r["月份"], r["行政區"], "缺值", "（空白）", "不補值；排除，不放入分析用資料", "篩檢人數缺值，無法計算陽性率"))
         exclude[i] = True
     elif pd.isna(s) or pd.isna(p) or pd.isna(pop):
@@ -111,6 +127,13 @@ for i, r in df.iterrows():
         exclude[i] = True
     elif s == 0:
         log.append((r["CSV列號"], r["月份"], r["行政區"], "篩檢人數為 0", "0", "排除，不放入分析用資料", "沒有受檢者，無法計算陽性率"))
+        exclude[i] = True
+    elif s != int(s) or p != int(p) or pop != int(pop):
+        log.append((r["CSV列號"], r["月份"], r["行政區"], "待查", f"非整數：篩檢 {r['篩檢人數']}／陽性 {r['陽性數']}／人口 {r['人口數']}",
+                    "不修改；標記待查並排除", "人數應為整數，可能是平均值或欄位錯置，應回頭問承辦人"))
+        exclude[i] = True
+    elif pop <= 0:
+        log.append((r["CSV列號"], r["月份"], r["行政區"], "待查", f"人口數 {r['人口數']}", "不修改；標記待查並排除", "人口數應大於 0，應回頭問承辦人"))
         exclude[i] = True
     elif p > s or p < 0 or s < 0:
         log.append((r["CSV列號"], r["月份"], r["行政區"], "待查", f"陽性 {r['陽性數']} > 篩檢 {r['篩檢人數']}" if p > s else "出現負數",
@@ -133,8 +156,9 @@ dupkey = ana.duplicated(["月份", "行政區"], keep=False)
 if dupkey.any():
     k = df[~exclude][df[~exclude].duplicated(["月份", "行政區"], keep=False)]
     merged = {n: sorted(set(raw.loc[raw["CSV列號"].isin(k[k["行政區"] == n]["CSV列號"]), "行政區"])) for n in k["行政區"].unique()}
-    sys.exit("【停止】同一個月份 × 行政區出現多列，可能是不同寫法其實是不同的區，或原始資料重複登錄。\n"
-             + "\n".join(f"  {n}：由這些原始寫法合併而來 → " + "、".join(repr(x) for x in v) for n, v in merged.items())
+    mm = {n: sorted(set(raw.loc[raw["CSV列號"].isin(k[k["行政區"] == n]["CSV列號"]), "月份"])) for n in k["行政區"].unique()}
+    sys.exit("【停止】同一個月份 × 行政區出現多列，可能是不同寫法其實是不同的區、月份寫法不同但其實同一月（例如 114/01 與 2025-01 數值不同），或原始資料重複登錄。\n"
+             + "\n".join(f"  {n}：行政區原始寫法 → " + "、".join(repr(x) for x in v) + "；月份原始寫法 → " + "、".join(repr(x) for x in mm[n][:6]) for n, v in merged.items())
              + "\n請確認後修改原始資料或清理規則。相關 CSV 列號：" + "、".join(map(str, k["CSV列號"].tolist()[:30])))
 if ana.empty or ana["行政區"].nunique() < 2:
     sys.exit("【停止】分析用資料少於 2 個行政區，無法比較各區。")

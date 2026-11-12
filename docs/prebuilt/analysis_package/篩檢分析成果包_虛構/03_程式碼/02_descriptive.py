@@ -82,8 +82,9 @@ fig.text(0.01, 0.01, "誤差線為 95% 信賴區間（Wilson 法）。顏色不�
 fig.tight_layout(rect=(0, .04, 1, 1)); fig.savefig(FIG_DIR / "圖1_各區篩檢陽性率.png"); plt.close(fig)  # 【寫出】
 
 fig, ax = plt.subplots(figsize=(7, 3.6), dpi=150)
-ax.plot(range(len(t2)), t2["篩檢陽性率(%)"], marker="o", color="#0f766e")
-ax.set_xticks(range(len(t2))); ax.set_xticklabels([m[2:] for m in t2["月份"]], rotation=45, fontsize=8)
+t2f = t2.set_index("月份").reindex(all_months)          # 整月沒有資料時留空，折線不連過去
+ax.plot(range(len(t2f)), t2f["篩檢陽性率(%)"], marker="o", color="#0f766e")
+ax.set_xticks(range(len(t2f))); ax.set_xticklabels([m[2:] for m in t2f.index], rotation=45, fontsize=8)
 ax.set_ylim(0, max(1, float(t2["篩檢陽性率(%)"].max()) * 1.3))
 ax.set_title("全縣每月篩檢陽性率" + tag)
 ax.set_xlabel("月份"); ax.set_ylabel("篩檢陽性率（%）")

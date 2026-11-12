@@ -1,8 +1,11 @@
 """步驟 5：檢查資料夾並打包成 zip
 
 檢查 00–06 資料夾與 README.md 是否齊全，印出樹狀圖，並把成果包打包成 zip。
-只打包：00–06 資料夾內常見類型的檔案，以及最上層的 README.md。
-不打包：隱藏檔（. 開頭）、暫存檔（~ 開頭）、捷徑（符號連結）、__pycache__、其他類型的檔案（會列出來給你確認）。
+只打包（各資料夾只收約定好的檔案）：
+  00_分析計畫：.md、.json；01_原始資料：1 個 .csv；02_清理後資料：.csv；03_程式碼：名稱為 01_～05_ 開頭或 _common 的 .py；
+  04_結果表格：.csv；05_圖表：.png；06_報告：.html、.docx；最上層：README.md
+不打包：隱藏檔（. 開頭）、暫存檔（~ 開頭）、捷徑（符號連結）、__pycache__、.xlsx／.txt／.pdf 等其他檔案、不符合上述約定的檔案
+（全部會列出來給你確認；真的需要的話，請自己決定是否另外加進去）。
 提醒：成果包含原始資料與逐列資料；真實資料打包後，請依單位規定存放與傳遞，給主管通常只需要 06_報告。
 執行方式（在成果包最上層資料夾）：python 03_程式碼/05_package.py
 """
@@ -14,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]                 # 【輸入】整個�
 ZIP = ROOT.parent / f"{ROOT.name}.zip"                      # 【寫出】zip 檔（放在成果包的上一層）
 
 FOLDERS = ["00_分析計畫", "01_原始資料", "02_清理後資料", "03_程式碼", "04_結果表格", "05_圖表", "06_報告"]
-OK_EXT = {".md", ".json", ".csv", ".py", ".png", ".html", ".docx", ".xlsx", ".pptx", ".pdf", ".txt"}
+RULES = {"00_分析計畫": {".md", ".json"}, "01_原始資料": {".csv"}, "02_清理後資料": {".csv"}, "03_程式碼": {".py"},
+         "04_結果表格": {".csv"}, "05_圖表": {".png"}, "06_報告": {".html", ".docx"}}
 
 
 def wanted(p: Path):
@@ -23,7 +27,11 @@ def wanted(p: Path):
         return False
     if rel.parts == ("README.md",):
         return True
-    return rel.parts[0] in FOLDERS and p.suffix.lower() in OK_EXT
+    if rel.parts[0] not in RULES or p.suffix.lower() not in RULES[rel.parts[0]] or len(rel.parts) != 2:
+        return False
+    if rel.parts[0] == "03_程式碼":
+        return rel.name[:3] in {f"0{i}_" for i in range(1, 6)} or rel.name == "_common.py"
+    return True
 
 
 missing = [d for d in FOLDERS if not (ROOT / d).is_dir()] + ([] if (ROOT / "README.md").exists() else ["README.md"])
@@ -37,7 +45,12 @@ for p in keep:
     print("    " * (len(rel.parts) - 1) + "    " + "/".join(rel.parts[-1:]) + ("" if len(rel.parts) == 1 else f"    （{rel.parts[0]}）"))
 if skipped:
     print("沒有打包的檔案（請確認是否需要）：" + "、".join(str(p.relative_to(ROOT)) for p in skipped))
+raws = [p for p in keep if p.relative_to(ROOT).parts[0] == "01_原始資料"]
+if len(raws) != 1:
+    print(f"提醒：01_原始資料 裡有 {len(raws)} 個 CSV，約定只放 1 個。")
 with zipfile.ZipFile(ZIP, "w", zipfile.ZIP_DEFLATED) as z:                # 【寫出】zip
     for p in keep:
         z.write(p, Path(ROOT.name) / p.relative_to(ROOT))
-print(f"已打包：{ZIP.name}（{len(keep)} 個檔案）")
+print(f"已打包：{ZIP}（{len(keep)} 個檔案）")
+if ZIP.exists():
+    print("注意：如果同名 zip 原本就存在，已被這次的內容覆蓋。")

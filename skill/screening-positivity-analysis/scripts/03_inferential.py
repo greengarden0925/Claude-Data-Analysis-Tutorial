@@ -6,18 +6,21 @@
   表4_卡方檢定             各區 × 陽性/陰性 的卡方獨立性檢定；最小期望次數 < 5 時另附蒙地卡羅模擬 p 值
   表5_兩兩比較_Holm校正     兩兩比較（期望次數皆 ≥ 5 用卡方，否則用 Fisher 精確檢定），差異 95% CI（Newcombe 法），Holm 校正
   表6_敏感度分析_考慮月份   二項式邏輯斯迴歸（行政區＋月份）；φ ≤ 1 用概似比卡方，φ > 1 用 quasi-F；需要 statsmodels
-  表7_兩兩比較_考慮月份     用上述模型重做兩兩比較（勝算比），Holm 校正
+  表7_兩兩比較_考慮月份     用上述模型重做兩兩比較（勝算比；φ>1 用 t 分配，否則用常態），Holm 校正
 有區的陽性數為 0、或模型無法估計時，表6、表7 會略過並說明原因。
 執行方式（在成果包最上層資料夾）：python 03_程式碼/03_inferential.py
 """
 import itertools
 import math
 import sys
+import warnings
 from pathlib import Path
 import numpy as np
 import pandas as pd
 from scipy import stats
 from _common import newcombe_diff
+
+warnings.filterwarnings("ignore")   # 模型完全分離等情況的英文警告，改由程式用中文說明
 
 # ===== 輸入與輸出：看程式碼時先檢查這裡 =====
 ROOT = Path(__file__).resolve().parents[1]
@@ -137,7 +140,7 @@ else:
             print(t6.to_string(index=False))
 
             params, cov = full.params, full.cov_params() * max(phi, 1.0)
-            names = sorted(d["district"].unique())
+            names = sorted(map(str, d["district"].unique()))
             def coef_vec(name):
                 v = pd.Series(0.0, index=params.index)
                 key = f"C(district)[T.{name}]"
@@ -152,9 +155,11 @@ else:
                     rows.append({"區A": a, "區B": b, "校正月份後勝算比": None, "95%CI下限": None, "95%CI上限": None,
                                  "未校正p值": 1.0, "備註": "無法估計"})
                     continue
-                pv = 2 * stats.norm.sf(abs(est / se))
+                z = est / se
+                pv = 2 * stats.t.sf(abs(z), full.df_resid) if phi > 1 else 2 * stats.norm.sf(abs(z))
+                crit = stats.t.ppf(0.975, full.df_resid) if phi > 1 else 1.96
                 rows.append({"區A": a, "區B": b, "校正月份後勝算比": round(math.exp(est), 3),
-                             "95%CI下限": round(math.exp(est - 1.96 * se), 3), "95%CI上限": round(math.exp(est + 1.96 * se), 3),
+                             "95%CI下限": round(math.exp(est - crit * se), 3), "95%CI上限": round(math.exp(est + crit * se), 3),
                              "未校正p值": pv, "備註": ""})
             t7 = pd.DataFrame(rows)
             t7["Holm校正後p值"] = holm(t7["未校正p值"].tolist())
