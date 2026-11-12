@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>講師頁｜Claude 辦公實戰</title>
+<meta name="description" content="講師備忘：逐分鐘腳本、預期故障與處理、停點判準、助教分工與優化建議。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="top-in">
+<b>講師頁</b>
+<a href="index.html">← 回講義</a><a href="#script">逐分鐘腳本</a><a href="#faults">預期故障</a><a href="#gates">停點判準</a><a href="#decisions">設計取捨</a><a href="#optimize">優化建議</a>
+</div></header>
+<main>
+<section class="hero">
+<h1>講師頁</h1>
+<p>此頁給講師與助教使用，不是學員講義的一部分。時間皆為依步驟內容的估算，<b>請在正式開課前試教一次再校準</b>。</p>
+</section>
+
+<h2 id="script">逐分鐘腳本 <small>共 60 分鐘</small></h2>
+<div class="card tw"><table>
+<tr><th>時間</th><th>模組</th><th>講師做什麼</th><th>學員做什麼</th></tr>
+<tr><td>0–5</td><td>示範</td><td>跑完整流程：上傳 → 體檢 → 確認規則 → 出表 → 驗算（可用預錄影片，避免現場 AI 回應太慢）</td><td>只看</td></tr>
+<tr><td>5–8</td><td>0 安全</td><td>情境題（哪些欄位要先處理）、單位規範、網路存取提醒</td><td>回答情境題</td></tr>
+<tr><td>8–23</td><td>1 清理</td><td>帶做步驟 1–4，停點對答案（91 列）</td><td>上傳、體檢、確認規則、輸出</td></tr>
+<tr><td>23–37</td><td>2 分析</td><td>帶做表與圖、示範驗算、強調判讀陷阱；信賴區間與月趨勢由講師示範，學員課後做</td><td>算各區陽性率、驗算 2 個數字</td></tr>
+<tr><td>37–47</td><td>3 報告</td><td>Word 一頁摘要；2 分鐘挑錯審稿</td><td>產出摘要、檢查數字與資料限制</td></tr>
+<tr><td>47–53</td><td>4 重複使用</td><td>展示專案指令與 SOP（學員不必當場做）</td><td>貼上專案指令</td></tr>
+<tr><td>53–60</td><td>5 出口票</td><td>收出口票、Q&A</td><td>交三樣成果、自評</td></tr>
+</table></div>
+
+<h2 id="faults">預期故障與處理 <small>建議助教帶著這張表巡場</small></h2>
+<div class="card tw"><table>
+<tr><th>狀況</th><th>可能原因</th><th>處理</th></tr>
+<tr><td>找不到「Create and edit files」</td><td>介面名稱或位置不同（舊版叫 Code execution and file creation）；機關帳號由管理員控制</td><td>改看講師示範與預先產好的輸出檔；課後請管理員協助</td></tr>
+<tr><td>上傳失敗或檔案無法讀取</td><td>用 Excel 另存、編碼問題、網路</td><td>重新下載原檔直接上傳；仍失敗改用「分析用 91 列」檔</td></tr>
+<tr><td>Claude 回覆和講義不一樣</td><td>每次回覆文字本來就會不同</td><td>看「問題是否一致」，不要求文字一致</td></tr>
+<tr><td>算出的數字和講義差一點</td><td>沒排除缺值或待查列；新開對話沒有上下文</td><td>檢查是否 91 列；對照「預期結果」兩組數字；B區若異常偏高就是沒排除待查列</td></tr>
+<tr><td>新開對話後 Claude 說沒有資料</td><td>不同對話不共用上下文</td><td>重新上傳「分析用 91 列」</td></tr>
+<tr><td>互動 Dashboard 沒出現</td><td>檔案建立功能未開、方案差異</td><td>列為課後延伸；看側欄 Artifacts</td></tr>
+<tr><td>AI 回應太慢</td><td>尚在等待或流量</td><td>等待時間做驗算或讀判讀提醒；超過 2 分鐘改用解答檔</td></tr>
+</table></div>
+
+<h2 id="gates">停點判準與助教分工</h2>
+<div class="card">
+<ul>
+<li><b>停點判準：</b>請學員在聊天室貼綠色標記、或舉手。多數人完成就往下；落後者超過 2 分鐘，改用「分析用 91 列」檔案跟上，不要為少數人停下全班。</li>
+<li><b>助教分工：</b>1 人負責設定與登入問題，1 人負責上傳與檔案問題；講師只負責主線。人數少於 15 人可由講師兼任。</li>
+<li><b>重跑策略：</b>某步 Claude 回得很怪時，先請學員貼出「你期待什麼」再追問，不要整段重來；整段重來最多一次。</li>
+</ul></div>
+
+<h2 id="decisions">設計取捨 <small>為什麼這樣排</small></h2>
+<div class="card">
+<ul>
+<li><b>為什麼只做 Word 摘要：</b>60 分鐘不夠做三種交付。簡報與互動 Dashboard 放課後延伸。</li>
+<li><b>為什麼信賴區間由講師示範：</b>要避免學員把「點估計高低」當結論，但自己做太耗時。示範一張圖加一句「不能只看點估計」即可。</li>
+<li><b>為什麼用「篩檢陽性率較高」，不用「高風險」：</b>篩檢對象不是隨機抽樣、未做年齡標準化，受檢者陽性率不等於盛行率。</li>
+<li><b>為什麼刻意保留一列會造成 B區 17–18% 的待查資料：</b>讓學員親眼看到沒清理的後果。</li>
+<li><b>尚未做、但可考慮：</b>把題目改成單一主題（例如癌症篩檢），疫苗接種欄位現在沒有被使用，改主題需連動資料與腳本，這次沒動。</li>
+</ul></div>
+
+<h2 id="optimize">優化建議 <small>下一次開課</small></h2>
+<div class="grid g2">
+<div class="card"><h3>🎓 教學設計</h3><ul>
+<li>課前 3 天寄「開始前檢查」連結，登入與設定問題不要佔用課堂時間。</li>
+<li>先示範再跟做，比邊講邊做穩。</li>
+<li>備一份預先產好的輸出（Word、圖、清理檔），給無法使用檔案建立功能的學員做「閱讀與查核」。</li>
+</ul></div>
+<div class="card"><h3>🛡 風險控管</h3><ul>
+<li>一律用虛構或已去識別化資料，並在課前說明單位規範。</li>
+<li>強調「AI 會出錯」：每個模組都有一個人工驗算點。</li>
+<li>AI 工具的介面與功能更新很快，講義上的選單名稱以開課當天畫面為準。</li>
+</ul></div>
+<div class="card"><h3>📈 內容升級</h3><ul>
+<li>換成學員自己業務的虛構版資料（疫苗接種、環境監測、慢性病管理）。</li>
+<li>增加「連做 3 個月」版本，示範 SOP 如何省時。</li>
+<li>進階班：多資料表合併、地圖視覺化、年齡標準化、統計方法選擇。</li>
+</ul></div>
+<div class="card"><h3>🔁 成效追蹤</h3><ul>
+<li>課前／課後各問一題：「做一份月報平均花多久？」</li>
+<li>一週後追蹤：有幾位學員真的在工作上使用？卡在哪？</li>
+<li>收集學員帶來的真實題目（去識別化後），下次改成新範例。</li>
+</ul></div>
+</div>
+
+<footer>本頁為講師內部備忘。示範資料皆為虛構。<a href="index.html">回講義</a></footer>
+</main>
+</body>
+</html>
