@@ -49,8 +49,8 @@ ol.steps h4{margin:2px 0 4px;font-size:16px}
 .see{font-size:14px;color:var(--mute);margin:6px 0 0}
 .see::before{content:"✔ 你會看到：";color:var(--ok);font-weight:700}
 .note{background:var(--warnbg);color:var(--warn);border-radius:8px;padding:8px 12px;font-size:14px;font-weight:700;margin:8px 0}
-.prompt{position:relative;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;padding-right:78px;margin:8px 0;font:14px/1.65 ui-monospace,"Cascadia Code",Menlo,monospace;white-space:pre-wrap;word-break:break-word}
-.copy{position:absolute;right:8px;top:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;padding:3px 10px;font-size:13px;cursor:pointer}
+.prompt{position:relative;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;padding-right:92px;min-height:60px;margin:8px 0;font:14px/1.65 ui-monospace,"Cascadia Code",Menlo,monospace;white-space:pre-wrap;word-break:break-word}
+.copy{position:absolute;right:8px;top:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;padding:8px 14px;min-height:38px;font-size:14px;cursor:pointer}
 .copy:hover{border-color:var(--brand)}
 .copy.done{background:var(--brand);color:var(--card)}
 table{border-collapse:collapse;width:100%;font-size:14.5px}
