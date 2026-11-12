@@ -59,7 +59,7 @@ for yy, d in zip(y, ds): ax.text(d["hi"] + .15, yy, f'{d["rate"]:.2f}%', va="cen
 ax.set_xlabel("篩檢陽性率（%）"); ax.set_xlim(0, 12)
 ax.set_title("各行政區篩檢陽性率（虛構資料，2025 年，學員版 91 列）", fontsize=11)
 ax.spines[["top", "right"]].set_visible(False)
-fig.text(0.01, 0.01, "橫線為 95% 信賴區間（Wilson 法）。B區納入 9 個月、A區與H區 11 個月，其餘 12 個月。篩檢對象非隨機抽樣，未年齡標準化。", fontsize=6.5, color="#5b6675")
+fig.text(0.01, 0.01, "橫線為 95% 信賴區間（Wilson 法）。B區納入 9 個月、A區與H區 11 個月，其餘 12 個月。篩檢對象非隨機抽樣；資料無年齡欄，無法年齡標準化。", fontsize=6.5, color="#5b6675")
 fig.tight_layout(rect=(0, .04, 1, 1)); fig.savefig(OUT + "demo_fictional_positivity_by_district.png"); plt.close(fig)
 
 # ---------- 3. 一頁 Word 摘要 ----------
@@ -80,7 +80,7 @@ def bullet(text):
     p = doc.add_paragraph(style="List Bullet"); p.paragraph_format.space_after = Pt(1)
     font(p.add_run(text), 9.5); return p
 t = para("2025 年度篩檢成果摘要（虛構資料）", 16, True, 4)
-para("篩檢項目：虛構的成人健康篩檢｜對象：30 歲以上成人｜資料期間：2025 年 1–12 月｜資料截止日：2026-01-31｜資料來源：示範資料（虛構，A–H 區為代號）", 8.5, False, 6)
+para("篩檢項目：虛構的成人健康篩檢｜對象：成人（虛構設定，資料無年齡欄）｜資料期間：2025 年 1–12 月｜資料截止日：2026-01-31（虛構設定：12 月已完成通報）｜資料來源：示範資料（虛構，A–H 區為代號）", 8.5, False, 6)
 para("一、重點發現", 11, True, 2)
 bullet(f"篩檢陽性率最高的是 H區（{H['rate']:.2f}%，{H['positive']:,}／{H['screened']:,}）與 E區（{E['rate']:.2f}%），高於整體的 {S['total91']['rate']:.2f}%。")
 bullet(f"H區與 E區的 95% 信賴區間有重疊（{H['lo']:.2f}–{H['hi']:.2f}% 對 {E['lo']:.2f}–{E['hi']:.2f}%），雙比例檢定 p≈0.13，無法確認 H區高於 E區。")
@@ -96,7 +96,7 @@ para("需進一步查證：", 9.5, True, 1)
 bullet("是否調整 H區、E區的篩檢資源：需先了解各區篩檢對象來源、年齡結構與篩檢涵蓋率，目前資料無法回答。")
 para("四、資料限制", 11, True, 2)
 for s in [f"清理後共排除 5 列（4 列篩檢人數缺值、1 列待查），分析用資料 {S['rows_analysis']} 列；各區納入月數不同（B區 9 個月、A區與H區 11 個月，其餘 12 個月）。",
-          "篩檢對象非隨機抽樣，篩檢陽性率不等於區內盛行率；陽性為初篩結果，未含確診；未做年齡標準化。",
+          "篩檢對象非隨機抽樣，篩檢陽性率不等於區內盛行率；陽性為初篩結果，未含確診；資料沒有年齡欄，無法做年齡標準化。",
           "實務上最近 1–2 個月可能因通報延遲偏低，應標示暫定（示範資料未模擬此現象）。",
           "本文件所有資料皆為電腦隨機產生的虛構資料，不代表任何真實地區或個案。"]:
     bullet(s)
