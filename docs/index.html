@@ -10,18 +10,19 @@
 <body>
 <header class="top" id="top"><div class="top-in">
 <b>Claude 辦公實戰</b>
-<a href="#plan">課程流程</a><a href="#precheck">課前檢查</a><a href="#m0">0 安全</a><a href="#m1">1 清理</a><a href="#m2">2 分析</a><a href="#m3">3 報告</a><a class="opt" href="#m4">4 重複使用</a><a href="#m5">5 出口票</a><a href="#expect">預期結果</a><a class="opt" href="#backup">備用檔</a><a class="opt" href="#recipe">提示詞公式</a><a class="opt" href="#glossary">名詞小抄</a><a href="instructor.html">講師頁</a>
+<a href="#plan">課程流程</a><a href="#precheck">課前檢查</a><a href="#m0">0 安全</a><a href="#m1">1 清理</a><a href="#m2">2 分析</a><a href="#m3">3 互動展示</a><a class="opt" href="#m4">4 重複使用</a><a href="#m5">5 出口票</a><a href="#expect">預期結果</a><a class="opt" href="#backup">備用檔</a><a class="opt" href="#recipe">提示詞公式</a><a class="opt" href="#glossary">名詞小抄</a><a href="instructor.html">講師頁</a>
 </div></header>
 
 <main>
 <section class="hero">
 <h1>Claude 辦公實戰：<br>讓資料分析與報告製作更快、更簡單</h1>
-<p>給公共衛生師的 60 分鐘實作課。照著 Step 做、複製提示詞貼上，就能完成「髒資料 → 清理 → 分析 → 一頁摘要」。</p>
+<p>給公共衛生師的 60 分鐘實作課。照著 Step 做、複製提示詞貼上，就能完成「髒資料 → 清理 → 分析 → 互動圖表」。</p>
 <div class="chips"><span class="chip">⏱ 60 分鐘</span><span class="chip">👩‍⚕️ 對象：公衛師／衛生行政</span><span class="chip">🧪 全程使用虛構資料</span><span class="chip">📋 提示詞可一鍵複製</span></div>
 <p style="margin-top:16px">
 <a class="btn" href="sample-data/demo_fictional_screening_dirty.csv" download>⬇ 下載示範資料（髒資料）</a>
 <a class="btn alt" href="sample-data/demo_fictional_screening_analysis_91rows.csv" download>⬇ 分析用 91 列（跟不上時用）</a>
 <a class="btn alt" href="sample-data/demo_fictional_screening_clean_96rows.csv" download>⬇ 汙染前原始 96 列（解答）</a>
+<a class="btn alt" href="prebuilt/demo_fictional_interactive_dashboard.html" target="_blank" rel="noopener">▶ 看互動圖表範例</a>
 </p>
 </section>
 
@@ -29,7 +30,7 @@
 <div class="card stat"><b>6 模組</b><span>安全 → 清理 → 分析 → 報告 → 重複使用 → 出口票</span></div>
 <div class="card stat"><b id="s-rows">99 筆</b><span>示範資料原始列數（含 3 筆重複）</span></div>
 <div class="card stat"><b id="s-ana">91 列</b><span>清理後可用於分析的列數</span></div>
-<div class="card stat"><b>1 份</b><span>課堂成果：給主管的一頁摘要</span></div>
+<div class="card stat"><b>1 個</b><span>課堂成果：可點選的互動圖表</span></div>
 </section>
 
 <h2 id="plan">課程流程 <small>點方塊跳到該模組</small></h2>
@@ -40,7 +41,7 @@
 <div class="card ck" id="precheck">
 <div class="prog"><i id="pbar"></i></div>
 <label><input type="checkbox" data-k="p1"> 已登入 Claude（網頁版 claude.ai 或桌面 App；手機也可，但操作較不方便，建議用電腦）</label>
-<label><input type="checkbox" data-k="p2"> 已開啟檔案建立功能：Settings → Capabilities →「Create and edit files」。舊版畫面可能叫「Code execution and file creation」。手機：點選單中的名字或縮寫進入 Settings 再選 Capabilities。名稱與位置以你的畫面為準；機關帳號可能由管理員控制，找不到請問管理員。</label>
+<label><input type="checkbox" data-k="p2"> 已開啟檔案建立功能：Settings → Capabilities →「Create and edit files」。舊版畫面可能叫「Code execution and file creation」（官方說明指出，互動頁面也需要這項功能開啟）。手機：點選單中的名字或縮寫進入 Settings 再選 Capabilities。名稱與位置以你的畫面為準；機關帳號可能由管理員控制，找不到請問管理員。</label>
 <label><input type="checkbox" data-k="p3"> 已下載 <a href="sample-data/demo_fictional_screening_dirty.csv" download>demo_fictional_screening_dirty.csv</a>，並知道它放在哪個資料夾（不要用 Excel 另存）</label>
 <label><input type="checkbox" data-k="p4"> 已確認所屬單位允許使用外部 AI 工具，並知道本課<strong>只能用虛構或已去識別化資料</strong>（見模組 0）</label>
 <label><input type="checkbox" data-k="p5"> 已想好一個工作上想改善的報表題目（只是構想，不要準備真實資料）</label>
@@ -173,11 +174,48 @@
 
 <!-- M3 -->
 <details class="mod" id="m3" open>
-<summary>模組 3｜報告製作：一頁式摘要 <span class="time">37–47 分</span></summary>
+<summary>模組 3｜成果展示：做成互動圖表 <span class="time">37–47 分</span></summary>
 <div class="mod-body">
-<div class="goal">🎯 目標：用同一份分析，產出一份給主管的一頁 Word 摘要（等待與檢查約 3–5 分鐘）。</div>
+<div class="goal">🎯 目標：把分析結果變成一個可以點選、可以展示給別人看的互動圖表（等待產生與檢查約 5–7 分鐘）。</div>
+<p>先看目標長什麼樣：<a href="prebuilt/demo_fictional_interactive_dashboard.html" target="_blank" rel="noopener">互動圖表參考範例（新分頁開啟）</a>。滑鼠移到長條上（手機點一下）會顯示細節；點長條或用下拉選單可以看該區每月趨勢。你做出來的版本不必和它一模一樣。</p>
 <ol class="steps">
-<li><h4>A. 一頁式 Word 摘要（給主管）</h4>
+<li><h4>做出第一版</h4>
+<p>請在<b>同一個對話</b>繼續（Claude 才看得到分析用資料）。</p>
+<div class="prompt" data-copy>請用分析用資料（91 列），做一個單頁互動圖表（繁體中文，手機也能閱讀）：
+1. 上方三個數字卡：總篩檢人數、總陽性數、整體篩檢陽性率
+2. 各行政區篩檢陽性率長條圖，由高到低；滑鼠移過（手機點一下）顯示該區篩檢人數、陽性數、篩檢陽性率與 95% 信賴區間
+3. 點選長條或用下拉選單選區，下方顯示該區每月篩檢陽性率折線；沒有資料的月份（被排除）留空，不要補值
+4. 頁面最下方固定顯示資料限制：篩檢對象非隨機抽樣、陽性為初篩結果未含確診、未年齡標準化、此為虛構資料
+所有數字都必須由資料計算，不要自己編造。資料直接寫在頁面裡，不要連到外部網站。</div>
+<p class="see">一個可以互動的頁面：三個數字卡、長條圖、下拉選單與折線。它可能顯示在對話旁的視窗，也可能是一個檔案，依你的方案與畫面而定。沒出現時，請確認設定中的檔案建立功能已開（官方說明指出互動頁面需要這項功能），或改看上面的參考範例。</p></li>
+<li><h4>先查核互動頁面的數字（必做）</h4>
+<ul>
+<li>數字卡應該是 107,171、6,850、6.39%。</li>
+<li>點 H區：篩檢人數 5,601、陽性數 530、陽性率 9.46%。</li>
+<li>選 B區：折線有 3 個月是空的，納入 9 個月。</li>
+</ul>
+<div class="note">注意：互動圖表一樣會出錯，而且畫面漂亮更容易讓人相信。對不上就請 Claude 說明原因，修到對得上為止。</div></li>
+<li><h4>微調：一次只改一件事</h4>
+<p>每改一次，都回到上一步重新查核數字。</p>
+<div class="prompt" data-copy>加一個勾選框「顯示 95% 信賴區間」，預設勾選；取消勾選時，長條圖與折線都隱藏誤差線。</div>
+<div class="prompt" data-copy>讓手機寬度也能讀：長條圖文字不要太小，數字卡改成直排。</div>
+<div class="prompt" data-copy>陽性率最高的兩區用紅色，其他用同一種顏色，不要用彩虹色。</div></li>
+<li><h4>存檔與分享：預設先不要分享</h4>
+<ul>
+<li>官方說明：新建立的互動頁面一開始只有你看得到，你按分享之前不會給任何人。</li>
+<li>要存成檔案：看畫面是否有「Export（匯出）」或下載選項；或直接請 Claude 輸出檔案，用瀏覽器雙擊就能開，不需要網路：
+<div class="prompt" data-copy>請把這個互動圖表存成單一 HTML 檔（資料內嵌、不連外部網路），讓我下載。</div></li>
+<li>分享前請先確認：不要選「Anyone with the link（任何有連結的人）」；在 Team 或 Enterprise 分享對話中產生的頁面時，官方提醒檢視者可能也能看到該對話的附件與檔案，要先檢查有沒有敏感內容；一律依單位核可的管道傳遞。</li>
+</ul>
+<div class="note">注意：本課全程是虛構資料，所以可以練習。真實資料請勿發佈或用連結公開分享。</div></li>
+<li><h4>請 Claude 當「挑錯的審稿人」（2 分鐘）</h4>
+<div class="prompt" data-copy>現在請你扮演嚴格的衛生局科長，檢查這個互動圖表：哪些地方可能讓人誤解？有沒有把「相關」寫成「因果」？看圖的人會不會直接把紅色長條當成「高風險區」？請列出最多 5 點並建議修正。</div>
+<p class="see">一份挑錯清單；採納前仍須自己判斷。</p></li>
+</ol>
+<details class="later" style="margin-top:14px">
+<summary style="cursor:pointer;font-weight:700">📚 課後延伸：一頁 Word 摘要與簡報（點開看）</summary>
+<div class="card" style="margin-top:8px">
+<p><b>一頁式 Word 摘要（給主管）</b>　預先產好的範例見<a href="#backup">備用成果檔</a>。</p>
 <div class="prompt" data-copy>請根據以上分析，產出一份 1 頁的 Word 報告「2025 年度篩檢成果摘要（虛構資料）」，結構：
 0. 首行註明：篩檢項目＝虛構的成人健康篩檢、篩檢對象＝30 歲以上成人、資料期間＝2025 年 1–12 月、資料截止日＝2026-01-31、資料來源＝示範資料（虛構）
 1. 重點發現（3 點，每點 1 句，含數字）
@@ -185,20 +223,8 @@
 3. 建議行動，分兩類：「可由數據支持」（只限持續監測、補查待查資料）與「需進一步查證」（例如資源配置）
 4. 資料限制（必寫：排除了幾列；各區納入月數不同；篩檢對象非隨機抽樣、陽性率不等於盛行率；陽性為初篩結果、未含確診；未做年齡標準化；實務上最近月份可能因通報延遲偏低；為虛構資料）
 語氣：給衛生局長官，精簡、不用艱深統計術語。不要使用「高風險」這個詞，改用「篩檢陽性率較高」。</div>
-<p class="see">一個可下載的 .docx；打開後確認數字與圖表和模組 2 一致。</p></li>
-<li><h4>B. 請 Claude 當「挑錯的審稿人」（2 分鐘）</h4>
-<div class="prompt" data-copy>現在請你扮演嚴格的衛生局科長，檢查這份報告：哪些結論證據不足？哪些數字可能被誤解？有沒有把「相關」寫成「因果」？請列出最多 5 點並建議修正。特別檢查「可由數據支持」的建議是否真的只靠這份資料就能支持。</div>
-<p class="see">一份挑錯清單；採納前仍須自己判斷。</p></li>
-</ol>
-<details class="later" style="margin-top:14px">
-<summary style="cursor:pointer;font-weight:700">📚 課後延伸：簡報與互動 Dashboard（點開看）</summary>
-<div class="card" style="margin-top:8px">
 <p><b>簡報（給會議）</b></p>
 <div class="prompt" data-copy>把重點做成 5 頁 PowerPoint：封面、整體概況、篩檢陽性率較高的區域、月趨勢、建議行動。每頁一個訊息，標題要寫結論（例如「H區篩檢陽性率最高」），不要只寫主題。</div>
-<p><b>互動 Dashboard（給團隊共同瀏覽）</b></p>
-<div class="prompt" data-copy>請做一個單頁互動儀表板：上方顯示總篩檢人數、總陽性數、整體篩檢陽性率三個數字卡；下方有行政區下拉選單，選擇後顯示該區每月篩檢陽性率折線；並可點擊長條圖切換區域。繁體中文、手機也能閱讀。</div>
-<p class="see">若沒出現互動頁面：確認檔案建立功能已開，並看側欄的 Artifacts。部分功能依方案而異，以官方說明為準。</p>
-<div class="note">注意：請勿使用公開發布或公開分享連結功能；未經單位核可，不得對外分享。分享前也請確認小人數格子已遮蔽。</div>
 </div>
 </details>
 </div>
@@ -269,8 +295,9 @@
 <div class="card">
 <p>這三份是預先產好的成果（虛構資料），內容與上方「預期結果」一致。拿到後不用自己產生，直接做查核練習：</p>
 <ul>
+<li><a href="prebuilt/demo_fictional_interactive_dashboard.html" target="_blank" rel="noopener">互動圖表範例（HTML）</a>：單一檔案、資料內嵌、不連外部網路，下載後用瀏覽器雙擊就能開。試試點長條、換下拉選單、切換信賴區間。</li>
 <li><a href="prebuilt/demo_fictional_cleaning_log.csv" download>修正與排除紀錄（CSV，12 筆）</a>：找出哪些列被排除、為什麼；有沒有你不同意的處理？</li>
-<li><a href="prebuilt/demo_fictional_positivity_by_district.png" download>各區篩檢陽性率長條圖（PNG）</a>：圖上有哪些資訊不足以支持「H區是高風險區」？</li>
+<li><a href="prebuilt/demo_fictional_positivity_by_district.png" download>各區篩檢陽性率長條圖（PNG）</a>：靜態圖。比一比，互動版多了哪些資訊？圖上有哪些資訊不足以支持「H區是高風險區」？</li>
 <li><a href="prebuilt/demo_fictional_summary_onepage.docx" download>一頁式 Word 摘要（DOCX）</a>：用模組 3 的「挑錯審稿人」想法，自己找出 3 個可以再改進的地方。</li>
 </ul>
 <p class="see">這些是參考範例，不是標準答案。實際用 Claude 產生的內容會略有不同。</p>
@@ -297,6 +324,7 @@
 <tr><td>年齡標準化</td><td>把各區年齡結構調成一樣再比較，避免年輕或高齡人口多寡造成的差異。</td></tr>
 <tr><td>人在迴圈（Human-in-the-loop）</td><td>重要判斷由人決定，AI 只負責執行與提供選項。</td></tr>
 <tr><td>SOP</td><td>標準作業流程：把做法寫成步驟，下次照做。</td></tr>
+<tr><td>互動圖表／HTML 檔</td><td>可以點選、切換的圖表頁面。HTML 檔用瀏覽器就能打開；資料若直接寫在檔案裡，不需要網路也能看。</td></tr>
 <tr><td>pandas</td><td>常用的 Python 資料處理套件。你不用會寫，只要看得出 Claude 用它算出什麼。</td></tr>
 <tr><td>YYYY-MM</td><td>年-月的寫法，例如 2025-04。</td></tr>
 </table></div>
@@ -316,7 +344,7 @@
 (function(){
  var $=function(s){return document.querySelector(s)};
  /* 時間軸 */
- var mods=[["m0","0 示範＋安全",8],["m1","1 清理",15],["m2","2 分析",14],["m3","3 報告",10],["m4","4 重複使用",6],["m5","5 出口票",7]];
+ var mods=[["m0","0 示範＋安全",8],["m1","1 清理",15],["m2","2 分析",14],["m3","3 互動展示",10],["m4","4 重複使用",6],["m5","5 出口票",7]];
  var tl=$("#timeline"),t=0;
  mods.forEach(function(m){var a=document.createElement("a");a.href="#"+m[0];a.style.flex=m[2];
   a.innerHTML="<b>"+m[1]+"</b><span>"+t+"–"+(t+m[2])+" 分</span>";t+=m[2];tl.appendChild(a);
