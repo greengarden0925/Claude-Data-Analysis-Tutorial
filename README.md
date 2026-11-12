@@ -12,7 +12,9 @@
   - `demo_fictional_screening_dirty.csv`：髒資料 99 列（學員上傳用）
   - `demo_fictional_screening_analysis_91rows.csv`：依講義規則清理後的分析用資料 91 列
   - `demo_fictional_screening_clean_96rows.csv`：汙染前的原始 96 列（解答）
+- `docs/prebuilt/`：預先產好的輸出（修正與排除紀錄 CSV、長條圖 PNG、一頁 Word 摘要 DOCX），給無法使用檔案建立功能的學員
 - `scripts/make_sample_data.py`：資料產生腳本（固定亂數種子，可重現）
+- `scripts/make_prebuilt_outputs.py`：預先產好輸出的腳本（需 python-docx、matplotlib）
 - `review/reviewers.md`：教材 AI 審查小組設計（五種審查角色，可重複使用）
 
 ## 本機預覽
