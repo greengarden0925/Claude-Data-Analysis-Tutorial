@@ -17,7 +17,7 @@ main{max-width:1080px;margin:auto;padding:0 16px 64px}
 .chip{background:var(--brand2);color:var(--ink);border-radius:99px;padding:3px 12px;font-size:14px}
 .grid{display:grid;gap:14px}
 .g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
 .stat b{display:block;font-size:30px;line-height:1.2;color:var(--brand)}
 .stat span{color:var(--mute);font-size:14px}
@@ -83,3 +83,6 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 
 body{overflow-wrap:anywhere}
 code{overflow-wrap:anywhere;word-break:break-all}
+
+.tl-label{font-size:14px;color:var(--mute);margin:10px 0 4px;font-weight:700}
+.class-h{margin-top:48px;padding:10px 14px;border-radius:10px;background:var(--brand2)}

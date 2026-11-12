@@ -4,158 +4,166 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Claude 辦公實戰｜公衛師講義 Dashboard</title>
-<meta name="description" content="60 分鐘課程：從一個小故事出發，用 Claude 清理資料、規劃與執行描述性到推論性統計、做互動報告並分資料夾歸檔。Step by step 講義，附虛構示範資料與可複製提示詞。">
+<meta name="description" content="兩堂各 60 分鐘：從一個小故事出發，用 Claude 清理資料、規劃與執行描述性到推論性統計、做互動報告並分資料夾歸檔，最後做成可重複使用的 skill。附虛構示範資料與可複製提示詞。">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <header class="top" id="top"><div class="top-in">
 <b>Claude 辦公實戰</b>
-<a href="#plan">課程流程</a><a href="#precheck">課前檢查</a><a href="#m0">0 故事</a><a href="#m1">1 清理</a><a href="#m2">2 分析計畫</a><a href="#m3">3 執行分析</a><a href="#m4">4 報告歸檔</a><a href="#m5">5 出口票</a><a href="#expect">預期結果</a><a class="opt" href="#backup">備用檔</a><a class="opt" href="#after">課後延伸</a><a class="opt" href="#glossary">名詞小抄</a><a href="instructor.html">講師頁</a>
+<a href="#plan">課程流程</a><a href="#precheck">課前檢查</a><a href="#code3">看程式碼</a><a href="#c1">第一堂</a><a href="#c2">第二堂</a><a href="#expect">預期結果</a><a href="#skill">做成 Skill</a><a class="opt" href="#backup">備用檔</a><a class="opt" href="#after">課後延伸</a><a class="opt" href="#glossary">名詞小抄</a><a href="instructor.html">講師頁</a>
 </div></header>
 
 <main>
 <section class="hero">
 <h1>Claude 辦公實戰：<br>讓資料分析與報告製作更快、更簡單</h1>
-<p>給公共衛生師的 60 分鐘實作課。從一個小故事出發：先想清楚「為什麼要分析」，再請 AI 建議分析計畫、先寫程式碼給你看再執行，最後產出互動報告，並把所有檔案分資料夾歸檔。</p>
-<div class="chips"><span class="chip">⏱ 60 分鐘</span><span class="chip">👩‍⚕️ 對象：公衛師／衛生行政</span><span class="chip">🧪 全程使用虛構資料</span><span class="chip">📋 提示詞可一鍵複製</span></div>
+<p>給公共衛生師的兩堂實作課（各 60 分鐘）。從一個小故事出發：先想清楚「為什麼要分析」，再請 AI 建議分析計畫、先給程式碼再執行，最後產出互動報告、分資料夾歸檔，並做成下次能直接用的 skill。</p>
+<div class="chips"><span class="chip">⏱ 兩堂 × 60 分鐘</span><span class="chip">👩‍⚕️ 對象：公衛師／衛生行政</span><span class="chip">🧪 全程使用虛構資料</span><span class="chip">📋 提示詞可一鍵複製</span></div>
 <p style="margin-top:16px">
 <a class="btn" href="sample-data/demo_fictional_screening_dirty.csv" download>⬇ 下載示範資料（髒資料）</a>
 <a class="btn alt" href="prebuilt/demo_fictional_interactive_report.html" target="_blank" rel="noopener">▶ 看互動報告範例</a>
 <a class="btn alt" href="prebuilt/analysis_package.html">📁 看分析成果包範例</a>
-<a class="btn alt" href="sample-data/demo_fictional_screening_analysis_91rows.csv" download>⬇ 分析用 91 列（跟不上時用）</a>
 </p>
 </section>
 
 <section class="grid g4" aria-label="課程重點數字">
-<div class="card stat"><b>1 個故事</b><span>先知道「為什麼分析」，再決定「怎麼分析」</span></div>
-<div class="card stat"><b>先看程式碼</b><span>每一步 AI 先給程式碼與說明，你確認後才執行</span></div>
-<div class="card stat"><b>描述 → 推論</b><span>各區差多少？差異是真的還是剛好？</span></div>
-<div class="card stat"><b>7 個資料夾</b><span>計畫、原始、清理、程式、表格、圖表、報告</span></div>
+<div class="card stat"><b>第一堂</b><span>故事 → 工作規則 → 體檢清理 → 分析計畫與方法確認</span></div>
+<div class="card stat"><b>第二堂</b><span>描述性 → 推論性統計 → 互動報告 → 歸檔打包</span></div>
+<div class="card stat"><b>先看程式碼</b><span>計算前先看程式碼，抓分析錯誤；確認後才執行</span></div>
+<div class="card stat"><b>做成 Skill</b><span>下次同樣格式的資料，直接照同一套流程處理</span></div>
 </section>
 
 <h2 id="plan">課程流程 <small>點方塊跳到該模組</small></h2>
-<div class="tl" id="timeline"></div>
-<p class="lead" style="margin-top:10px;font-size:14px">每模組結尾有「停點」。落後超過 2 分鐘，直接改用「分析用 91 列」檔案或參考範例跟上。時間為估算，請先試教校準。</p>
+<p class="tl-label">第一堂（60 分鐘）：從故事到分析計畫</p>
+<div class="tl" id="tl1"></div>
+<p class="tl-label">第二堂（60 分鐘）：從分析到報告與歸檔</p>
+<div class="tl" id="tl2"></div>
+<p class="lead" style="margin-top:10px;font-size:14px">每模組結尾有「停點」。停點時間到還沒完成，就改用備用檔案或參考範例跟上。時間為估算，請先試教校準。</p>
 
-<h2 id="pre">開始前檢查 <small>請在開課前 3 天完成</small></h2>
+<h2 id="pre">開始前檢查 <small>請在第一堂前 3 天完成</small></h2>
 <div class="card ck" id="precheck">
 <div class="prog"><i id="pbar"></i></div>
-<label><input type="checkbox" data-k="p1"> 已登入 Claude（網頁版 claude.ai 或桌面 App；手機也可，但操作較不方便，建議用電腦）</label>
-<label><input type="checkbox" data-k="p2"> 已開啟檔案建立功能：Settings → Capabilities →「Create and edit files」。舊版畫面可能叫「Code execution and file creation」（依官方 Artifacts 說明，互動頁面也需要這項功能開啟）。手機：點選單中的名字或縮寫進入 Settings 再選 Capabilities。名稱與位置以你的畫面為準；機關帳號可能由管理員控制，找不到請問管理員。</label>
+<label><input type="checkbox" data-k="p1"> 已登入 Claude（網頁版 claude.ai 或桌面 App；建議用電腦）</label>
+<label><input type="checkbox" data-k="p2"> 已開啟檔案建立功能：Settings → Capabilities →「Create and edit files」。舊版畫面可能叫「Code execution and file creation」（依官方 Artifacts 說明，互動頁面也需要這項功能開啟）。名稱與位置以你的畫面為準；機關帳號可能由管理員控制。</label>
 <label><input type="checkbox" data-k="p3"> 已下載 <a href="sample-data/demo_fictional_screening_dirty.csv" download>demo_fictional_screening_dirty.csv</a>，並知道它放在哪個資料夾（不要用 Excel 另存）</label>
-<label><input type="checkbox" data-k="p4"> 已確認單位規範與設定：單位允許使用外部 AI 工具；本課<strong>只能用虛構或已去識別化資料</strong>（見模組 0）；網路存取設定已檢查（處理非公開資料時關閉，預設值依方案而異）；了解對話與檔案的保存期限、是否用於模型改進（依官方說明與單位政策確認）</label>
-<label><input type="checkbox" data-k="p7"> 已試跑一次：請 Claude「做一個按一下數字就加 1 的簡單互動網頁」，確認能看到並操作（若不行，課堂改用參考範例，並請管理員協助）</label>
+<label><input type="checkbox" data-k="p4"> 已確認單位規範與設定：單位允許使用外部 AI 工具；本課<strong>只能用虛構或已去識別化資料</strong>；網路存取設定已檢查（處理非公開資料時關閉，預設值依方案而異）；了解對話與檔案的保存期限、是否用於模型改進（依官方說明與單位政策確認）</label>
+<label><input type="checkbox" data-k="p7"> 已試跑一次：請 Claude「做一個按一下數字就加 1 的簡單互動網頁」，確認能看到並操作（若不行，第二堂改用參考範例，並請管理員協助）</label>
 <p class="see" style="margin-top:8px" id="pmsg">進度 0 / 5（勾選狀態只存在你這台瀏覽器）</p>
 </div>
 
-<div class="warnbox" style="margin-top:20px"><b>每次貼上提示詞前先確認：</b>內容不含姓名、身分證字號、病歷號、電話、住址。本課資料都是虛構的，但養成習慣，回到工作時才不會出錯。</div>
+<div class="warnbox" style="margin-top:20px"><b>每次貼上提示詞前先確認：</b>內容不含姓名、身分證字號、病歷號、電話、住址；背景說明只寫分析目的，不寫機關名稱、人名或還沒公開的決策。</div>
 
-<h2>逐步操作</h2>
+<h2 id="code3">看程式碼時，只看三件事 <small>全課共用，不用會寫程式</small></h2>
+<div class="card">
+<ol>
+<li><b>讀哪個檔</b>：程式最上方標著【輸入】的那幾行。</li>
+<li><b>有沒有改原始檔</b>：標著【寫出】的路徑，都不是 01_原始資料。</li>
+<li><b>存到哪裡</b>：【寫出】後面的資料夾名稱，是不是你要的那一個。</li>
+</ol>
+<p>統計方法對不對，不用從程式碼判斷，請 Claude 用白話回答：</p>
+<div class="prompt" data-copy>請用白話回答，不要貼程式碼：這段程式讀哪個檔、寫到哪裡？計算用的是人數還是百分比？有沒有做多重比較校正？有沒有可能改到原始檔？</div>
+<div class="note">注意：先看程式碼是為了在數字出來前抓到分析錯誤，<b>不是資安檢查</b>。看得懂不代表安全；安全要靠只用虛構或已核可的資料、關閉不必要的網路存取與連接器，以及在 Claude 的沙箱裡執行。可以看看 <a href="prebuilt/analysis_package.html#code">成果包的程式碼範例</a>。</div>
+</div>
+
+<h2 id="c1" class="class-h">第一堂：從故事到分析計畫（60 分鐘）</h2>
 
 <!-- M0 -->
 <details class="mod" id="m0" open>
-<summary>模組 0｜一個小故事：先想清楚為什麼要分析 <span class="time">0–8 分</span></summary>
+<summary>模組 0｜一個小故事：先想清楚為什麼要分析 <span class="time">0–10 分</span></summary>
 <div class="mod-body">
 <div class="goal">🎯 目標：把主管的一句話，轉成資料能回答的分析問題；並知道什麼資料能交給 AI。</div>
 <ol class="steps">
 <li><h4>小故事（2 分鐘）</h4>
 <div class="card" style="border-left:4px solid var(--brand)">
-<p style="margin-top:0">小安是某縣（虛構）衛生局的公衛師。2026 年 2 月初，科長在週會上說：</p>
+<p style="margin-top:0">小安是甲縣（虛構）衛生局的公衛師。2026 年 2 月初，科長在週會上說：</p>
 <p><b>「明年度的篩檢資源要重新檢討。下週一前，請你用去年各區的篩檢統計告訴我三件事：各區的篩檢陽性率差多少？這些差異是真的，還是只是剛好？這份資料夠不夠拿來做決定？」</b></p>
 <p style="margin-bottom:0">小安打開承辦同仁彙整的檔案，發現有重複的列、行政區寫法不一，還有一列的陽性數比篩檢人數還多……</p>
 </div></li>
-<li><h4>從故事到分析問題（2 分鐘）</h4>
+<li><h4>從故事到分析問題（3 分鐘）</h4>
 <div class="tw"><table>
 <tr><th>科長想知道</th><th>轉成分析問題</th><th>用什麼分析</th><th>資料能回答嗎</th></tr>
-<tr><td>各區差多少？</td><td>各區篩檢陽性率是多少？</td><td>描述性統計：率、95% 信賴區間、圖</td><td>能</td></tr>
+<tr><td>各區差多少？</td><td>各區篩檢陽性率、陽性人數、粗篩檢率是多少？</td><td>描述性統計：率、95% 信賴區間、人數、圖</td><td>能</td></tr>
 <tr><td>是真的還是剛好？</td><td>各區差異是否超過隨機波動？哪幾區之間有差？</td><td>推論性統計：卡方檢定、兩兩比較（多重比較校正）</td><td>能（只限有來篩檢的人）</td></tr>
 <tr><td>（補充）不同月份一樣嗎？</td><td>每月有沒有變化？會不會影響各區比較？</td><td>每月描述＋考慮月份的敏感度分析</td><td>能</td></tr>
-<tr><td>夠不夠拿來做決定？</td><td>資料品質與限制是什麼？</td><td>清理紀錄、排除列數、限制說明</td><td>部分：資源配置還需要其他資料</td></tr>
+<tr><td>夠不夠拿來做決定？</td><td>資料品質如何？決策還缺哪些資訊？</td><td>清理紀錄、限制說明、列出缺少的資料</td><td>部分：能說明品質與限制；資源配置還需要符合資格人口的涵蓋率、篩檢對象來源、確診等資料</td></tr>
 </table></div>
-<p class="see">重點：先有問題，才選方法。資料不能回答的問題（例如原因、盛行率、資源配置效果）要老實說出來。</p></li>
+<p class="see">重點：先有問題，才選方法。資料不能回答的問題（原因、盛行率、資源配置效果）要老實說出來。</p></li>
 <li><h4>先看終點（1 分鐘）</h4>
-<p>打開 <a href="prebuilt/demo_fictional_interactive_report.html" target="_blank" rel="noopener">互動報告範例</a>，看它怎麼回答科長的三個問題；再看 <a href="prebuilt/analysis_package.html">分析成果包範例</a>，看檔案怎麼分資料夾擺放。今天要做出類似的東西。</p></li>
-<li><h4>情境題：下面欄位哪些要先處理再上傳？（1 分鐘）</h4>
+<p>打開 <a href="prebuilt/demo_fictional_interactive_report.html" target="_blank" rel="noopener">互動報告範例</a> 與 <a href="prebuilt/analysis_package.html">分析成果包範例</a>。兩堂課結束時，你會做出類似的東西。</p></li>
+<li><h4>情境題：下面欄位哪些要先處理再上傳？（2 分鐘）</h4>
 <p>姓名、身分證字號、病歷號、住址、就診日期（精確到日）、年齡、性別、行政區。</p>
-<p class="see">答案：姓名、身分證字號、病歷號、住址一定要刪除；精確日期改成月份；年齡改成年齡層；「行政區＋性別＋年齡層＋疾病」組合起來可能只剩 1–2 人，要合併或遮蔽。</p></li>
-<li><h4>先確認單位規範與網路存取（講師口述 1 分鐘）</h4>
+<details class="later"><summary style="cursor:pointer">先想一想，再點開看答案</summary>
+<p class="see">姓名、身分證字號、病歷號、住址一定要刪除；精確日期改成月份；年齡改成年齡層；「行政區＋性別＋年齡層＋疾病」組合起來可能只剩 1–2 人，要合併或遮蔽。</p></details></li>
+<li><h4>單位規範與網路存取（講師口述 2 分鐘）</h4>
 <p>上傳前先確認：單位是否核准使用外部 AI、可用哪種帳號（個人或機關）、資料分級、是否屬於研究案（需依 IRB 核定計畫與同意範圍）。<b>用個人帳號處理公務資料前，須先取得核可。</b>涉及個資法規的部分，請依單位法遵確認。</p>
-<p>Claude 官方說明指出，檔案建立功能在隔離的沙箱中執行，但上傳的內容仍會送到 Anthropic 的伺服器處理；若開啟網路存取，理論上有可能被檔案或網頁中的隱藏指令誘騙，把資料送到外部，關閉網路存取可避免資料送出沙箱，但連接器（MCP）不受這個開關限制。處理非公開資料時，請關閉網路存取、不要啟用不必要的連接器。名稱與選項以官方說明與你的畫面為準。</p></li>
+<p>上傳到 Claude 的內容會離開你的電腦，由雲端服務處理。官方說明指出：檔案建立功能在隔離的沙箱中執行；若開啟網路存取，理論上有可能被檔案或網頁中的隱藏指令誘騙而把資料送出，關閉網路存取可避免資料送出沙箱；連接器（MCP）不受這個開關限制。處理非公開資料時，請關閉網路存取、不要啟用不必要的連接器。名稱與選項以官方說明與你的畫面為準。</p></li>
 </ol>
 <details class="later" style="margin-top:12px">
-<summary style="cursor:pointer;font-weight:700">📖 課前閱讀：去識別化與責任（課堂上不講，請自行讀完）</summary>
+<summary style="cursor:pointer;font-weight:700">📖 課前閱讀：去識別化與責任</summary>
 <div class="card" style="margin-top:8px">
-<p><b>去識別化不等於可以隨便上傳。</b>檢查每個格子的人數：人數很少（例如少於 5 人，門檻請依單位規定）的格子要合併或遮蔽。避免同時保留細地區、精確日期、年齡與性別。合併或遮蔽後，也要檢查總計與其他表格能不能反推出被遮蔽的數字。去識別化後仍可能被重新辨識，所以是否可以上傳，仍須經單位同意。</p>
+<p><b>去識別化不等於可以隨便上傳。</b>人數很少（例如少於 5 人，門檻請依單位規定）的格子要合併或遮蔽；避免同時保留細地區、精確日期、年齡與性別；合併或遮蔽後，也要檢查總計與其他表格能不能反推出被遮蔽的數字。是否可以上傳，仍須經單位同意。</p>
 <p><b>AI 的輸出要人工查核，責任在署名者。</b>數字、公式、結論都要抽查。對外報告是否要揭露 AI 輔助，依單位規定；建議保留清理紀錄、程式碼與提示詞，方便日後稽核。</p>
 </div>
 </details>
-<div class="note">注意：本課全程使用電腦隨機產生的虛構資料（A–H 區是代號），故事中的人物與機關也是虛構的。</div>
+<div class="note">注意：本課全程使用電腦隨機產生的虛構資料；甲縣、A–H 區與故事人物皆為虛構。</div>
 </div>
 </details>
 
 <!-- M1 -->
 <details class="mod" id="m1" open>
-<summary>模組 1｜工作規則＋資料體檢與清理（先看程式碼再執行） <span class="time">8–20 分</span></summary>
+<summary>模組 1｜工作規則＋資料體檢與清理 <span class="time">10–32 分</span></summary>
 <div class="mod-body">
-<div class="goal">🎯 目標：一開始就跟 AI 講好目的與規則；用「先看程式碼、再執行」的方式完成體檢與清理，輸出分析用資料 91 列。</div>
+<div class="goal">🎯 目標：一開始就跟 AI 講好目的與規則；用「先看程式碼、再回覆執行」完成體檢與清理，輸出分析用資料 91 列。</div>
 <ol class="steps">
 <li><h4>開新對話，上傳 CSV</h4>
-<p>點對話框左下角的「＋」→ 上傳檔案（選單文字可能是「Add files or photos」），選 <code>demo_fictional_screening_dirty.csv</code>（電腦也可以直接拖曳）。請直接上傳原檔，不要先用 Excel 開啟再另存。</p>
-<p class="see">對話框出現檔名縮圖。</p></li>
-<li><h4>先講好背景與工作規則（整個對話只需要貼一次）</h4>
+<p>點對話框左下角的「＋」→ 上傳檔案（選單文字可能是「Add files or photos」），選 <code>demo_fictional_screening_dirty.csv</code>（電腦也可以直接拖曳）。請直接上傳原檔，不要先用 Excel 開啟再另存。</p></li>
+<li><h4>先講好背景與工作規則（整個對話只貼一次）</h4>
 <div class="prompt" data-copy>我是公衛師，以下是這次分析的背景與工作規則，請在整個對話中遵守。
 
-【背景】我上傳的是【虛構】的 8 個行政區 2025 年月別篩檢統計（欄位：月份、行政區、人口數、篩檢人數、陽性數、疫苗接種人數）。科長想知道三件事：各區篩檢陽性率差多少？這些差異是真的還是只是剛好？這份資料夠不夠拿來做決定？
+【背景】我上傳的是【虛構】的 8 個行政區 2025 年月別篩檢統計（欄位：月份、行政區、人口數、篩檢人數、陽性數、疫苗接種人數）。主管想知道三件事：各區篩檢陽性率差多少？這些差異是真的還是只是剛好？這份資料夠不夠拿來做決定？
 
 【工作規則】
-1. 每一步都先給我 Python 程式碼，並用白話說明每一段在做什麼；先不要執行，等我回覆「執行」才執行。
-2. 不要修改原始檔；所有數字都要由程式從資料算出來，不要自己編。
-3. 所有輸出依下列資料夾存放（名稱照抄）：00_分析計畫、01_原始資料、02_清理後資料、03_程式碼、04_結果表格、05_圖表、06_報告。程式碼也要存成檔案放進 03_程式碼，檔名用 01_、02_ 開頭照順序排；表格用「表1_」、圖用「圖1_」開頭。
-4. 最上層放一個 README.md，說明每個資料夾放什麼、程式的執行順序。
+1. 會讀寫資料或計算的步驟，先給我 Python 程式碼並用白話說明，等我回覆「執行」才執行。寫計畫文件、建立資料夾、說明架構可以直接做。
+2. 每支程式最上方集中寫出輸入檔與輸出檔路徑，分別標註【輸入】【寫出】。
+3. 不要修改原始檔；所有數字都要由程式從資料算出來，不要自己編。
+4. 輸出依下列資料夾存放（名稱照抄）：00_分析計畫、01_原始資料、02_清理後資料、03_程式碼、04_結果表格、05_圖表、06_報告。程式檔名用 01_、02_ 開頭；表格用「表1_」、圖用「圖1_」開頭。
+5. 最上層放 README.md，說明每個資料夾放什麼、程式執行順序；開頭註明「本包含原始與逐列資料，傳遞前依單位規定處理」。
 
 請先用幾句話覆述你理解的背景與規則，還不要做任何分析。</div>
-<p class="see">Claude 用幾句話覆述背景與規則。之後每一步，它都應該先給程式碼、等你說「執行」。如果它直接執行了，提醒它「請遵守規則 1」。</p></li>
-<li><h4>體檢：先看程式碼，再執行</h4>
+<p class="see">Claude 用幾句話覆述背景與規則。之後凡是要計算，它都應該先給程式碼、等你回覆「執行」。如果它直接執行了，回覆「請遵守規則 1」。</p></li>
+<li><h4>體檢：先看程式碼，再回覆「執行」</h4>
 <div class="prompt" data-copy>第一步：請寫一段「只檢查、不修改」的程式，用表格列出：1. 重複的列 2. 缺值 3. 同一行政區的不同寫法 4. 月份格式不一致 5. 邏輯錯誤（例如陽性數 > 篩檢人數）。每一項附列號與原始值。</div>
-<p><b>看程式碼時，檢查這三件事：</b></p>
-<ul>
-<li>讀的是你上傳的那個檔案。</li>
-<li>只有「讀」和「列出」，沒有寫回或覆蓋原始檔。</li>
-<li>五個檢查項目都有對應的程式碼。</li>
-</ul>
-<p>沒問題就回覆「<b>執行</b>」。</p>
+<p>用上面的「<a href="#code3">三件事</a>」看程式碼，沒問題就回覆「<b>執行</b>」。</p>
 <p class="see">一張問題清單：3 筆重複、4 筆篩檢人數缺值、2 種行政區寫法（「F 區」「b區」）、2 筆月份格式（2025/6、2025/8）、1 筆陽性數大於篩檢人數。回覆文字會略有不同，但問題應一致。</p></li>
 <li><h4>確認清理規則（由你決定，不是 AI），再看程式碼</h4>
-<div class="prompt" data-copy>清理規則如下，請寫成程式（存成 03_程式碼/01_clean.py），先給我看，不要執行：
+<div class="prompt" data-copy>清理規則如下，請寫成程式（存成 03_程式碼/01_clean.py），先給我看：
 1. 完全重複的列只保留一筆
-2. 行政區統一為「X區」格式（去空白、大寫）
+2. 行政區統一寫法（去空白、英文字母大寫）
 3. 月份統一為 YYYY-MM
 4. 篩檢人數缺值：不要補值，也不要放進分析用資料
 5. 陽性數 > 篩檢人數：不要自行修改，標記為「待查」，也不要放進分析用資料（缺值列不算待查）
 輸出：02_清理後資料/分析用資料.csv、02_清理後資料/修正與排除紀錄.csv（列號、欄位、原值、處理方式、原因），並印出處理前後列數。</div>
-<p><b>看程式碼時，檢查：</b>5 條規則都有對應的程式碼；輸出寫到 02_清理後資料，不覆蓋原始檔；有產生修正與排除紀錄。沒問題就回覆「<b>執行</b>」。</p>
+<p>用「三件事」看程式碼，再請 Claude 用白話確認 5 條規則都有做到，沒問題就回覆「<b>執行</b>」。</p>
 <div class="note">小提醒：缺值與邏輯錯誤是專業判斷。真實資料中「陽性數大於篩檢人數」常是欄位定義或登錄問題，應先回頭問承辦人，不要自己猜。</div>
 <p class="see">列數：99 → 去重後 96 → 排除 5 列（4 列缺值＋1 列待查）→ <b>分析用 91 列</b>。</p></li>
-<li><h4>停點：對答案</h4>
-<p>你的分析用資料應該是 91 列，可以和 <a href="sample-data/demo_fictional_screening_analysis_91rows.csv" download>分析用 91 列檔案</a>對照。落後的人直接上傳這個檔案進入模組 2。</p>
-<div class="warnbox"><b>為什麼要排除？</b>那 1 列待查資料（B區 2025-04）陽性數 1,405、篩檢人數 1,285，解答檔中同一列的原值是 61。如果沒有排除它，B區陽性率會飆到約 16%，變成全市最高，結論會完全錯誤。</div></li>
+<li><h4>停點：對答案，並打開修正紀錄看 1 行</h4>
+<p>你的分析用資料應該是 91 列，可以和 <a href="sample-data/demo_fictional_screening_analysis_91rows.csv" download>分析用 91 列檔案</a>對照。也打開「修正與排除紀錄」，找出 1 行看懂它（原值 → 處理方式 → 原因），出口票會用到。</p>
+<div class="warnbox"><b>為什麼要排除？</b>那 1 列待查資料（B區 2025-04）陽性數 1,405、篩檢人數 1,285，解答檔中同一列的原值是 61。如果沒有排除它，B區陽性率會飆到約 16%，變成全縣最高，結論會完全錯誤。</div></li>
 </ol>
 </div>
 </details>
 
 <!-- M2 -->
 <details class="mod" id="m2" open>
-<summary>模組 2｜請 AI 建議分析計畫，並確認方法正確 <span class="time">20–28 分</span></summary>
+<summary>模組 2｜請 AI 建議分析計畫，並確認方法正確 <span class="time">32–50 分</span></summary>
 <div class="mod-body">
-<div class="goal">🎯 目標：讓 AI 依據目的提出「從描述性到推論性」的分析計畫；你用檢查清單確認方法是否正確，再決定要做什麼。</div>
+<div class="goal">🎯 目標：讓 AI 依據目的提出「從描述性到推論性」的分析計畫；你用檢查清單確認方法，再決定要做什麼。</div>
 <ol class="steps">
-<li><h4>請 AI 提出分析計畫（先不要分析）</h4>
+<li><h4>請 AI 提出分析計畫（寫計畫可以直接做）</h4>
 <p>請在<b>同一個對話</b>繼續（在左側對話清單中，點回剛才那一則對話）。</p>
-<div class="prompt" data-copy>請根據背景（科長的三個問題）和清理後的分析用資料，建議一份分析計畫，從描述性統計到推論性統計。請用表格列出：
+<div class="prompt" data-copy>請根據背景（主管的三個問題）和分析用資料，建議一份分析計畫，從描述性統計到推論性統計，直接存成 00_分析計畫/分析計畫.md。請用表格列出：
 分析問題｜方法｜為什麼適合這份資料｜前提假設｜怎麼用資料檢查假設｜結果怎麼解讀
-另外請列出：這份資料「不能」回答哪些問題、還需要哪些資料。
-先不要寫程式，也不要做任何分析。把計畫存成 00_分析計畫/分析計畫.md。</div>
-<p class="see">計畫通常包含：各區篩檢陽性率與信賴區間、每月變化、卡方檢定、兩兩比較加多重比較校正；可能也會建議考慮月份的模型。用詞會不同，可以和 <a href="prebuilt/analysis_package.html#plan">參考分析計畫</a> 對照。</p></li>
+另外列出：這份資料「不能」回答哪些問題、還需要哪些資料。這一步不要做任何計算。</div>
+<p class="see">計畫通常包含：各區篩檢陽性率與信賴區間、陽性人數、每月變化、卡方檢定、兩兩比較加多重比較校正，可能也會建議考慮月份的模型。用詞會不同，可以和 <a href="prebuilt/analysis_package.html#plan">參考分析計畫</a> 對照。</p></li>
 <li><h4>用檢查清單確認方法正確（由你判斷）</h4>
 <div class="card ck" style="margin:6px 0">
 <label><input type="checkbox" data-k="c1"> 每個方法都對應到一個分析問題（沒有「不知道為什麼要做」的分析）</label>
@@ -166,11 +174,11 @@
 <label><input type="checkbox" data-k="c6"> 沒有把「顯著」說成「重要」或「高風險」</label>
 </div></li>
 <li><h4>請 AI 自我審查，修正計畫</h4>
-<div class="prompt" data-copy>請扮演生物統計審查者，用以下六點檢查你剛才的分析計畫：方法是否對應問題、假設是否有用資料檢查的方法、是否處理多重比較、是否考慮月份等資料結構、檢定是否用人數而非百分比、是否把顯著說成重要。指出問題並更新 00_分析計畫/分析計畫.md。</div>
+<div class="prompt" data-copy>請扮演生物統計審查者，用以下六點檢查你剛才的分析計畫：方法是否對應問題、假設是否有用資料檢查的方法、是否處理多重比較、是否考慮月份等資料結構、檢定是否用人數而非百分比、是否把顯著說成重要。也檢查「不能回答的問題」有沒有漏列（例如符合資格人口的涵蓋率、確診、個人層次推論、長期趨勢）。指出問題並更新 00_分析計畫/分析計畫.md。</div>
 <p class="see">一份審查意見與更新後的計畫。採納與否由你決定。</p>
 <details class="later"><summary style="cursor:pointer">重要決策時：再多一層確認（課後讀）</summary>
 <ul>
-<li><b>第二意見：</b>開一個新對話，只貼「分析計畫」（不貼資料），請它評論方法是否合適。不同對話之間不會互相影響。</li>
+<li><b>第二意見：</b>開一個新對話，只貼「分析計畫」（不貼資料），請它評論方法是否合適。</li>
 <li><b>人的專業：</b>重要決策前，請統計專家或查教科書確認方法。查方法時只輸入方法名稱，不要把資料貼到網頁搜尋。</li>
 </ul></details></li>
 </ol>
@@ -179,186 +187,228 @@
 
 <!-- M3 -->
 <details class="mod" id="m3" open>
-<summary>模組 3｜執行分析：描述性 → 推論性（先看程式碼再執行） <span class="time">28–40 分</span></summary>
+<summary>模組 3｜第一堂收尾：存檔與出口票 <span class="time">50–60 分</span></summary>
 <div class="mod-body">
-<div class="goal">🎯 目標：依計畫先做描述性統計、再做推論性統計；每一步先看程式碼、確認後執行，並驗算數字。</div>
+<div class="goal">🎯 目標：把第一堂的成果存好，第二堂接得上；交出可觀察的成果。</div>
 <ol class="steps">
-<li><h4>描述性統計：各區差多少？</h4>
-<div class="prompt" data-copy>依分析計畫做描述性統計，程式存成 03_程式碼/02_descriptive.py，先給我看，不要執行：
-1. 表1_各區描述統計：納入月數、缺的月份、篩檢人數、陽性數、篩檢陽性率（陽性數合計 ÷ 篩檢人數合計）、95% 信賴區間（Wilson 法）
-2. 表2_全市每月描述統計；表3_各區每月篩檢陽性率（被排除的月份留空）
-3. 圖1_各區篩檢陽性率：長條同一種顏色、依區代碼排序、含誤差線
-4. 圖2_全市每月篩檢陽性率：折線圖
-表格存 04_結果表格，圖存 05_圖表。</div>
-<p><b>看程式碼時，檢查：</b>讀的是 02_清理後資料 的檔案；陽性率是「人數加總後再相除」，不是把百分比平均；輸出位置正確。沒問題就回覆「<b>執行</b>」。</p>
-<p class="see">H區 9.46%、E區 8.71% 較高，B區 4.84% 最低（只納入 9 個月）；整體 6.39%。對照下方「預期結果」。</p>
-<p><b>人工驗算 1 個數字（必做）：</b>H區 530 ÷ 5,601 ≈ 9.46%。對不上就請 Claude 說明原因。</p></li>
-<li><h4>推論性統計：差異是真的，還是只是剛好？</h4>
-<div class="prompt" data-copy>依分析計畫做推論性統計，程式存成 03_程式碼/03_inferential.py，先給我看，不要執行：
-1. 表4_卡方檢定：8 區 × 陽性／陰性的卡方獨立性檢定，並報告最小期望次數
-2. 表5_兩兩比較：28 對兩兩比較，用 Holm 法校正多重比較
-3. 表6_敏感度分析：用二項式邏輯斯迴歸（行政區＋月份）檢查考慮月份後結論是否改變，並報告離散參數
-結果存 04_結果表格。每個結果用一句白話解讀，不要把「顯著」說成「重要」或「高風險」。</div>
-<p><b>看程式碼時，檢查：</b>檢定用的是陽性數與陰性數（人數），不是百分比；兩兩比較有做多重比較校正；有印出期望次數。沒問題就回覆「<b>執行</b>」。</p>
-<p class="see">卡方檢定 χ² ≈ 260.2、自由度 7、p &lt; 0.001，最小期望次數 358；28 對中 21 對校正後有差，H區對 E區沒有足夠證據說有差。若 Claude 選了略有不同的做法（例如加了連續性校正），數字會略有差異，請它說明理由。</p></li>
-<li><h4>讀結果前先想：這些數字能說什麼？</h4>
-<div class="warnbox">
-<b>陽性率較高 ≠ 高風險；顯著 ≠ 重要。</b>這是「有來篩檢的人」的初篩陽性率，不是盛行率；篩檢對象不是隨機抽樣，資料也沒有年齡欄、無法做年齡標準化。人數很多時，很小的差異也可能「顯著」：D區對 F區只差 0.83 個百分點就達顯著，E區對 H區差 0.75 個百分點卻沒有足夠證據。要同時看差多少、不確定性有多大。
+<li><h4>下載兩個檔案，留給第二堂（2 分鐘）</h4>
+<p>下載 <code>02_清理後資料/分析用資料.csv</code> 與 <code>00_分析計畫/分析計畫.md</code>。第二堂若在同一個對話繼續就不需要；若要開新對話，就上傳這兩個檔案。沒做完的人，第二堂可用 <a href="prebuilt/第二堂起點包.zip" download>第二堂起點包</a>。</p></li>
+<li><h4>出口票（4 分鐘）：貼到聊天室或表單，一人一行</h4>
+<ul>
+<li>你寫的 1 個分析問題（例如「各區差異是否超過隨機波動？」）</li>
+<li>修正紀錄中的 1 行：原值 → 處理方式 → 原因</li>
+<li>你在模組 2 用來確認方法的 1 個檢查點</li>
+</ul></li>
+<li><h4>自評與 Q&A（4 分鐘）</h4>
+<div class="card ck">
+<label><input type="checkbox" data-k="d1"> 我能把主管的一句話，轉成資料能回答的分析問題</label>
+<label><input type="checkbox" data-k="d2"> 我會用「三件事」看程式碼，並知道它不是資安檢查</label>
+<label><input type="checkbox" data-k="d3"> 我能說出至少 1 個確認統計方法的檢查點</label>
 </div></li>
 </ol>
-<details class="later" style="margin-top:12px">
-<summary style="cursor:pointer;font-weight:700">📚 課後延伸：信賴區間怎麼讀、更多判讀提醒</summary>
-<div class="card" style="margin-top:8px">
-<p>兩個信賴區間重疊，並不代表兩者沒有差異；要比較兩區，請看「差異本身」的區間或做檢定。H區與E區的區間有重疊，雙比例檢定 p≈0.13，兩區差異的 95% 信賴區間約 −0.2 至 +1.7 個百分點（Wald 法）。信賴區間只反映抽樣誤差，不含篩檢對象的選擇偏差。</p>
-<ul>
-<li>陽性是初篩結果，不等於確診；本資料沒有複檢或確診資訊。</li>
-<li>最近 1–2 個月在實務上可能因通報延遲而偏低，要標示「暫定」並註明資料截止日（示範資料沒有模擬這個現象：虛構設定為截止日 2026-01-31 時 12 月資料已完成通報）。</li>
-<li>1、2、12 月偏高是示範資料中人為加入的季節因子，不是真實現象。</li>
-<li>報告建議資源配置時，請「率」和「絕對數」一起呈現。</li>
-</ul>
-</div>
-</details>
 </div>
 </details>
 
+<h2 id="c2" class="class-h">第二堂：從分析到報告與歸檔（60 分鐘）</h2>
+
 <!-- M4 -->
 <details class="mod" id="m4" open>
-<summary>模組 4｜互動報告＋成果歸檔 <span class="time">40–52 分</span></summary>
+<summary>模組 4｜接續＋描述性統計：各區差多少？ <span class="time">0–16 分</span></summary>
 <div class="mod-body">
-<div class="goal">🎯 目標：做出「重點在前、細節收合」的互動報告，兼顧完整數據、易讀、解讀、應用與實務建議；再把所有檔案打包下載。</div>
-<div class="note">時間規則：產生超過 3 分鐘或出錯一次，就改開 <a href="prebuilt/demo_fictional_interactive_report.html" target="_blank" rel="noopener">互動報告範例</a>，改做查核，不再重做。</div>
+<div class="goal">🎯 目標：接上第一堂的進度；先看程式碼再執行描述性統計，並驗算 1 個數字。</div>
 <ol class="steps">
-<li><h4>先看報告結構（1 分鐘）</h4>
-<p>打開 <a href="prebuilt/demo_fictional_interactive_report.html" target="_blank" rel="noopener">互動報告範例</a>，注意它的順序：</p>
-<p><b>目的 → 重點摘要 → 資料概況 → 描述性統計 → 推論性統計 → 如何應用 → 實務建議 → 限制與方法</b></p>
-<p class="see">好讀的關鍵：每張圖下方都有「怎麼解讀」；完整數字表放在可展開區；實務建議分兩類。</p></li>
-<li><h4>產生互動報告（先確認架構）</h4>
-<div class="prompt" data-copy>請把以上結果做成單頁互動報告（繁體中文、手機可讀），存成 06_報告/互動報告.html（單一檔案、資料內嵌、不連外部網路）。重點在前、細節收合，結構如下：
-1. 頁首註記：篩檢項目＝虛構的成人健康篩檢｜對象＝成人（虛構設定，資料無年齡欄）｜資料期間＝2025 年 1–12 月｜資料截止日＝2026-01-31｜虛構資料
-2. 這份報告要回答什麼：科長的三個問題，各標示「已回答」或「部分回答」
-3. 重點摘要：3–4 點，每點一句白話加數字
-4. 資料概況：原始→清理→分析的列數、總篩檢人數、總陽性數、整體篩檢陽性率
-5. 描述性統計：各區長條圖（同色、依區代碼排序、點選看細節）、選區看每月折線（缺的月份標 ×、各區縱軸一致）；完整數字表放在可展開區
-6. 推論性統計：卡方檢定、兩兩比較、敏感度分析，各用一句白話說明「差異是否可能只是剛好」；完整表格放在可展開區
-7. 每張圖、每個檢定下方加「怎麼解讀」：這代表什麼、不代表什麼
-8. 如何應用：誰可以用、在什麼場合、怎麼用
-9. 實務建議分兩類：「可由數據支持」與「需進一步查證（需要哪些資料）」
-10. 資料限制與方法說明放最後，可展開
-不得加入「高風險」「警示」「排名第幾」等詞；所有數字都必須來自 04_結果表格 或由資料計算。先給我頁面架構與重點摘要的文字，我確認後再產生。</div>
-<p><b>確認架構時，檢查：</b>重點摘要的數字和表1、表4 一致；「可由數據支持」的建議只靠這份資料就站得住（例如持續監測、補查資料），資源配置放在「需進一步查證」。沒問題就回覆「<b>產生</b>」。</p>
-<p class="see">互動報告可能顯示在對話右側的面板，也可以到左側選單的 Artifacts 找，或是一個可下載的檔案，依你的畫面而定。</p></li>
-<li><h4>查核互動報告的數字（必做）</h4>
-<ul>
-<li>總篩檢人數 107,171、總陽性數 6,850、整體 6.39%。</li>
-<li>點 H區：篩檢人數 5,601、陽性數 530、陽性率 9.46%。</li>
-<li>卡方檢定 χ² ≈ 260.2；B區只納入 9 個月。</li>
-</ul>
-<div class="note">注意：報告越好看，越容易讓人相信。對不上就請 Claude 說明原因，修到對得上為止。</div></li>
-<li><h4>成果歸檔：檢查資料夾，打包下載</h4>
-<div class="prompt" data-copy>請檢查 00–06 資料夾與 README.md 是否齊全，用樹狀圖列出所有資料夾與檔案；缺的請補上。最後把整個成果打包成一個 zip 讓我下載。</div>
-<p class="see">一張樹狀圖和一個 zip。和 <a href="prebuilt/analysis_package.html">分析成果包範例</a> 對照：計畫、原始、清理、程式、表格、圖表、報告各在自己的資料夾，原始資料沒有被改動。若無法打包，請 Claude 逐一提供下載連結；若解壓縮後中文檔名變亂碼，改用支援 UTF-8 檔名的解壓縮工具。</p>
-<div class="warnbox"><b>必讀兩點（講師口述 30 秒）</b>
-<ul style="margin:6px 0 0">
-<li><b>不要選對外公開、或「知道連結就能看」的選項</b>（官方分享說明頁稱 Anyone with the link）。新建立的頁面預設只有你看得到。</li>
-<li><b>來源不明的 HTML 檔或互動頁面不要開；開了也不要在裡面輸入任何資料。</b>自己請 Claude 產生的檔案，開啟前先問 Claude：「請列出這個檔案所有外部連線，並說明各是什麼」。</li>
-</ul></div>
-<details class="later"><summary style="cursor:pointer">更多分享與檔案安全提醒（課後讀）</summary>
-<ul>
-<li>分享對話中產生的頁面時，檢視者也可能看到該對話的附件與檔案（官方分享說明頁的提醒），分享前先檢查。機關帳號若有「全組織都能看」的選項，內部資料也要先確認能不能用。</li>
-<li>想自己初步檢查 HTML 檔：用記事本（Mac 用「文字編輯」）打開，按 Ctrl+F（Mac 為 ⌘F）搜尋 http、fetch、script src。看到 <code>http://www.w3.org/2000/svg</code> 是圖形格式的宣告，屬正常、不會連線；其他不認得的網址請先問清楚。這只是初步檢查：<b>搜不到不代表一定安全</b>，所以來源不明的檔案仍然不要開。</li>
-<li>別人傳來的互動頁面或 HTML 檔，建議像對待不明寄件者的附件一樣小心：先確認來源再開。</li>
-<li>檔案一旦下載，就脫離平台的分享控制；寄出去也收不回。虛構資料的成品可以練習傳遞；<b>真實資料請先依單位規定，不要放進互動報告</b>，也不要用 Line 或私人信箱傳送。</li>
-<li>停止分享或取消發佈前先看清楚畫面說明：依官方說明，舊版頁面取消發佈後不能再次發佈，相關儲存資料也會刪除。</li>
-<li>本課不連接外部資料來源；之後若要用連接器，請先問管理員（連接器用的是檢視者自己的連線）。</li>
-</ul></details></li>
+<li><h4>接續（2 分鐘）</h4>
+<p>在同一個對話繼續的人，直接做下一步。要開新對話的人：上傳第一堂下載的兩個檔案（或 <a href="prebuilt/第二堂起點包.zip" download>第二堂起點包</a> 裡的檔案），再貼上：</p>
+<div class="prompt" data-copy>我上傳的是第一堂清理好的【虛構】分析用資料（91 列）和分析計畫。背景：主管想知道各區篩檢陽性率差多少、差異是真的還是剛好、資料夠不夠做決定。請沿用工作規則：會讀寫資料或計算的步驟先給程式碼、等我回覆「執行」；程式最上方標【輸入】【寫出】；不改原始檔、數字由程式算；輸出依 00_分析計畫 到 06_報告 的資料夾；最上層放 README.md。請把分析用資料放進 02_清理後資料、分析計畫放進 00_分析計畫，先覆述，還不要分析。</div></li>
+<li><h4>描述性統計：先看程式碼，再回覆「執行」</h4>
+<div class="prompt" data-copy>依分析計畫做描述性統計，程式存成 03_程式碼/02_descriptive.py，先給我看：
+1. 表1_各區描述統計：納入月數、缺的月份、人口數、篩檢人數、粗篩檢率（篩檢人數 ÷ 區人口數；人口數各月相同，不可跨月加總）、陽性數、篩檢陽性率（陽性數合計 ÷ 篩檢人數合計）、95% 信賴區間（Wilson 法）
+2. 表2_全縣每月描述統計；表3_各區每月篩檢陽性率（被排除的月份留空）
+3. 圖1_各區篩檢陽性率：長條同一種顏色、依區代碼排序、含誤差線
+4. 圖2_全縣每月篩檢陽性率：折線圖</div>
+<p>用「三件事」看程式碼，再請 Claude 用白話確認「陽性率是人數加總後再相除，不是平均百分比」，沒問題就回覆「<b>執行</b>」。</p>
+<p class="see">篩檢陽性率：H區 9.46%、E區 8.71% 較高，B區 4.84% 最低（只納入 9 個月）；整體 6.39%。陽性人數最多的是 A區（1,306 人）與 D區（1,282 人）。粗篩檢率約 29–41%。</p>
+<p><b>人工驗算 1 個數字（必做）：</b>H區 530 ÷ 5,601 ≈ 9.46%。對不上就請 Claude 說明原因。</p></li>
 </ol>
 </div>
 </details>
 
 <!-- M5 -->
 <details class="mod" id="m5" open>
-<summary>模組 5｜出口票與 Q&A <span class="time">52–60 分</span></summary>
+<summary>模組 5｜推論性統計：差異是真的，還是只是剛好？ <span class="time">16–30 分</span></summary>
 <div class="mod-body">
-<div class="goal">🎯 目標：離場前交出可觀察的成果，並帶走「明天就能用」的做法。</div>
+<div class="goal">🎯 目標：依計畫做推論性統計，讀懂結果能說什麼、不能說什麼。</div>
+<ol class="steps">
+<li><h4>先看程式碼，再回覆「執行」</h4>
+<div class="prompt" data-copy>依分析計畫做推論性統計，程式存成 03_程式碼/03_inferential.py，先給我看：
+1. 表4_卡方檢定：8 區 × 陽性／陰性的卡方獨立性檢定，並報告最小期望次數
+2. 表5_兩兩比較：28 對兩兩比較，附差異的 95% 信賴區間，用 Holm 法校正多重比較
+3. 表6_敏感度分析：二項式邏輯斯迴歸（行政區＋月份），報告離散參數 φ，檢查考慮月份後結論是否改變；表7 用這個模型重做兩兩比較
+每個結果用一句白話解讀，不要把「顯著」說成「重要」或「高風險」。</div>
+<p>用「三件事」看程式碼，再貼上方的<a href="#code3">白話確認提示詞</a>，確認用的是人數、有做多重比較校正，沒問題就回覆「<b>執行</b>」。</p>
+<p class="see">卡方檢定 χ² ≈ 260.2、自由度 7、p &lt; 0.001，最小期望次數 358；28 對中 21 對校正後有差，H區對 E區沒有足夠證據說有差。考慮月份後整體差異仍在；兩兩比較變成 22 對有差（C區對 G區由「沒有足夠證據」變成「有差」）。若 Claude 選了略有不同的做法，數字會略有差異，請它說明理由。</p></li>
+<li><h4>讀結果前先想：這些數字能說什麼？</h4>
+<div class="warnbox">
+<b>陽性率較高 ≠ 高風險；顯著 ≠ 重要。</b>這是「有來篩檢的人」的初篩陽性率，不是盛行率；篩檢對象不是隨機抽樣，資料也沒有年齡欄、無法做年齡標準化。率最高的是 H區、E區，陽性人數最多的卻是 A區、D區，兩者都要看。人數很多時，很小的差異也可能「顯著」：D區對 F區只差 0.83 個百分點就達顯著，E區對 H區差 0.75 個百分點卻沒有足夠證據。
+</div></li>
+</ol>
+<details class="later" style="margin-top:12px">
+<summary style="cursor:pointer;font-weight:700">📚 課後延伸：信賴區間怎麼讀、更多判讀提醒</summary>
+<div class="card" style="margin-top:8px">
+<p>兩個信賴區間重疊，並不代表兩者沒有差異；要比較兩區，請看「差異本身」的區間或做檢定。H區與E區的區間有重疊，雙比例檢定（未校正）p≈0.13，兩區差異的 95% 信賴區間約 −0.2 至 +1.7 個百分點（Wald 法）；Holm 校正後 p≈0.53。信賴區間只反映抽樣誤差，不含篩檢對象的選擇偏差。</p>
+<ul>
+<li>陽性是初篩結果，不等於確診；本資料沒有複檢、確診或陽性預測值資訊。</li>
+<li>粗篩檢率的分母是區總人口，不是符合篩檢資格的人口，也無法排除重複受檢。</li>
+<li>考慮月份後的模型 φ ≈ 0.63（明顯小於 1）：沒有過度離散，但這是因為示範資料由程式產生、不是逐人抽樣；真實資料遇到時值得追問。</li>
+<li>最近 1–2 個月在實務上可能因通報延遲而偏低，要標示「暫定」並註明資料截止日（示範資料沒有模擬這個現象）。</li>
+<li>1、2、12 月偏高是示範資料中人為加入的季節因子，不是真實現象。</li>
+</ul>
+</div>
+</details>
+</div>
+</details>
+
+<!-- M6 -->
+<details class="mod" id="m6" open>
+<summary>模組 6｜互動報告：重點在前、細節收合 <span class="time">30–44 分</span></summary>
+<div class="mod-body">
+<div class="goal">🎯 目標：做出兼顧完整數據、易讀、解讀、應用與實務建議的互動報告。</div>
+<div class="note">時間規則：產生超過 3 分鐘或出錯一次，就改開 <a href="prebuilt/demo_fictional_interactive_report.html" target="_blank" rel="noopener">互動報告範例</a>，改做查核，不再重做。</div>
+<ol class="steps">
+<li><h4>先看報告結構（1 分鐘）</h4>
+<p>打開 <a href="prebuilt/demo_fictional_interactive_report.html" target="_blank" rel="noopener">互動報告範例</a>：<b>目的 → 重點摘要 → 資料概況 → 描述性統計 → 推論性統計 → 如何應用 → 實務建議 → 限制與方法</b>。每張圖下方有「怎麼解讀」；完整數字表放在可展開區；實務建議分兩類。</p></li>
+<li><h4>第一步：先確認架構與文字</h4>
+<div class="prompt" data-copy>請依分析計畫與 04_結果表格，規劃單頁互動報告（06_報告/互動報告.html，單一檔案、資料內嵌、不連外部網路、手機可讀）。結構：目的 → 重點摘要 → 資料概況 → 描述性統計 → 推論性統計 → 如何應用 → 實務建議（「可由數據支持」與「需進一步查證」兩類）→ 限制與方法；重點在前、完整數字表收在可展開區；每張圖與檢定下方加「怎麼解讀：代表什麼、不代表什麼」。
+先只給我：頁面架構、重點摘要的文字（3–5 點，含數字，率與人數都要有），以及兩類實務建議的文字。不要使用「高風險」「警示」「排名第幾」等詞；建議不要點名特定區有問題。</div>
+<p><b>確認時檢查：</b>重點摘要的數字和表1、表4 一致；有提到陽性人數最多的區；「可由數據支持」只包含這份資料站得住的事（例如每季更新全部區的指標、補查被排除的資料、在彙整流程加入資料品質檢查）；資源配置放在「需進一步查證」，並寫出還需要哪些資料。</p></li>
+<li><h4>第二步：回覆「執行」產生報告，再查核數字（必做）</h4>
+<ul>
+<li>總篩檢人數 107,171、總陽性數 6,850、整體 6.39%。</li>
+<li>點 H區：篩檢人數 5,601、陽性數 530、陽性率 9.46%。</li>
+<li>卡方檢定 χ² ≈ 260.2；B區只納入 9 個月。</li>
+</ul>
+<p class="see">報告可能顯示在對話右側的面板，也可以到左側選單的 Artifacts 找，或是一個可下載的檔案，依你的畫面而定。</p>
+<div class="note">注意：報告越好看，越容易讓人相信。對不上就請 Claude 說明原因，修到對得上為止。真實資料的報告：只內嵌彙總數字，不要放逐列資料或下載按鈕，並先檢查人數很少的格子。</div></li>
+</ol>
+</div>
+</details>
+
+<!-- M7 -->
+<details class="mod" id="m7" open>
+<summary>模組 7｜成果歸檔與分享安全 <span class="time">44–52 分</span></summary>
+<div class="mod-body">
+<div class="goal">🎯 目標：檢查 00–06 資料夾是否齊全、打包下載，並知道分享與開檔的底線。</div>
+<ol class="steps">
+<li><h4>檢查資料夾，打包 zip</h4>
+<div class="prompt" data-copy>請檢查 00–06 資料夾與 README.md 是否齊全，用樹狀圖列出所有資料夾與檔案，缺的請補上。然後寫一段把整個成果打包成 zip 的程式給我看。</div>
+<p>用「三件事」看程式碼，回覆「<b>執行</b>」，下載 zip。</p>
+<p class="see">一張樹狀圖和一個 zip。和 <a href="prebuilt/analysis_package.html">分析成果包範例</a> 對照：各類檔案在自己的資料夾，原始資料沒有被改動，README 開頭有資料敏感性提醒。若無法打包，請 Claude 逐一提供下載連結；若解壓縮後中文檔名變亂碼，改用支援 UTF-8 檔名的解壓縮工具。</p>
+<div class="note">注意：成果包含原始資料與逐列資料。換成真實資料時，下載後存到單位核可的位置、用完刪除；給主管通常只需要 06_報告。</div></li>
+<li><h4>必讀兩點（講師口述 1 分鐘）</h4>
+<div class="warnbox">
+<ul style="margin:6px 0 0">
+<li><b>不要選對外公開、或「知道連結就能看」的選項</b>（官方分享說明頁稱 Anyone with the link）。新建立的頁面預設只有你看得到。</li>
+<li><b>來源不明的 HTML 檔、互動頁面或成果包不要開、不要執行；開了也不要在裡面輸入任何資料。</b>自己請 Claude 產生的檔案，開啟前可以先問：「請列出這個檔案所有外部連線，並說明各是什麼」。</li>
+</ul></div>
+<details class="later"><summary style="cursor:pointer">更多分享與檔案安全提醒（課後讀）</summary>
+<ul>
+<li>官方在 Team／Enterprise 的分享說明中提醒：分享對話中產生的頁面時，檢視者也能看到該對話的附件與檔案。其他方案的說明沒有提到這點，保險起見，分享前都先檢查對話裡有沒有敏感檔案。</li>
+<li>想自己初步檢查 HTML 檔：用記事本（Mac 用「文字編輯」）打開，搜尋 http、fetch、script src。看到 <code>http://www.w3.org/2000/svg</code> 是圖形格式的宣告，屬正常、不會連線。這只是初步檢查：<b>搜不到不代表一定安全</b>。</li>
+<li>成果包裡的程式：建議在 Claude 的沙箱裡重跑；若要在自己電腦執行，只執行自己產生或逐段看過的程式，安裝 Python 前先問單位資訊人員。</li>
+<li>檔案一旦下載就脫離平台的分享控制，寄出去也收不回。真實資料產出的檔案不要用 Line 或私人信箱傳送。</li>
+<li>停止分享或取消發佈前先看清楚畫面說明：依官方說明，舊版頁面取消發佈後不能再次發佈，相關儲存資料也會刪除。</li>
+</ul></details></li>
+</ol>
+</div>
+</details>
+
+<!-- M8 -->
+<details class="mod" id="m8" open>
+<summary>模組 8｜第二堂出口票與 Q&A <span class="time">52–60 分</span></summary>
+<div class="mod-body">
 <ol class="steps">
 <li><h4>出口票（4 分鐘）：貼到聊天室或表單，一人一行</h4>
 <ul>
-<li>修正紀錄中的 1 行：原值 → 處理方式 → 原因，三項齊全才算</li>
-<li>你在互動報告上查核的 1 個數字：報告上的值、你自己算的值（例如 H區 530 ÷ 5,601 = 9.46%）</li>
-<li>你在模組 2 用來確認方法的 1 個檢查點（例如「兩兩比較要做多重比較校正」）</li>
+<li>你在互動報告上查核的 1 個數字：報告上的值、你自己算的值</li>
+<li>報告裡 1 條實務建議，以及它屬於「可由數據支持」還是「需進一步查證」</li>
+<li>你的成果包樹狀圖中，原始資料放在哪個資料夾</li>
 </ul>
-<p class="see">沒辦法使用檔案建立功能的人：改用 <a href="#backup">備用成果檔</a>，指出 1 個可疑的列與原因、1 個你查核的數字。</p></li>
-<li><h4>自評（1 分鐘）</h4>
+<p class="see">沒辦法使用檔案建立功能的人：改用 <a href="#backup">備用成果檔</a> 回答。</p></li>
+<li><h4>自評與 Q&A（4 分鐘）</h4>
 <div class="card ck">
-<label><input type="checkbox" data-k="d1"> 我能把主管的一句話，轉成資料能回答的分析問題</label>
-<label><input type="checkbox" data-k="d2"> 我會請 AI 先給程式碼、確認後再執行，並驗算過數字</label>
-<label><input type="checkbox" data-k="d3"> 我能說出描述性與推論性統計各回答什麼問題，以及至少 1 個確認方法的檢查點</label>
-<label><input type="checkbox" data-k="d4"> 我只在取得單位核可、確認已去識別化後，才會用真實資料；否則一律用虛構版</label>
-</div></li>
-<li><h4>Q&A（3 分鐘）</h4>
-<p>課後想把自己的報表題目做成範例，請先寫一個小故事、轉成分析問題，再用虛構資料做一遍。</p></li>
+<label><input type="checkbox" data-k="d4"> 我能說出描述性與推論性統計各回答什麼問題</label>
+<label><input type="checkbox" data-k="d5"> 我做出的報告兼顧摘要與完整數字，建議分成兩類</label>
+<label><input type="checkbox" data-k="d6"> 我只在取得單位核可、確認已去識別化後，才會用真實資料；否則一律用虛構版</label>
+</div>
+<p>下次遇到同樣格式的資料，可以用 <a href="#skill">做成 Skill</a> 直接套用整套流程。</p></li>
 </ol>
 </div>
 </details>
 
 <h2 id="expect">預期結果 <small>用分析用資料 91 列計算</small></h2>
-<p class="lead">「學員版」是依模組 1 規則清理、排除 5 列後的 91 列；「解答檔」是汙染前的原始 96 列。推論性統計來自 <a href="prebuilt/analysis_package.html">分析成果包</a> 的表4–表6。</p>
+<p class="lead">「學員版」是依清理規則排除 5 列後的 91 列；「解答檔」是汙染前的原始 96 列。推論性統計來自 <a href="prebuilt/analysis_package.html">分析成果包</a> 的表4–表7。</p>
 <div class="grid g2">
 <div class="card"><h3>各區篩檢陽性率（學員版 91 列）</h3><div id="chart-d"><p class="see">圖表需要 JavaScript 與 assets/data.js；若沒有顯示，請看下方數字表。</p></div></div>
-<div class="card"><h3>全市每月篩檢陽性率（學員版）</h3><div id="chart-m"></div></div>
+<div class="card"><h3>全縣每月篩檢陽性率（學員版）</h3><div id="chart-m"></div></div>
 </div>
 <div class="card" style="margin-top:14px"><h3>描述性統計：數字對照</h3><div class="tw"><table id="tbl"></table></div>
 <p class="see" style="margin-top:10px" id="overall"></p>
 <p class="see" id="trap"></p></div>
 <div class="card"><h3>推論性統計：數字對照</h3><div class="tw"><table id="tinf"></table></div>
-<p class="see" style="margin-top:8px">兩兩比較使用未加連續性校正的 2×2 卡方檢定，再以 Holm 法校正；敏感度分析的離散參數 φ 小於 1 時不縮小不確定性。做法不同時數字會略有差異。</p></div>
+<p class="see" style="margin-top:8px">兩兩比較使用未加連續性校正的 2×2 卡方檢定，再以 Holm 法校正；敏感度分析的離散參數 φ ≤ 1 時用概似比卡方檢定、不縮小不確定性。做法不同時數字會略有差異。</p></div>
+
+<h2 id="skill">做成 Skill：下次同樣資料直接處理 <small>課後</small></h2>
+<div class="card">
+<p>把兩堂課的整套流程（工作規則、清理規則、分析計畫、描述與推論統計、互動報告、資料夾歸檔）包成一個 skill。下次上傳同樣格式的資料（欄位有 月份、行政區、人口數、篩檢人數、陽性數），Claude 就會照同一套流程處理。</p>
+<ol>
+<li>下載 <a href="prebuilt/skill/screening-positivity-analysis.zip" download>screening-positivity-analysis.zip</a>（不用解壓縮）。內容包括 <code>SKILL.md</code>（流程與規則）、<code>scripts/</code>（本課成果包裡驗證過的 5 支程式）、<code>references/</code>（分析計畫範本、解讀規則）、<code>assets/</code>（報告設定與 README 範本）。可以先 <a href="https://github.com/greengarden0925/Claude-Data-Analysis-Tutorial/tree/main/skill/screening-positivity-analysis">在 GitHub 上看內容</a>。</li>
+<li>到 Claude 的 Skills 設定（官方說明寫在 Settings → Capabilities，新版畫面也可能在 Customize → Skills，以畫面為準），點「Upload skill」，上傳這個 zip，並確認它是開啟狀態。</li>
+<li>下次開新對話，上傳資料後說：</li>
+</ol>
+<div class="prompt" data-copy>請用 screening-positivity-analysis 這個 skill 分析我上傳的篩檢統計。目的：〔用一兩句話寫誰要用、想回答什麼〕。請照 skill 的流程，從確認目的與資料夾開始，每個計算步驟先給程式碼、等我回覆「執行」。</div>
+<ul>
+<li>依官方說明：上傳 skill 需要開啟程式執行功能；可用方案為 Pro、Max、Team、Enterprise；你上傳的 skill 只有自己的帳號看得到。</li>
+<li>欄位名稱不同時，skill 會先列出對應關係請你確認；資料格式差很多時，請先和 Claude 討論是否適用。</li>
+<li>skill 只是流程與程式，不包含任何資料。它照樣遵守「先給程式碼再執行」與資料安全規則，真實資料仍須單位核可。</li>
+</ul>
+<p class="see">這個 skill 的程式已用另一份不同區名、跨年份的虛構資料測試過，可以完整跑完 5 個步驟。</p>
+</div>
 
 <h2 id="backup">備用成果檔 <small>無法使用檔案建立功能時，改做「閱讀與查核」</small></h2>
 <div class="card">
-<p>以下是預先產好的成果（虛構資料），內容與上方「預期結果」一致：</p>
 <ul>
-<li><a href="prebuilt/demo_fictional_interactive_report.html" target="_blank" rel="noopener">互動報告範例（HTML）</a>：單一檔案、資料內嵌、不連外部網路。試試點長條、換下拉選單、展開完整數字表。</li>
-<li><a href="prebuilt/analysis_package.html">分析成果包範例</a>（可下載 zip）：看 00–06 資料夾怎麼擺；打開 03_程式碼 看「先看程式碼」時該看什麼。</li>
-<li><a href="prebuilt/demo_fictional_cleaning_log.csv" download>修正與排除紀錄（CSV，12 筆）</a>：找出哪些列被排除、為什麼；有沒有你不同意的處理？</li>
-<li><a href="prebuilt/demo_fictional_positivity_by_district.png" download>各區篩檢陽性率長條圖（PNG）</a>：靜態圖。比一比，互動報告多了哪些資訊？</li>
-<li><a href="prebuilt/demo_fictional_summary_onepage.docx" download>一頁式 Word 摘要（DOCX，課後用）</a></li>
+<li><a href="prebuilt/demo_fictional_interactive_report.html" target="_blank" rel="noopener">互動報告範例（HTML）</a>：單一檔案、資料內嵌、不連外部網路。</li>
+<li><a href="prebuilt/analysis_package.html">分析成果包範例</a>（可下載 zip）：看 00–06 資料夾怎麼擺；打開 03_程式碼 練習「三件事」。</li>
+<li><a href="prebuilt/第二堂起點包.zip" download>第二堂起點包（zip）</a>：分析用資料 91 列、分析計畫、接續說明。</li>
+<li><a href="sample-data/demo_fictional_screening_analysis_91rows.csv" download>分析用 91 列（CSV，6 欄）</a>：第一堂跟不上時使用。</li>
+<li><a href="prebuilt/demo_fictional_cleaning_log.csv" download>修正與排除紀錄（CSV，12 筆）</a>、<a href="prebuilt/demo_fictional_positivity_by_district.png" download>長條圖（PNG）</a>、<a href="prebuilt/demo_fictional_summary_onepage.docx" download>一頁 Word 摘要（課後用）</a></li>
 </ul>
 <p class="see">這些是參考範例，不是標準答案。實際用 Claude 產生的內容會略有不同。</p>
 </div>
 
 <h2 id="after">課後延伸</h2>
 <details class="card">
-<summary style="cursor:pointer;font-weight:700">挑錯審稿人、更多報告微調、Word 摘要與簡報</summary>
+<summary style="cursor:pointer;font-weight:700">挑錯審稿人、報告微調、Word 摘要與簡報</summary>
 <div class="prompt" data-copy>現在請你扮演嚴格的衛生局科長，檢查這份互動報告：哪些地方可能讓人誤解？有沒有把「相關」寫成「因果」？看圖的人會不會直接把最長的長條當成「高風險區」？請把報告「能支持的結論」與「不能支持的結論」各列 2 點，並建議修正。</div>
 <div class="prompt" data-copy>讓報告在手機上更好讀：圖表文字不要小於 12px，下拉選單和勾選框要夠大、方便手指點；完整數字表可以左右捲動。</div>
-<div class="prompt" data-copy>請根據以上分析，產出一份 1 頁的 Word 報告「2025 年度篩檢成果摘要（虛構資料）」，存到 06_報告。結構：0. 首行註明篩檢項目、對象、資料期間、資料截止日、資料來源 1. 重點發現（3 點，含數字）2. 各區篩檢陽性率圖表 3. 建議行動分「可由數據支持」與「需進一步查證」4. 資料限制。語氣給長官，精簡、不用艱深術語，不使用「高風險」。</div>
+<div class="prompt" data-copy>請根據以上分析，產出一份 1 頁的 Word 報告，存到 06_報告。結構：0. 首行註明篩檢項目、對象、資料期間、資料截止日、資料來源 1. 重點發現（3 點，含數字，率與人數都要有）2. 各區篩檢陽性率圖表 3. 建議行動分「可由數據支持」與「需進一步查證」4. 資料限制。語氣給長官，精簡、不用艱深術語，不使用「高風險」。</div>
 <div class="prompt" data-copy>把重點做成 5 頁 PowerPoint，存到 06_報告：封面、整體概況、各區差異（描述與推論）、月份變化、建議行動。每頁一個訊息，標題要寫結論，不要只寫主題。</div>
 </details>
 <details class="card">
-<summary style="cursor:pointer;font-weight:700">做成可重複使用：Projects 與專案指令</summary>
-<p>點左側的 Projects（或開 claude.ai/projects）→ 右上角「+ New Project」→ 取名 →「Set project instructions」。同一專案內的不同對話不會自動共用內容，所以規則要寫在專案指令裡。實際介面與限額以你的畫面和官方說明為準。</p>
-<div class="prompt" data-copy>你是公共衛生單位的資料分析助理。規則：
-1. 一律使用繁體中文（台灣用語）
-2. 每一步先給 Python 程式碼與白話說明，等我回覆「執行」才執行
-3. 輸出依 00_分析計畫、01_原始資料、02_清理後資料、03_程式碼、04_結果表格、05_圖表、06_報告 存放，最上層放 README.md
-4. 篩檢陽性率 = 陽性數 ÷ 篩檢人數 × 100%，小數 2 位；檢定用人數，不用百分比
-5. 缺值不補、不猜；邏輯錯誤標記「待查」交給我決定，兩者都先排除分析並說明列數
-6. 分析計畫要從描述性到推論性，寫出前提假設與檢查方法；多組比較要做多重比較校正
-7. 報告結構：目的、重點摘要、資料概況、描述、推論、如何應用、實務建議（分「可由數據支持」與「需進一步查證」）、限制
-8. 不使用「高風險」一詞，只描述數字、不推論因果；所有數字由程式計算，不要自己編</div>
-<div class="note">注意：Project 裡只放 SOP 與提示詞，不放原始或可識別資料。對話與檔案的保存期限、是否用於模型改進，請依官方說明與單位政策確認。</div>
+<summary style="cursor:pointer;font-weight:700">Projects 與專案指令</summary>
+<p>點左側的 Projects（或開 claude.ai/projects）→「+ New Project」→ 取名 →「Set project instructions」。同一專案內的不同對話不會自動共用內容，所以規則要寫在專案指令裡。實際介面與限額以你的畫面和官方說明為準。若已上傳 skill，專案指令可以只寫一句「分析篩檢統計時使用 screening-positivity-analysis」。</p>
+<div class="note">注意：Project 裡只放 SOP 與提示詞，不放原始或可識別資料。</div>
 </details>
 
 <h2 id="recipe">提示詞公式 <small>貼一次就好用</small></h2>
 <div class="card tw"><table>
 <tr><th>要素</th><th>寫什麼</th><th>範例</th></tr>
-<tr><td>① 目的</td><td>為什麼要分析、誰要用</td><td>科長想知道各區差多少、是真的還是剛好</td></tr>
+<tr><td>① 目的</td><td>為什麼要分析、誰要用</td><td>主管想知道各區差多少、是真的還是剛好</td></tr>
 <tr><td>② 任務</td><td>要它做一件具體的事</td><td>算各區篩檢陽性率並做卡方檢定</td></tr>
-<tr><td>③ 規則</td><td>計算方式、缺值怎麼辦、先程式碼後執行</td><td>缺值不補；先給程式碼，我說「執行」才執行</td></tr>
+<tr><td>③ 規則</td><td>計算方式、缺值怎麼辦、先程式碼後執行</td><td>缺值不補；先給程式碼，我回覆「執行」才執行</td></tr>
 <tr><td>④ 格式</td><td>要什麼形式、放哪個資料夾</td><td>表格存 04_結果表格，圖存 05_圖表</td></tr>
-<tr><td>⑤ 檢查</td><td>要它說明依據、讓你能驗算</td><td>列出假設與檢查方法、印出期望次數</td></tr>
+<tr><td>⑤ 檢查</td><td>要它說明依據、讓你能驗算</td><td>用白話說明用人數還是百分比、有沒有校正</td></tr>
 </table></div>
-<p class="lead" style="margin-top:10px">口訣：<b>目的、任務、規則、格式、檢查</b>。做不好時，不要重來，直接指出「哪裡不對、你期待什麼」。</p>
 
 <h2 id="glossary">名詞小抄</h2>
 <div class="card tw"><table>
@@ -369,23 +419,24 @@
 <tr><td>p 值</td><td>如果各組其實都一樣，看到這麼大（或更大）差異的機率。很小代表「不太可能只是剛好」，但不代表差異很大或很重要。</td></tr>
 <tr><td>多重比較校正（Holm 法）</td><td>比較很多對時，偶然看到「有差」的機會會變大；校正就是把標準調嚴一點。</td></tr>
 <tr><td>敏感度分析</td><td>換一種合理的做法再算一次，看結論會不會變。</td></tr>
+<tr><td>離散參數 φ</td><td>資料的變異是否符合模型預期。約 1 符合；大於 1 表示變異比預期大，要放大不確定性；明顯小於 1 也值得追問資料怎麼來的。</td></tr>
 <tr><td>信賴區間</td><td>估計值可能的範圍。兩個區間重疊，不代表兩者沒有差異；要比較兩區，請看差異本身的區間或做檢定。</td></tr>
 <tr><td>篩檢陽性率</td><td>陽性數 ÷ 篩檢人數。陽性是初篩結果，不等於確診；只代表「有來篩檢的人」，不等於盛行率。</td></tr>
+<tr><td>粗篩檢率</td><td>篩檢人數 ÷ 區總人口。分母不是符合篩檢資格的人口，也無法排除重複受檢，只能參考。</td></tr>
 <tr><td>去識別化</td><td>拿掉能認出是誰的資訊。但資訊組合起來仍可能認出人，所以不等於可以隨意上傳。</td></tr>
-<tr><td>年齡標準化</td><td>把各區年齡結構調成一樣再比較。本資料沒有年齡欄，所以做不到。</td></tr>
-<tr><td>互動報告／HTML 檔</td><td>可以點選、展開的報告頁面。HTML 檔用瀏覽器就能打開；資料若直接寫在檔案裡，不需要網路也能看。</td></tr>
-<tr><td>pandas、scipy</td><td>常用的 Python 資料處理與統計套件。你不用會寫，只要看得出程式讀了什麼、算了什麼、存到哪裡。</td></tr>
+<tr><td>Skill</td><td>一包「流程說明＋程式＋範本」。上傳後，Claude 遇到同類工作會照同一套做法處理。</td></tr>
 </table></div>
 
 <h2 id="refs">參考來源 <small>本講義查證依據</small></h2>
 <div class="card"><ul>
-<li><a href="https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude">Create and edit files with Claude（Claude 官方說明）</a>：檔案建立功能、可產出的檔案格式、CSV／TSV 分析、網路存取選項與提示注入風險說明。</li>
-<li><a href="https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them">What are artifacts and how do I use them（Claude 官方說明）</a>：互動頁面（Artifacts）需要的功能、預設私人、匯出。</li>
-<li><a href="https://support.claude.com/en/articles/9547008-publishing-and-sharing-artifacts">Publishing and sharing artifacts（Claude 官方說明）</a>：發佈與分享的選項、權限與連接器限制。</li>
+<li><a href="https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude">Create and edit files with Claude（Claude 官方說明）</a>：檔案建立功能、網路存取選項與提示注入風險說明。</li>
+<li><a href="https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them">What are artifacts and how do I use them（Claude 官方說明）</a>：互動頁面需要的功能、預設私人、匯出。</li>
+<li><a href="https://support.claude.com/en/articles/9547008-publishing-and-sharing-artifacts">Publishing and sharing artifacts（Claude 官方說明）</a>：發佈與分享的選項、Team／Enterprise 的附件提醒。</li>
+<li><a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude">Using Skills in Claude（Claude 官方說明）</a>：上傳自訂 skill 的方式與方案。</li>
 </ul>
-<p class="see" style="margin-top:6px">統計方法（卡方檢定、Holm 校正、Wilson 信賴區間、二項式邏輯斯迴歸）為一般統計教科書內容，講義的數字由 <a href="prebuilt/analysis_package.html">分析成果包</a> 的程式實際計算。Projects、Artifacts 的功能與限額請以你當天登入的畫面與官方說明為準。</p></div>
+<p class="see" style="margin-top:6px">統計方法（卡方檢定、Holm 校正、Wilson 信賴區間、二項式邏輯斯迴歸）為一般統計教科書內容，講義的數字由 <a href="prebuilt/analysis_package.html">分析成果包</a> 的程式實際計算。介面名稱與功能請以你當天登入的畫面與官方說明為準。</p></div>
 
-<footer>本講義為教學用途，不代表任何機關立場。示範資料由程式隨機產生（<a href="https://github.com/greengarden0925/Claude-Data-Analysis-Tutorial/blob/main/scripts/make_sample_data.py">make_sample_data.py</a>），A–H 區為代號，故事中的人物與機關皆為虛構。<a href="instructor.html">講師頁</a>　<a href="#top">↑ 回到頂端</a></footer>
+<footer>本講義為教學用途，不代表任何機關立場。示範資料由程式隨機產生（<a href="https://github.com/greengarden0925/Claude-Data-Analysis-Tutorial/blob/main/scripts/make_sample_data.py">make_sample_data.py</a>），甲縣、A–H 區與故事人物皆為虛構。<a href="instructor.html">講師頁</a>　<a href="#top">↑ 回到頂端</a></footer>
 </main>
 
 <script src="assets/data.js"></script>
@@ -393,12 +444,13 @@
 <script>
 (function(){
  var $=function(s){return document.querySelector(s)};
- /* 時間軸 */
- var mods=[["m0","0 故事與目的",8],["m1","1 規則＋清理",12],["m2","2 分析計畫",8],["m3","3 執行分析",12],["m4","4 報告＋歸檔",12],["m5","5 出口票",8]];
- var tl=$("#timeline"),t=0;
- mods.forEach(function(m){var a=document.createElement("a");a.href="#"+m[0];a.style.flex=m[2];
-  a.innerHTML="<b>"+m[1]+"</b><span>"+t+"–"+(t+m[2])+" 分</span>";t+=m[2];tl.appendChild(a);
-  a.addEventListener("click",function(){var d=document.getElementById(m[0]);if(d)d.open=true;});});
+ /* 時間軸（兩堂） */
+ function timeline(id,mods){var tl=$(id),t=0;
+  mods.forEach(function(m){var a=document.createElement("a");a.href="#"+m[0];a.style.flex=m[2];
+   a.innerHTML="<b>"+m[1]+"</b><span>"+t+"–"+(t+m[2])+" 分</span>";t+=m[2];tl.appendChild(a);
+   a.addEventListener("click",function(){var d=document.getElementById(m[0]);if(d)d.open=true;});});}
+ timeline("#tl1",[["m0","0 故事與目的",10],["m1","1 規則＋清理",22],["m2","2 分析計畫",18],["m3","3 收尾",10]]);
+ timeline("#tl2",[["m4","4 接續＋描述",16],["m5","5 推論",14],["m6","6 互動報告",14],["m7","7 歸檔",8],["m8","8 出口票",8]]);
  /* 複製按鈕 */
  document.querySelectorAll(".prompt[data-copy]").forEach(function(p){
   var txt=p.textContent.trim();var b=document.createElement("button");b.className="copy";b.textContent="複製";b.type="button";
@@ -420,7 +472,7 @@
  if(T){$("#tinf").innerHTML="<tr><th>分析</th><th>結果</th><th>白話</th></tr>"+
   "<tr><td>卡方檢定（8 區 × 陽性／陰性）</td><td>χ² = "+T.chi2.toFixed(1)+"，自由度 "+T.dof+"，p &lt; 0.001；最小期望次數 "+T.minExp+"</td><td>8 區不太可能全部相同</td></tr>"+
   "<tr><td>兩兩比較（Holm 校正）</td><td>"+T.nPairs+" 對中 "+T.nSig+" 對有差；沒有足夠證據的："+T.nonsig.join("、")+"</td><td>H區與 E區分不出高低</td></tr>"+
-  "<tr><td>敏感度分析（行政區＋月份）</td><td>考慮月份後行政區差異仍在（p &lt; 0.001）；φ ≈ "+T.phi+"（只看行政區時 ≈ "+T.phiDistOnly+"）</td><td>結論不是缺月造成的</td></tr>";}
+  "<tr><td>敏感度分析（行政區＋月份）</td><td>"+T.glmMethod+"：考慮月份後行政區整體差異仍在（p &lt; 0.001）；φ ≈ "+T.phi+"（只看行政區時 ≈ "+T.phiDistOnly+"）；重做兩兩比較 "+T.nSig7+" 對有差，結論改變："+(T.changed.join("、")||"無")+"</td><td>整體結論不變，個別比較略有不同</td></tr>";}
  /* 圖表 */
  var S=window.SUMMARY;if(!S)return;
  var NS="http://www.w3.org/2000/svg";

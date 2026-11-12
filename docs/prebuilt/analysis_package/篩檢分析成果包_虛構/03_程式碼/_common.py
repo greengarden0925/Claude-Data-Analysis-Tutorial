@@ -1,18 +1,5 @@
-"""共用設定：資料夾位置、Wilson 信賴區間、中文字型。所有資料皆為虛構。"""
-from pathlib import Path
+"""共用小工具：Wilson 信賴區間、中文字型。所有資料皆為虛構。"""
 import math
-
-ROOT = Path(__file__).resolve().parents[1]          # 成果包最上層資料夾
-RAW_DIR = ROOT / "01_原始資料"
-CLEAN_DIR = ROOT / "02_清理後資料"
-TABLE_DIR = ROOT / "04_結果表格"
-FIG_DIR = ROOT / "05_圖表"
-for d in (CLEAN_DIR, TABLE_DIR, FIG_DIR):
-    d.mkdir(exist_ok=True)
-
-RAW_FILE = RAW_DIR / "demo_fictional_screening_dirty.csv"
-CLEAN_FILE = CLEAN_DIR / "分析用資料.csv"
-LOG_FILE = CLEAN_DIR / "修正與排除紀錄.csv"
 
 
 def wilson(x, n, z=1.96):
